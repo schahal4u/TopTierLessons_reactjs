@@ -19,7 +19,6 @@ const Cards = () => {
             style={{
               justifyContent: "center",
               marginTop: "60px",
-              // border: "1px solid #fff",
             }}
           >
             <div className="col-md-3 col-sm-12 card_box p-4 mt-5">
