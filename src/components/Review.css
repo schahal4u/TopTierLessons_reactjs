@@ -1,0 +1,23 @@
+.reviews {
+  background-color: #000;
+  height: 100%;
+  width: 100%;
+  padding: 110px 0;
+}
+.review_header {
+  text-align: center;
+  color: #e38226;
+  font-size: 18px;
+  line-height: 27px;
+  /* padding-top: 210px; */
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.review_desc {
+  color: #fff;
+  font-size: 50px;
+  line-height: 60px;
+  text-align: center;
+  padding-top: 10px;
+  font-weight: 700;
+}

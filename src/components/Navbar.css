@@ -1,0 +1,98 @@
+.bg-background {
+  background-color: #000 !important;
+}
+.nav-items {
+  color: #fff !important;
+  font-size: 18px;
+  font-weight: 400;
+}
+.nav-item {
+  margin: 0 20px !important;
+}
+/* Specific styles for non-active links */
+.link {
+  color: white;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: #fff;
+}
+
+/* Specific styles for active links */
+.link-active {
+  color: #ba6e3f;
+  font-size: 18px;
+  font-weight: 400;
+  text-decoration: none;
+  border-bottom: 1px solid #ba6e3f;
+}
+
+.link-active:hover {
+  color: #fff;
+}
+
+.signin-btn {
+  border-radius: 0px !important;
+  border: 1px solid #ba6e3f !important;
+  color: #ba6e3f !important;
+  background-color: #000 !important;
+}
+
+.signup-btn {
+  border-radius: 0px !important;
+  border: 1px solid #ba6e3f !important;
+  border: none;
+  margin-left: 8px !important;
+  color: #fff !important;
+  background-color: #ba6e3f !important;
+}
+.menu_items {
+  text-align: center !important;
+  padding: 20px 25px !important;
+}
+.border_btn {
+  border: 1px solid #ba6e3f !important;
+  margin: 10px 0 !important;
+  padding: 8px 9px !important;
+}
+
+element.style {
+  color: #fff;
+}
+.dropdown-menu.show {
+  width: 190px !important;
+}
+.align_navbar {
+  margin-left: 50% !important;
+}
+.align_btn {
+  margin-left: 250px !important;
+}
+@media (max-width: 1800px) {
+  .align_navbar {
+    margin-left: 40% !important;
+  }
+}
+@media (max-width: 1550px) {
+  .align_navbar {
+    margin-left: 30% !important;
+  }
+}
+@media (max-width: 1350px) {
+  .align_navbar {
+    margin-left: 20% !important;
+  }
+}
+@media (max-width: 1212px) {
+  .align_navbar {
+    margin-left: 10% !important;
+  }
+}
+@media (max-width: 1112px) {
+  .align_navbar {
+    margin-left: 0% !important;
+  }
+}

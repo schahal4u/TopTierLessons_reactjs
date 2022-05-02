@@ -1,0 +1,51 @@
+.logos {
+  background-color: #313131;
+}
+.logos h2 {
+  text-align: center;
+  color: #cfcfcf;
+  font-size: 22px;
+  padding-top: 55px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.misson {
+  background-color: #000;
+}
+.misson_cards {
+  padding-top: 150px;
+  padding-left: 50px !important;
+  padding-right: 70px !important;
+  padding-bottom: 150px !important;
+}
+.misson_cardss {
+  padding-top: 100px;
+  padding-left: 50px !important;
+  padding-right: 70px !important;
+  padding-bottom: 150px !important;
+}
+.misson_desc h1 {
+  font-size: 50px;
+  line-height: 60px;
+  font-family: 700;
+  color: #fdfdfd;
+}
+.misson_desc p {
+  margin-top: 20px;
+  font-size: 18px;
+  line-height: 30px;
+  color: #aaaaaa;
+}
+.line {
+  height: 1px;
+  background-color: #000;
+}
+@media (max-width: 768px) {
+  .misson_cards {
+    padding-top: 100px;
+    padding-bottom: 50px !important;
+  }
+  .misson_cardss {
+    padding-top: 50px;
+  }
+}
