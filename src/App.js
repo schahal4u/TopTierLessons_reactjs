@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 // const ContactUs = React.lazy(() => import("./components/Views/ContactUs"));
 // const Services = React.lazy(() => import("./components/Views/Services"));
 import Home from "./components/Views/Home";
-import Services from "./components/Views/Services";
+import About from "./components/Views/About";
 import ContactUs from "./components/Views/ContactUs";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -27,17 +27,17 @@ function App() {
   return (
     <>
       {/* <Suspense fallback={<CircularProgress />}> */}
-        <div>
-          {url.includes("signIn") || url.includes("signUp") ? null : <Navbar />}
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contactUs" element={<ContactUs />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/signIn" element={<SignIn />} />
-            <Route path="/signUp" element={<SignUp />} />
-          </Routes>
-        </div>
-        {url.includes("signIn") || url.includes("signUp") ? null : <Footer />}
+      <div>
+        {url.includes("signIn") || url.includes("signUp") ? null : <Navbar />}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contactUs" element={<ContactUs />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/signIn" element={<SignIn />} />
+          <Route path="/signUp" element={<SignUp />} />
+        </Routes>
+      </div>
+      {url.includes("signIn") || url.includes("signUp") ? null : <Footer />}
       {/* </Suspense> */}
     </>
   );

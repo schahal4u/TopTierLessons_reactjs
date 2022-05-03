@@ -47,9 +47,9 @@ const Navbar = () => {
                   Sign In
                 </button>
               </Link>
-              <div class="dropdown ">
+              <div className="dropdown ">
                 <button
-                  class="btn signup-btn dropdown-toggle"
+                  className="btn signup-btn dropdown-toggle"
                   type="button"
                   id="dropdownMenuButton2"
                   data-bs-toggle="dropdown"
@@ -58,21 +58,21 @@ const Navbar = () => {
                   Sign Up
                 </button>
                 <ul
-                  class="dropdown-menu dropdown-menu-dark menu_items"
+                  className="dropdown-menu dropdown-menu-dark menu_items"
                   aria-labelledby="dropdownMenuButton2"
                 >
                   <li>
-                    <a class="dropdown-item disabled " href="#">
+                    <a className="dropdown-item disabled " href="#">
                       I Am a...
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item border_btn" href="#">
+                    <a className="dropdown-item border_btn" href="#">
                       Coach
                     </a>
                   </li>
                   <li>
-                    <a class="dropdown-item border_btn" href="#">
+                    <a className="dropdown-item border_btn" href="#">
                       Athlete
                     </a>
                   </li>
