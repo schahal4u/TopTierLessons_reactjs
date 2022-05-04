@@ -9,7 +9,7 @@ const Reviews = () => {
         <p className="review_desc">REVIEWS</p>
         {/* start */}
         <div className="d-flex align-items-center py-5 mh-100 mt-5 mb-5">
-          <a
+          {/* <a
             className="carousel-control-prev text-decoration-none "
             href="#mycarousel"
             role="button"
@@ -19,7 +19,7 @@ const Reviews = () => {
               PREV<span className="fas fa-arrow-left"></span>{" "}
             </div>
             <span className="sr-only">Previous</span>
-          </a>
+          </a> */}
           <div className="container reviewcontainer">
             <div
               id="mycarousel"
@@ -108,7 +108,7 @@ const Reviews = () => {
               </div>
             </div>
           </div>
-          <a
+          {/* <a
             className="carousel-control-next text-decoration-none "
             href="#mycarousel"
             role="button"
@@ -118,7 +118,7 @@ const Reviews = () => {
               <i className="fa fa-angle-right"></i>
             </div>
             <span className="sr-only">Next</span>
-          </a>
+          </a> */}
         </div>
         {/* end */}
       </div>

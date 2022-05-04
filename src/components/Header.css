@@ -58,9 +58,7 @@
 }
 
 @media (max-width: 1024px) {
-  .counter {
-    display: none;
-  }
+
   .header_main_text {
     font-size: 44px;
     font-weight: 600;
@@ -68,6 +66,11 @@
   }
   .header_btn {
     margin-top: 35px;
+  }
+}
+@media (max-width: 768px) {
+  .counter {
+    display: none;
   }
 }
 @media (max-width: 425px) {

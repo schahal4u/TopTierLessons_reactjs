@@ -15,6 +15,7 @@ import About from "./components/Views/About";
 import ContactUs from "./components/Views/ContactUs";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/signUp" element={<SignUp />} />
         </Routes>

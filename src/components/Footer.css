@@ -26,6 +26,7 @@
   cursor: pointer;
   font-size: 17px;
   font-weight: 500;
+  text-decoration: none !important;
 }
 
 .footer_icons .fa {
@@ -36,4 +37,7 @@
   .footer_desc {
     font-size: 18px;
   }
+}
+.underline_text {
+  text-decoration: none;
 }

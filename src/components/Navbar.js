@@ -63,17 +63,17 @@ const Navbar = () => {
                 >
                   <li>
                     <a className="dropdown-item disabled " href="#">
-                      I Am a...
+                      I Am looking for
                     </a>
                   </li>
                   <li>
                     <a className="dropdown-item border_btn" href="#">
-                      Coach
+                      Lessons
                     </a>
                   </li>
                   <li>
                     <a className="dropdown-item border_btn" href="#">
-                      Athlete
+                      Coaching <br /> Opportunities
                     </a>
                   </li>
                 </ul>
