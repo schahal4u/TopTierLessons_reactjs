@@ -37,7 +37,7 @@ const Services = () => {
             <div className="col-md-6 mt-5 services_cards">
               <div className="services_desc">
                 <h1>
-                  Sign up and Book a <br /> Lesson Today
+                  Sign up and <br /> Book a Lesson <br /> Today!
                 </h1>
               </div>
             </div>

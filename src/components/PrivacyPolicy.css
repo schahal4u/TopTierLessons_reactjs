@@ -1,4 +1,7 @@
-.privacy {
+.privacy_conatiner {
+  padding: 70px 0;
+}
+.privacy.privacy {
   margin: 0;
   padding: 0;
   background-image: url("../assets/images/privacy-bg.png");
@@ -22,19 +25,34 @@
 .date {
   font-size: 24px;
   color: #e38226 !important;
-  padding: 25px 0;
-  text-align: center;
+  text-align: left;
+  padding-top: 15px;
 }
 .header_privacy {
   text-align: left;
   color: #fff;
   font-size: 18px;
-  padding: 30px 0;
+  /* line-height: 33px; */
+  /* padding: 30px 0; */
 }
 .privacy_text h2 {
   color: #e38226;
+  font-size: 50px;
+  line-height: 60px;
+  font-weight: 600;
+}
+.privacy_text h2 {
+  color: #fff;
 }
 .privacy_text h4 {
   color: #e38226;
   margin-top: 25px;
+  font-weight: normal;
+  font-size: 40px;
+}
+.link_text {
+  color: #e38226;
+}
+.number_text {
+  color: #fff;
 }

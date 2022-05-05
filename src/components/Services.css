@@ -1,6 +1,6 @@
 .services {
   background-color: #e38226;
-  padding: 150px 0;
+  padding: 100px 0;
   width: 100%;
 }
 .sercices_card {
@@ -9,14 +9,18 @@
 .services_descc {
   display: flex;
   justify-content: flex-end;
-  /* position: relative; */
 }
+/* .services_cards {
+  border: 1px solid red;
+  padding-top: -50px !important;
+} */
 .services_desc h1 {
   color: #fff;
   font-size: 60px;
   line-height: 67px;
   font-weight: 600;
   text-align: center;
+  text-align: left;
 }
 .signup_form {
   /* border: 1px solid #e9e9e9; */
@@ -26,7 +30,7 @@
   width: 449px !important;
   height: 400px;
   position: absolute;
-  bottom: 14%;
+  bottom: 26%;
   padding: 40px;
   padding-bottom: 50px !important;
 }
@@ -70,12 +74,12 @@ input::-webkit-input-placeholder {
 }
 .main1 {
   position: absolute;
-  top: -79%;
+  top: -39%;
   left: -22%;
 }
 .main2 {
   position: absolute;
-  top: -45%;
+  top: -14%;
   left: -17%;
 }
 .main3 {
@@ -85,18 +89,18 @@ input::-webkit-input-placeholder {
 }
 .main4 {
   position: absolute;
-  top: 126%;
+  top: 117%;
   left: -17%;
 }
 .main5 {
   position: absolute;
-  top: 112%;
+  top: 107%;
   left: -14%;
 }
 .main6 {
   position: absolute;
-  top: 58%;
-  left: 19%;
+  top: 62%;
+  left: 10%;
 }
 
 @media (max-width: 768px) {

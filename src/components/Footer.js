@@ -29,7 +29,9 @@ const Footer = () => {
               <p>Blog</p>
             </div>
             <div className="col-md-3 col-lg-2 col-xs-4 footer_links">
-              <p>Terms & Conditions</p>
+              <Link to="/terms" className="underline_text">
+                <p>Terms & Conditions</p>
+              </Link>
             </div>
             <div className="col-md-3 col-lg-1 col-xs-4 footer_links">
               <p>Contact</p>

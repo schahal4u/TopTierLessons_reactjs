@@ -96,3 +96,6 @@ element.style {
     margin-left: 0% !important;
   }
 }
+.dropdown-menu[data-bs-popper] {
+  padding: 15px !important;
+}

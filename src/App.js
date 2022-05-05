@@ -2,7 +2,7 @@ import "./App.css";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 // const SignUp = React.lazy(() => import("./pages/SignUp.js"));
@@ -16,6 +16,7 @@ import ContactUs from "./components/Views/ContactUs";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import Terms from "./components/Terms";
 
 function App() {
   const location = useLocation();
@@ -35,6 +36,7 @@ function App() {
           <Route path="/contactUs" element={<ContactUs />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/signUp" element={<SignUp />} />
         </Routes>
