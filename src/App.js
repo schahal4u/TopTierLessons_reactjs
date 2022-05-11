@@ -17,6 +17,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import Terms from "./components/Terms";
+import LessonsSignUp from "./pages/SignUpLessons/PersonalInfo";
 
 function App() {
   const location = useLocation();
@@ -30,7 +31,9 @@ function App() {
     <>
       {/* <Suspense fallback={<CircularProgress />}> */}
       <div>
-        {url.includes("signIn") || url.includes("signUp") ? null : <Navbar />}
+        {url.includes("signIn") || url.includes("lessonsignup") ? null : (
+          <Navbar />
+        )}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contactUs" element={<ContactUs />} />
@@ -38,10 +41,12 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/signIn" element={<SignIn />} />
-          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/lessonsignup" element={<LessonsSignUp />} />
         </Routes>
       </div>
-      {url.includes("signIn") || url.includes("signUp") ? null : <Footer />}
+      {url.includes("signIn") || url.includes("lessonsignup") ? null : (
+        <Footer />
+      )}
       {/* </Suspense> */}
     </>
   );

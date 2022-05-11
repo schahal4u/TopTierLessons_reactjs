@@ -39,9 +39,7 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <form
-              className="d-flex align_btn"
-            >
+            <form className="d-flex align_btn">
               <Link to="signIn">
                 <button className="btn signin-btn" type="submit">
                   Sign In
@@ -67,9 +65,11 @@ const Navbar = () => {
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item border_btn" href="#">
-                      Lessons
-                    </a>
+                    <Link to="/lessonsignup" style={{ textDecoration: "none" }}>
+                      <a className="dropdown-item border_btn" href="#">
+                        Lessons
+                      </a>
+                    </Link>
                   </li>
                   <li>
                     <a className="dropdown-item border_btn" href="#">

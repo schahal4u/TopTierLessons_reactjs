@@ -1,0 +1,27 @@
+.terms {
+  margin: 0;
+  padding: 0;
+  background-image: url("../assets/images/terms.png");
+  background-size: cover;
+  background-position: center;
+  min-height: 65vh;
+  min-width: 99vw;
+}
+.terms h1 {
+  padding-top: 200px;
+  font-size: 64px;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  line-height: 92px;
+  text-transform: uppercase;
+}
+
+.terms_container {
+  padding: 70px 0;
+  background-color: #313131;
+}
+.inner_text{
+    color: #fff;
+    padding-left: 85px;
+}
