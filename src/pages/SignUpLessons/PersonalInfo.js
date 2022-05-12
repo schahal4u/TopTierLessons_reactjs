@@ -1,16 +1,29 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import eye from "../../assets/images/eye.png";
-import './LessonSignUp.css'
+import { LessonsRegisterAction } from "../../redux/actions/LessonsRegisterAction";
+import "./LessonSignUp.css";
 
 const PersonalInfo = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { lessonInfo, error } = useSelector((state) => state.lessonSignUp);
+  const response = lessonInfo?.statusCode;
+
+  // console.log("response is", lessonInfo, error);
+
   const defautFormData = {
     name: "",
     email: "",
     password: "",
+    userType: 2,
   };
+
   const [formData, setFormData] = useState(defautFormData);
-  console.log("formdat", formData);
+  // console.log("formdata", formData);
+  const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
 
   const handleFormData = (e) => {
@@ -23,13 +36,31 @@ const PersonalInfo = () => {
 
   const signUpHandler = () => {
     console.log("Clicked", formData);
-    //   if (formData.userName === "" || formData.password === "") {
-    //     setLoading(true);
-    //     setFormData({ ...formData, userName: "", password: "" });
-    //   } else {
-    //     dispatch(AdminLoginAction(formData));
-    //   }
+    if (
+      formData.name === "" ||
+      formData.password === "" ||
+      formData.email === ""
+    ) {
+      setLoading(true);
+      setFormData({ ...formData, name: "", password: "", email: "" });
+    } else {
+      setLoading(true);
+      dispatch(LessonsRegisterAction(formData));
+    }
   };
+
+  const responseHandler = () => {
+    if (response == 200) {
+      setLoading(false);
+      navigate("/signIn");
+    }
+  };
+
+  useEffect(() => {
+    if (lessonInfo) {
+      responseHandler();
+    }
+  }, [lessonInfo]);
 
   return (
     <>
@@ -69,6 +100,14 @@ const PersonalInfo = () => {
               onClick={() => signUpHandler()}
               className="btn btn-primary signin_btn mt-4 mb-4"
             >
+              {loading && (
+                <span
+                  class="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                  style={{ marginRight: "15px" }}
+                ></span>
+              )}
               SIGN UP
             </button>
 

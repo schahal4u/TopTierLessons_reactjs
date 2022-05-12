@@ -4,6 +4,9 @@ import {
   ADMIN_LOGIN_SUCCESS,
   ADMIN_LOGIN_FAIL,
   ADMIN_LOGOUT,
+  SOCIAL_LOGIN_REQUEST,
+  SOCIAL_LOGIN_SUCCESS,
+  SOCIAL_LOGIN_FAIL,
 } from "../types.js";
 
 // user login
@@ -15,8 +18,7 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://35.154.186.154:4437/api/v1.0/Auth/SignIn",
-      //   "http://3.110.189.235:3000/Admin/Login",
+      "http://192.168.1.8/api/v1.0/Auth/SignIn",
       formData
     );
     dispatch({
@@ -27,6 +29,30 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ADMIN_LOGIN_FAIL,
+      //   payload: error?.response?.data,
+      payload: error,
+    });
+  }
+};
+
+export const SocialLoginAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SOCIAL_LOGIN_REQUEST,
+    });
+ 
+    const { data } = await axios.post(
+      "http://192.168.1.8/api/v1.0/Auth/ExternalLogin",
+      formData
+    );
+    dispatch({
+      type: SOCIAL_LOGIN_SUCCESS,
+      payload: data,
+    });
+    // localStorage.setItem("token", JSON.stringify(data.data[0].accesstoken));
+  } catch (error) {
+    dispatch({
+      type: SOCIAL_LOGIN_FAIL,
       //   payload: error?.response?.data,
       payload: error,
     });

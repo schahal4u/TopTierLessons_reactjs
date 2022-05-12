@@ -5,26 +5,26 @@ const DefaultPopUp = (props) => {
 
   return (
     <>
-      <div class="position-fixed top-0 end-0 p-3" style="z-index: 11">
+      <div className="position-fixed top-0 end-0 p-3" style="z-index: 11">
         <div
           id="liveToast"
-          class="toast hide"
+          className="toast hide"
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
         >
-          <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="..." />
-            <strong class="me-auto">{shortMessage}</strong>
+          <div className="toast-header">
+            <img src="..." className="rounded me-2" alt="..." />
+            <strong className="me-auto">{shortMessage}</strong>
             {/* <small>11 mins ago</small> */}
             <button
               type="button"
-              class="btn-close"
+              className="btn-close"
               data-bs-dismiss="toast"
               aria-label="Close"
             ></button>
           </div>
-          <div class="toast-body">{longMessage}</div>
+          <div className="toast-body">{longMessage}</div>
         </div>
       </div>
     </>
