@@ -18,6 +18,8 @@ import SignUp from "./pages/SignUp";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import Terms from "./components/Terms";
 import LessonsSignUp from "./pages/SignUpLessons/PersonalInfo";
+import { ToastContainer } from "react-toastify";
+import Dashboard from "./components/dashboard/Dashboard.js";
 
 function App() {
   const location = useLocation();
@@ -29,6 +31,8 @@ function App() {
 
   return (
     <>
+      <ToastContainer autoClose={2000} />
+
       {/* <Suspense fallback={<CircularProgress />}> */}
       <div>
         {url.includes("signIn") || url.includes("lessonsignup") ? null : (
@@ -42,6 +46,7 @@ function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/lessonsignup" element={<LessonsSignUp />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
       {url.includes("signIn") || url.includes("lessonsignup") ? null : (

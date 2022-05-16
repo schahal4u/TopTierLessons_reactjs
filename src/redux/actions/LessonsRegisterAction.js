@@ -14,7 +14,7 @@ export const LessonsRegisterAction = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://192.168.1.8/api/v1.0/Auth/Register",
+      "http://192.168.1.8:4437/api/v1.0/Auth/Register",
       formData
     );
     dispatch({

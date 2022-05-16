@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Cards from "../Cards";
 import Header from "../Header";
 import "./Home.css";
@@ -30,7 +30,6 @@ const Home = () => {
         <Header />
       </div>
       <Cards />
-      {/* Logos */}
       <div className="container-fluid logos pb-5">
         <h2>Over 32k+ software businesses growing with Ar Shakir.</h2>
         <div
@@ -40,9 +39,6 @@ const Home = () => {
           <div className="col-md-6 col-lg-2 text-center mt-4">
             <img src={logo1} alt="log" />
           </div>
-          {/* <div className="col-md-2 text-center mt-4">
-            <img src={logo2} alt="log" />
-          </div> */}
           <div className="col-md-6 col-lg-2 text-center mt-4">
             <img src={logo3} alt="log" />
           </div>

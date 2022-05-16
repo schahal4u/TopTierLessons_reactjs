@@ -1,14 +1,23 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../routes";
 import logo from "../assets/images/logo.png";
 import "./Navbar.css";
 import { useSelector } from "react-redux";
 import profileLogo from "../assets/images/profileIcon.png";
+import down from "../assets/images/down-arrow.png";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const { adminInfo, error } = useSelector((state) => state.adminLogin);
   const { socialLoginInfo, errors } = useSelector((state) => state.socialLogin);
+
+  const profileHandler = () => {
+    console.log("click");
+    navigate("/dashboard");
+  };
+
+  const token = localStorage.userData;
 
   return (
     <>
@@ -45,8 +54,9 @@ const Navbar = () => {
               ))}
             </ul>
             <form className="d-flex align_btn">
-              {!adminInfo?.data?.access_token &&
-              !socialLoginInfo?.data?.access_token ? (
+              {/* {!adminInfo?.data?.access_token &&
+              !socialLoginInfo?.data?.access_token ? ( */}
+              {!token ? (
                 <>
                   <Link to="signIn">
                     <button className="btn signin-btn" type="submit">
@@ -91,14 +101,19 @@ const Navbar = () => {
                   </div>
                 </>
               ) : (
-                <div>
+                <div style={{ cursor: "pointer" }} onClick={profileHandler}>
                   <img src={profileLogo} alt="logo" />
+                  <img style={{ paddingLeft: "5px" }} src={down} alt="down" />
                 </div>
               )}
             </form>
           </div>
         </div>
       </nav>
+      {/* { <BasicDetails/>}
+      <BasicDetails/>
+      <BasicDetails/>
+      <BasicDetails/> */}
     </>
   );
 };

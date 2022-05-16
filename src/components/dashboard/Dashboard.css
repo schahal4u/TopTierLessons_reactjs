@@ -1,0 +1,41 @@
+.dashboard {
+  margin: 0;
+  padding: 0;
+  background-image: url("../../assets/images/dashboard-bg.png");
+  background-size: cover;
+  background-position: center;
+  min-height: 30vh;
+  min-width: 99vw;
+}
+.dashboard_desc h1 {
+  padding-top: 100px;
+  font-size: 64px;
+  text-align: center;
+  font-weight: 800;
+  color: #fff;
+  line-height: 92px;
+  text-transform: uppercase;
+}
+.dashboard_conatiner {
+  background-color: #313131;
+  height: 200px;
+}
+#sidebar {
+  padding-top: 50px;
+  padding-left: 50px;
+  padding-right: 50px;
+  background: #313131 !important;
+}
+.list-group-item {
+  border: none !important;
+  padding-top: 60px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #515151 !important;
+  background: #313131 !important;
+  text-align: center;
+}
+.right_sidebar {
+  background: #313131 !important;
+  color: #fff !important;
+}

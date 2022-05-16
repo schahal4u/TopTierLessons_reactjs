@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import eye from "../../assets/images/eye.png";
 import { LessonsRegisterAction } from "../../redux/actions/LessonsRegisterAction";
 import "./LessonSignUp.css";
@@ -34,14 +35,16 @@ const PersonalInfo = () => {
     setShow(!show);
   };
 
-  const signUpHandler = () => {
-    console.log("Clicked", formData);
+  const signUpHandler = (e) => {
+    e.preventDefault();
+    console.log("clicked");
+    setLoading(true);
     if (
       formData.name === "" ||
       formData.password === "" ||
       formData.email === ""
     ) {
-      setLoading(true);
+      setLoading(false);
       setFormData({ ...formData, name: "", password: "", email: "" });
     } else {
       setLoading(true);
@@ -52,6 +55,7 @@ const PersonalInfo = () => {
   const responseHandler = () => {
     if (response == 200) {
       setLoading(false);
+      toast.success("Registered Successfully");
       navigate("/signIn");
     }
   };
@@ -66,66 +70,77 @@ const PersonalInfo = () => {
     <>
       <div className="signIn">
         <div className="container form_sign">
-          <div className="signin_form">
-            <h1>Create Account</h1>
-            <input
-              type="text"
-              className="form-control signin_inp mt-3"
-              placeholder="Name"
-              name="name"
-              value={formData.name}
-              onChange={handleFormData}
-            />
-            <input
-              type="text"
-              className="form-control signin_inp mt-3"
-              placeholder="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleFormData}
-            />
-            <div className="eyeHandler">
+          <form onSubmit={signUpHandler}>
+            <div className="signin_form">
+              <h1>Create Account</h1>
               <input
-                type={show ? "text" : "password"}
-                className="form-control signinput_inp mt-3"
-                placeholder="Password"
-                name="password"
-                value={formData.password}
+                type="text"
+                className="form-control signin_inp mt-3"
+                placeholder="Name"
+                name="name"
+                value={formData.name}
                 onChange={handleFormData}
+                required
               />
-              <img src={eye} alt="eye" className="eye" onClick={viewPassword} />
-            </div>
-            <button
-              type="submit"
-              onClick={() => signUpHandler()}
-              className="btn btn-primary signin_btn mt-4 mb-4"
-            >
-              {loading && (
-                <span
-                  class="spinner-border spinner-border-sm"
-                  role="status"
-                  aria-hidden="true"
-                  style={{ marginRight: "15px" }}
-                ></span>
-              )}
-              SIGN UP
-            </button>
+              <input
+                type="text"
+                className="form-control signin_inp mt-3"
+                placeholder="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleFormData}
+                required
+                pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
+              />
+              <div className="eyeHandler">
+                <input
+                  type={show ? "text" : "password"}
+                  className="form-control signinput_inp mt-3"
+                  placeholder="Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleFormData}
+                  required
+                />
+                <img
+                  src={eye}
+                  alt="eye"
+                  className="eye"
+                  onClick={viewPassword}
+                />
+              </div>
+              <button
+                type="submit"
+                // onClick={() => signUpHandler()}
+                className="btn btn-primary signin_btn mt-4 mb-4"
+              >
+                {loading && (
+                  <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                    style={{ marginRight: "15px" }}
+                  ></span>
+                )}
+                SIGN UP
+              </button>
 
-            <div className="d-flex flex-row">
-              <span className="hr_lines"></span>
-              <span className="or_text">or</span>
-              <span className="hr_lines"></span>
+              <div className="d-flex flex-row">
+                <span className="hr_lines"></span>
+                <span className="or_text">or</span>
+                <span className="hr_lines"></span>
+              </div>
+              <div className="signIn_content">
+                <p className="register_main_text">
+                  if you already have an account?
+                  <Link to="/signIn" className="register_text">
+                    &nbsp;
+                    <span className="register_text">Login Now</span>
+                  </Link>
+                </p>
+              </div>
             </div>
-            <div className="signIn_content">
-              <p className="register_main_text">
-                if you already have an account?
-                <Link to="/signIn" className="register_text">
-                  &nbsp;
-                  <span className="register_text">Login Now</span>
-                </Link>
-              </p>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </>

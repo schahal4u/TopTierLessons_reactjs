@@ -18,19 +18,19 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://192.168.1.8/api/v1.0/Auth/SignIn",
+      "http://192.168.1.8:4437/api/v1.0/Auth/SignIn",
       formData
     );
     dispatch({
       type: ADMIN_LOGIN_SUCCESS,
       payload: data,
     });
-    // localStorage.setItem("token", JSON.stringify(data.data[0].accesstoken));
+    localStorage.setItem("userData", JSON.stringify(data.data));
   } catch (error) {
     dispatch({
       type: ADMIN_LOGIN_FAIL,
-      //   payload: error?.response?.data,
-      payload: error,
+      payload: error?.response?.data,
+      // payload: error,
     });
   }
 };
@@ -40,21 +40,21 @@ export const SocialLoginAction = (formData) => async (dispatch) => {
     dispatch({
       type: SOCIAL_LOGIN_REQUEST,
     });
- 
+
     const { data } = await axios.post(
-      "http://192.168.1.8/api/v1.0/Auth/ExternalLogin",
+      "http://192.168.1.8:4437/api/v1.0/Auth/ExternalLogin",
       formData
     );
     dispatch({
       type: SOCIAL_LOGIN_SUCCESS,
       payload: data,
     });
-    // localStorage.setItem("token", JSON.stringify(data.data[0].accesstoken));
+    localStorage.setItem("userData", JSON.stringify(data.data));
   } catch (error) {
     dispatch({
       type: SOCIAL_LOGIN_FAIL,
-      //   payload: error?.response?.data,
-      payload: error,
+      payload: error?.response?.data,
+      // payload: error,
     });
   }
 };
