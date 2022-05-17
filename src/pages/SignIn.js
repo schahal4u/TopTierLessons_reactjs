@@ -12,8 +12,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import DefaultPopUp from "../components/common/DefaultPopUp";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Col, Form } from "react-bootstrap";
 
@@ -23,10 +22,10 @@ const SignIn = () => {
   const { adminInfo, error } = useSelector((state) => state.adminLogin);
   const { socialLoginInfo, errors } = useSelector((state) => state.socialLogin);
   const response = adminInfo?.statusCode;
-  const errorResponse = error?.response?.data?.statusCode;
+  const errorResponse = error?.statusCode;
   const socialResponse = socialLoginInfo?.statusCode;
 
-  // console.log("response is", adminInfo, ",,,,,,,", errorResponse);
+  console.log("response is eeeeeeeeeeerrrrrrrr", error);
 
   const defautFormData = {
     email: "",
@@ -116,7 +115,7 @@ const SignIn = () => {
               <Form.Group as={Col} md="12" controlId="validationCustom01">
                 <Form.Control
                   required
-                  type="text"
+                  type="email"
                   className="form-control signin_inp mt-3"
                   placeholder="Email"
                   name="email"

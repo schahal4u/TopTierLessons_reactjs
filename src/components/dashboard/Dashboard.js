@@ -44,6 +44,23 @@ const Dashboard = () => {
                   data-bs-parent="#sidebar"
                 >
                   <img src={logo} alt="icon" />
+                  {/* <img
+                    src={formData.logo || defaultImage}
+                    style={{
+                      borderRadius: "50%",
+                      width: "100px",
+                      height: "100px",
+                      cursor: "pointer",
+                    }}
+                    onClick={uploadLogo}
+                  />
+                  <input
+                    type="file"
+                    id="file"
+                    ref={inputFile}
+                    style={{ display: "none" }}
+                    onChange={photoUpload}
+                  /> */}
                 </a>
                 <a
                   href="#"
@@ -124,7 +141,7 @@ const Dashboard = () => {
               {show.training && <Training />}
               {show.password && <ChangePassword />}
             </div>
-            <hr />
+            {/* <hr /> */}
           </main>
         </div>
       </div>

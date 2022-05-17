@@ -96,6 +96,27 @@ element.style {
     margin-left: 0% !important;
   }
 }
+@media (max-width: 990px) {
+  .align_btn {
+    margin-left: 0% !important;
+  }
+}
+@media (max-width: 768px) {
+  .align_btn {
+    margin-left: 0% !important;
+  }
+}
+@media (max-width: 425px) {
+  .align_btn {
+    margin-left: 0% !important;
+  }
+  .align_navbar {
+    margin-left: 0% !important;
+  }
+}
 .dropdown-menu[data-bs-popper] {
   padding: 15px !important;
+}
+.navbar-toggler {
+  background: #e38226 !important;
 }

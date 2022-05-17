@@ -30,9 +30,9 @@ const Services = () => {
               <div className="main5">
                 <img src={main5} alt="icon" />
               </div>
-              <div className="main6">
+              {/* <div className="main6">
                 <img src={main6} alt="icon" />
-              </div>
+              </div> */}
             </div>
             <div className="col-md-6 mt-5 services_cards">
               <div className="services_desc">

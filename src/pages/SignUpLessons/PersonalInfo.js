@@ -83,7 +83,7 @@ const PersonalInfo = () => {
                 required
               />
               <input
-                type="text"
+                type="email"
                 className="form-control signin_inp mt-3"
                 placeholder="Email"
                 name="email"

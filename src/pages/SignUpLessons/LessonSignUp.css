@@ -123,3 +123,26 @@
   cursor: pointer;
   text-decoration: none !important;
 }
+@media (max-width: 1024px) {
+  .signin_form h1 {
+    font-weight: 700;
+    font-size: 46px;
+    line-height: 70px;
+    color: #e38226;
+    margin-bottom: 45px;
+    text-align: center;
+  }
+  .signin_form {
+    min-width: 45%;
+  }
+}
+@media (max-width: 768px) {
+  .signin_form {
+    min-width: 65%;
+  }
+}
+@media (max-width: 425px) {
+  .signin_form {
+    min-width: 95%;
+  }
+}

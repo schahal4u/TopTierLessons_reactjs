@@ -35,7 +35,9 @@ const Navbar = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <i className="fa fa-bars" style={{ color: "#fff" }}>
+              {" "}
+            </i>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mb-2 mb-lg-0 align_navbar">
@@ -53,7 +55,7 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <form className="d-flex align_btn">
+            <div className="d-flex align_btn">
               {/* {!adminInfo?.data?.access_token &&
               !socialLoginInfo?.data?.access_token ? ( */}
               {!token ? (
@@ -106,7 +108,7 @@ const Navbar = () => {
                   <img style={{ paddingLeft: "5px" }} src={down} alt="down" />
                 </div>
               )}
-            </form>
+            </div>
           </div>
         </div>
       </nav>

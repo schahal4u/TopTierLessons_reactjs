@@ -35,7 +35,7 @@ const About = () => {
             </div>
             <div className="col-md-3 form_box">
               <button className="newsletter_btn">
-                Suscribe Our Newsletter
+                Subscribe Our Newsletter
               </button>
             </div>
           </div>

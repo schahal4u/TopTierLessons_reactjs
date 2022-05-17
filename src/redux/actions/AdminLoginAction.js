@@ -18,7 +18,7 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://192.168.1.8:4437/api/v1.0/Auth/SignIn",
+      "http://35.154.186.154:8765/api/v1.0/Auth/SignIn",
       formData
     );
     dispatch({
@@ -42,7 +42,7 @@ export const SocialLoginAction = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://192.168.1.8:4437/api/v1.0/Auth/ExternalLogin",
+      "http://35.154.186.154:8765/api/v1.0/Auth/ExternalLogin",
       formData
     );
     dispatch({
