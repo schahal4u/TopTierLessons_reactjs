@@ -26,6 +26,7 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
       payload: data,
     });
     localStorage.setItem("userData", JSON.stringify(data.data));
+    localStorage.setItem("token", JSON.stringify(data.data.access_token));
   } catch (error) {
     dispatch({
       type: ADMIN_LOGIN_FAIL,
@@ -50,6 +51,7 @@ export const SocialLoginAction = (formData) => async (dispatch) => {
       payload: data,
     });
     localStorage.setItem("userData", JSON.stringify(data.data));
+    localStorage.setItem("token", JSON.stringify(data.data.access_token));
   } catch (error) {
     dispatch({
       type: SOCIAL_LOGIN_FAIL,

@@ -34,7 +34,9 @@ const Footer = () => {
               </Link>
             </div>
             <div className="col-md-3 col-lg-1 col-xs-4 footer_links">
-              <p>Contact</p>
+              <Link to="/contactUs" className="underline_text">
+                <p>Contact</p>
+              </Link>
             </div>
             <div className="col-md-3 col-lg-2 col-xs-4 footer_links">
               <Link to="/privacy" className="underline_text">

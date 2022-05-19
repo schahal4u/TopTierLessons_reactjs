@@ -19,6 +19,11 @@ const Navbar = () => {
 
   const token = localStorage.userData;
 
+  const logoutHandler = () => {
+    localStorage.removeItem("userData");
+    navigate("/");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg  bg-background">
@@ -60,7 +65,7 @@ const Navbar = () => {
               !socialLoginInfo?.data?.access_token ? ( */}
               {!token ? (
                 <>
-                  <Link to="signIn">
+                  <Link to="/signIn">
                     <button className="btn signin-btn" type="submit">
                       Sign In
                     </button>
@@ -80,7 +85,7 @@ const Navbar = () => {
                       aria-labelledby="dropdownMenuButton2"
                     >
                       <li>
-                        <a className="dropdown-item disabled " href="#">
+                        <a className="dropdown-item disabled ">
                           I Am looking for
                         </a>
                       </li>
@@ -89,13 +94,11 @@ const Navbar = () => {
                           to="/lessonsignup"
                           style={{ textDecoration: "none" }}
                         >
-                          <a className="dropdown-item border_btn" href="#">
-                            Lessons
-                          </a>
+                          <a className="dropdown-item border_btn">Lessons</a>
                         </Link>
                       </li>
                       <li>
-                        <a className="dropdown-item border_btn" href="#">
+                        <a className="dropdown-item border_btn">
                           Coaching <br /> Opportunities
                         </a>
                       </li>
@@ -103,19 +106,38 @@ const Navbar = () => {
                   </div>
                 </>
               ) : (
-                <div style={{ cursor: "pointer" }} onClick={profileHandler}>
-                  <img src={profileLogo} alt="logo" />
-                  <img style={{ paddingLeft: "5px" }} src={down} alt="down" />
-                </div>
+                <>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    class="nav-link dropdown-toggle"
+                    id="navbar-primary_dropdown_1"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    onClick={profileHandler}
+                  >
+                    <img src={profileLogo} alt="logo" />
+                    {/* <img style={{ paddingLeft: "5px" }} src={down} alt="down" /> */}
+                  </div>
+                  <div
+                    class="dropdown-menu menu_colour dropdown-menu-right"
+                    aria-labelledby="navbar-primary_dropdown_1"
+                  >
+                    <a class="dropdown-item " onClick={profileHandler}>
+                      Profile
+                    </a>
+                    <a class="dropdown-item" onClick={logoutHandler}>
+                      Logout
+                    </a>
+                    {/* <div class="dropdown-divider"></div> */}
+                  </div>
+                </>
               )}
             </div>
           </div>
         </div>
       </nav>
-      {/* { <BasicDetails/>}
-      <BasicDetails/>
-      <BasicDetails/>
-      <BasicDetails/> */}
     </>
   );
 };

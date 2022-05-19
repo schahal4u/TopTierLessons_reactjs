@@ -41,3 +41,6 @@
 .underline_text {
   text-decoration: none;
 }
+.underline_text:hover {
+  text-decoration: none;
+}

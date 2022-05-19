@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ContactUs.css";
 import arrow from "../../assets/images/down.png";
 import logo1 from "../../assets/images/logo1.png";
@@ -9,6 +9,9 @@ import logo6 from "../../assets/images/logo6.png";
 import Services from "../Services";
 
 const ContactUs = () => {
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   return (
     <>
       <div className="contact">

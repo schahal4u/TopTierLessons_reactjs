@@ -32,8 +32,6 @@ function App() {
   return (
     <>
       <ToastContainer autoClose={2000} />
-
-      {/* <Suspense fallback={<CircularProgress />}> */}
       <div>
         {url.includes("signIn") || url.includes("lessonsignup") ? null : (
           <Navbar />
@@ -52,7 +50,6 @@ function App() {
       {url.includes("signIn") || url.includes("lessonsignup") ? null : (
         <Footer />
       )}
-      {/* </Suspense> */}
     </>
   );
 }

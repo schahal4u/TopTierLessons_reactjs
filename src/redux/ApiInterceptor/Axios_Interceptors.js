@@ -1,14 +1,14 @@
 import axios from "axios";
-// Add a request interceptor
+
 export const axiosInstance = axios.create({
-  baseURL: "http://3.110.189.235:3000/",
+  baseURL: "http://35.154.186.154:8765/api/v1.0/",
 });
 axiosInstance.interceptors.request.use(
   (config) => {
     let Token = JSON.parse(localStorage.token);
     if (Token) {
       config.headers = {
-        accesstoken: `${Token}`,
+        Authorization: `Bearer ${Token}`,
         "Content-Type": "application/json",
       };
     }

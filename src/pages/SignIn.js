@@ -60,8 +60,8 @@ const SignIn = () => {
   const responseGoogle = (response) => {
     let obj = {
       grantType: "google",
-      email: response.Lu.Bv,
-      extrenalLoginToken: response.Lu.TW,
+      email: response?.Lu?.Bv,
+      extrenalLoginToken: response?.Lu?.TW,
     };
     dispatch(SocialLoginAction(obj));
   };

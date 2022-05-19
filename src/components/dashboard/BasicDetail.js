@@ -1,18 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
+import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
 import "./BasicDetail.css";
 
 const BasicDetail = () => {
+  const { profileDetail, profileError } = useSelector(
+    (state) => state.getProfileDetail
+  );
+  const { updateProfileDetail } = useSelector((state) => state.profileUpdate);
+  const response = updateProfileDetail?.statusCode;
+
+  console.log("profile detail", response);
+
+  const dispatch = useDispatch();
   const defautFormData = {
-    name: "",
-    email: "",
-    address: "",
+    name: profileDetail?.data?.name ? profileDetail?.data.name : "",
+    email: profileDetail?.data?.email ? profileDetail?.data.email : "",
+    address: profileDetail?.data?.address ? profileDetail?.data.address : "",
     role: "",
-    bio: "",
+    bio: profileDetail?.data?.bio ? profileDetail?.data.bio : "",
   };
   const [formData, setFormData] = useState(defautFormData);
   const [loading, setLoading] = useState(false);
   const [validated, setValidated] = useState(false);
+
+  useEffect(() => {
+    dispatch(AdminGetProfileDetailAction());
+  }, []);
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,8 +38,15 @@ const BasicDetail = () => {
   const profileHandler = (e) => {
     e.preventDefault();
     setValidated(true);
+    dispatch(AdminProfileUpdateAction(formData));
     console.log("form data", formData);
   };
+
+  useEffect(() => {
+    if (response === 200) {
+      toast.success("Profile Updated Successfully");
+    }
+  }, [updateProfileDetail]);
 
   return (
     <>
