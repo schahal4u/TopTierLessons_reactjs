@@ -8,8 +8,16 @@ import VideoLesson from "./VideoLesson";
 import ChangePassword from "./ChangePassword";
 import { NavLink } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
+import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
 
 const Dashboard = () => {
+  const { imgResponse } = useSelector((state) => state.profilePicResponse);
+  const response = imgResponse?.statusCode;
+  console.log("img response", imgResponse);
+
   const imageType = [
     "image/tif",
     "image/tiff",
@@ -31,6 +39,7 @@ const Dashboard = () => {
     logo: logo,
   };
 
+  const dispatch = useDispatch();
   const inputFile = useRef(null);
   const [formData, setFormData] = useState(defautFormData);
   const [inp, setInp] = useState("");
@@ -51,26 +60,23 @@ const Dashboard = () => {
 
     if (incomingFile && !validImageTypes.includes(fileType)) {
       setInp("");
+      toast.warn("Please Select the Supported Image Format !");
       return;
     }
 
     if (size > 3000000) {
       setInp("");
+      toast.warn("Please Select File Size Upto 3mb !");
       return;
     }
 
     if (e.target.files.length !== 0) {
       setModalShow(true);
-      // const test = {
-      //   image: 2,
-      //   file: e.target.files[0],
-      // };
       let data = new FormData();
       data.append("file", e.target.files[0]);
       setPhoto(data);
       setSelectedFile(e.target.files[0]);
       // dispatch(uploadImageVenueReq(test));
-      // setSpinner(true);
     }
   };
 
@@ -92,8 +98,17 @@ const Dashboard = () => {
   }, [selectedFile]);
 
   const submitHandler = () => {
-    console.log("clicked", photo);
+    setModalShow(false);
+    dispatch(PhotoUploadAction(photo));
   };
+
+  useEffect(() => {
+    if (response === 200) {
+      toast.success("Profile Photo Updated Successfully");
+      dispatch(AdminGetProfileDetailAction());
+      setFormData({ ...formData, logo: imgResponse?.data?.url });
+    }
+  }, [imgResponse]);
 
   return (
     <>
@@ -122,12 +137,12 @@ const Dashboard = () => {
                   {/* <img src={logo} alt="icon" /> */}
                   <img
                     src={formData.logo || logo}
-                    // style={{
-                    //   borderRadius: "50%",
-                    //   width: "100px",
-                    //   height: "100px",
-                    //   cursor: "pointer",
-                    // }}
+                    style={{
+                      borderRadius: "50%",
+                      width: "85px",
+                      height: "85px",
+                      cursor: "pointer",
+                    }}
                     onClick={uploadLogo}
                   />
                   <input
@@ -152,7 +167,7 @@ const Dashboard = () => {
                     <img
                       src={preview}
                       alt="preview"
-                      style={{ height: "250px" }}
+                      style={{ height: "225px" }}
                     />
                   </Modal.Body>
                   <Modal.Footer>

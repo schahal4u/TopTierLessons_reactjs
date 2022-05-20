@@ -4,7 +4,9 @@ import {
   ADMIN_GET_PROFILE_REQUEST,
   ADMIN_GET_PROFILE_SUCCESS,
   ADMIN_GET_PROFILE_FAIL,
+  ADMIN_GET_PROFILE_RESET,
 } from "../types.js";
+
 
 export const AdminGetProfileDetailAction = () => async (dispatch) => {
   try {
@@ -23,3 +25,7 @@ export const AdminGetProfileDetailAction = () => async (dispatch) => {
     });
   }
 };
+
+export const emptyGetProfileResponse = () => ({
+  type: ADMIN_GET_PROFILE_RESET,
+});

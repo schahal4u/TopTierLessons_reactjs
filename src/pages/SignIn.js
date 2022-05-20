@@ -77,14 +77,14 @@ const SignIn = () => {
 
   const socialResponseHandler = () => {
     if (socialResponse == 200) {
-      toast.success("Login Successfull");
+      // toast.success("Login Successfull");
       navigate("/");
     }
   };
 
   const responseHandler = () => {
     if (response == 200) {
-      toast.success("Login Successfull");
+      // toast.success("Login Successfull");
       navigate("/");
     }
     if (errorResponse == 401) {

@@ -22,9 +22,6 @@ export const AdminProfileUpdateAction = (formData) => async (dispatch) => {
       type: ADMIN_UPDATE_PROFILE_SUCCESS,
       payload: data,
     });
-    // dispatch({
-    //   type: ADMIN_UPDATE_RESPONSE_RESET,
-    // });
   } catch (error) {
     dispatch({
       type: ADMIN_UPDATE_PROFILE_FAIL,
@@ -32,3 +29,7 @@ export const AdminProfileUpdateAction = (formData) => async (dispatch) => {
     });
   }
 };
+
+export const emptyUpdateProfileResponse = () => ({
+  type: ADMIN_UPDATE_RESPONSE_RESET,
+});

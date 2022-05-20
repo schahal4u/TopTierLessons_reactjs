@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../routes";
 import logo from "../assets/images/logo.png";
@@ -11,6 +11,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { adminInfo, error } = useSelector((state) => state.adminLogin);
   const { socialLoginInfo, errors } = useSelector((state) => state.socialLogin);
+  const { imgResponse } = useSelector((state) => state.profilePicResponse);
+  const response = imgResponse?.statusCode;
+
+  const defautFormData = {
+    logo: profileLogo,
+  };
+  const [formData, setFormData] = useState(defautFormData);
 
   const profileHandler = () => {
     console.log("click");
@@ -21,8 +28,15 @@ const Navbar = () => {
 
   const logoutHandler = () => {
     localStorage.removeItem("userData");
+    localStorage.removeItem("token");
     navigate("/");
   };
+
+  useEffect(() => {
+    if (response === 200) {
+      setFormData({ ...formData, logo: imgResponse?.data?.url });
+    }
+  }, [imgResponse]);
 
   return (
     <>
@@ -117,7 +131,15 @@ const Navbar = () => {
                     aria-expanded="false"
                     onClick={profileHandler}
                   >
-                    <img src={profileLogo} alt="logo" />
+                    <img
+                      src={formData.logo || profileLogo}
+                      style={{
+                        borderRadius: "50%",
+                        width: "85px",
+                        height: "85px",
+                        cursor: "pointer",
+                      }}
+                    />
                     {/* <img style={{ paddingLeft: "5px" }} src={down} alt="down" /> */}
                   </div>
                   <div

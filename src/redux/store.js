@@ -6,7 +6,9 @@ import {
   SocialLoginReducer,
 } from "./reducers/AdminLoginReducer";
 import { AdminProfileUpdateReducer } from "./reducers/AdminProfileUpdateReducer";
+import { ChangePasswordReducer } from "./reducers/ChangePassword";
 import { LessonsRegisterReducer } from "./reducers/LessonsRegisterReducer";
+import { PhotoUploadReducer } from "./reducers/UploadPhoto";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   lessonSignUp: LessonsRegisterReducer,
   getProfileDetail: AdminGetProfileDetailReducer,
   profileUpdate: AdminProfileUpdateReducer,
+  changePassResponse: ChangePasswordReducer,
+  profilePicResponse: PhotoUploadReducer,
 });
 
 const store = createStore(

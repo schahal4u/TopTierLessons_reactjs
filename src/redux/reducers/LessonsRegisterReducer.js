@@ -4,14 +4,19 @@ import {
   LESSONS_REGISTER_FAIL,
 } from "../types.js";
 
-export const LessonsRegisterReducer = (state = {}, action) => {
+const initialState = {
+  lessonInfo: undefined,
+  error: undefined,
+};
+
+export const LessonsRegisterReducer = (state = initialState, action) => {
   switch (action.type) {
     case LESSONS_REGISTER_REQUEST:
       return { loading: true };
     case LESSONS_REGISTER_SUCCESS:
-      return { loading: false, lessonInfo: action.payload };
+      return { ...state, loading: false, lessonInfo: action.payload };
     case LESSONS_REGISTER_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }

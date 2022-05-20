@@ -3,7 +3,10 @@ import { Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
-import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
+import {
+  AdminProfileUpdateAction,
+  emptyUpdateProfileResponse,
+} from "../../redux/actions/AdminProfileUpdateAction";
 import "./BasicDetail.css";
 
 const BasicDetail = () => {
@@ -11,9 +14,11 @@ const BasicDetail = () => {
     (state) => state.getProfileDetail
   );
   const { updateProfileDetail } = useSelector((state) => state.profileUpdate);
+
+  const getResponse = profileDetail?.statusCode;
   const response = updateProfileDetail?.statusCode;
 
-  console.log("profile detail", response);
+  console.log("update res", updateProfileDetail);
 
   const dispatch = useDispatch();
   const defautFormData = {
@@ -28,6 +33,8 @@ const BasicDetail = () => {
   const [validated, setValidated] = useState(false);
 
   useEffect(() => {
+    console.log("USE EFFECT WITH AdminGetProfileDetailAction ");
+    console.log("response", response);
     dispatch(AdminGetProfileDetailAction());
   }, []);
 
@@ -37,14 +44,29 @@ const BasicDetail = () => {
 
   const profileHandler = (e) => {
     e.preventDefault();
-    setValidated(true);
+    // setValidated(true);
     dispatch(AdminProfileUpdateAction(formData));
-    console.log("form data", formData);
+    // console.log("form data", formData);
   };
 
   useEffect(() => {
+    if (getResponse == 200) {
+      setFormData({
+        ...formData,
+        name: profileDetail?.data?.name,
+        email: profileDetail?.data?.email,
+        address: profileDetail?.data?.address,
+        role: profileDetail?.data?.role,
+        bio: profileDetail?.data?.bio,
+      });
+    }
+  }, [profileDetail]);
+  // console.log(updateProfileDetail, "updateProfileDetail");
+  useEffect(() => {
     if (response === 200) {
+      console.log("emptyUpdateProfileResponse ");
       toast.success("Profile Updated Successfully");
+      dispatch(emptyUpdateProfileResponse());
     }
   }, [updateProfileDetail]);
 

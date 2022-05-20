@@ -5,17 +5,28 @@ import {
   ADMIN_UPDATE_RESPONSE_RESET,
 } from "../types.js";
 
-export const AdminProfileUpdateReducer = (state = {}, action) => {
+const initialState = {
+  updateProfileDetail: undefined,
+  error: undefined,
+};
+
+export const AdminProfileUpdateReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADMIN_UPDATE_PROFILE_REQUEST:
       return { loading: true };
     case ADMIN_UPDATE_PROFILE_SUCCESS:
-      return { loading: false, updateProfileDetail: action.payload };
+      return { ...state, loading: false, updateProfileDetail: action.payload };
     case ADMIN_UPDATE_PROFILE_FAIL:
-      return { loading: false, error: action.payload };
-    case ADMIN_UPDATE_RESPONSE_RESET:
-      return { loading: false, updateProfileDetail: undefined };
+      return { ...state, loading: false, error: action.payload };
+
     default:
       return state;
+  }
+};
+
+export const AdminProfileUpdateReset = (state = initialState, action) => {
+  switch (action.type) {
+    case ADMIN_UPDATE_RESPONSE_RESET:
+      return { ...state, loading: false, updateProfileDetail: undefined };
   }
 };

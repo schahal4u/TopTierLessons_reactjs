@@ -9,15 +9,22 @@ import {
   SOCIAL_LOGOUT,
 } from "../types.js";
 
-export const AdminLoginReducer = (state = {}, action) => {
+const initialState = {
+  adminInfo: undefined,
+  error: undefined,
+  socialLoginInfo: undefined,
+  errors: undefined,
+};
+
+export const AdminLoginReducer = (state = initialState, action) => {
   // console.log("action", action.payload);
   switch (action.type) {
     case ADMIN_LOGIN_REQUEST:
       return { loading: true };
     case ADMIN_LOGIN_SUCCESS:
-      return { loading: false, adminInfo: action.payload };
+      return { ...state, loading: false, adminInfo: action.payload };
     case ADMIN_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     case ADMIN_LOGOUT:
       return {};
     default:
@@ -25,15 +32,15 @@ export const AdminLoginReducer = (state = {}, action) => {
   }
 };
 
-export const SocialLoginReducer = (state = {}, action) => {
+export const SocialLoginReducer = (state = initialState, action) => {
   // console.log("Social action", action.payload);
   switch (action.type) {
     case SOCIAL_LOGIN_REQUEST:
       return { loading: true };
     case SOCIAL_LOGIN_SUCCESS:
-      return { loading: false, socialLoginInfo: action.payload };
+      return { ...state, loading: false, socialLoginInfo: action.payload };
     case SOCIAL_LOGIN_FAIL:
-      return { loading: false, errors: action.payload };
+      return { ...state, loading: false, errors: action.payload };
     case SOCIAL_LOGOUT:
       return {};
     default:

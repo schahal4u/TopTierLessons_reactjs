@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { ChangePasswordAction } from "../../redux/actions/ChangePassword";
 const ChangePassword = () => {
+  const { passwordResponse, passwordError } = useSelector(
+    (state) => state.changePassResponse
+  );
+  const response = passwordResponse?.statusCode;
+
+  console.log("password response", passwordResponse, passwordError);
+
+  const dispatch = useDispatch();
   const defautFormData = {
-    password: "",
-    newpassword: "",
+    oldPassword: "",
+    newPassword: "",
     confirmpassword: "",
   };
   const [formData, setFormData] = useState(defautFormData);
@@ -18,13 +28,29 @@ const ChangePassword = () => {
   const passwordhandler = (e) => {
     e.preventDefault();
     setValidated(true);
-    if (formData.newpassword !== formData.confirmpassword) {
+    if (formData.newPassword !== formData.confirmpassword) {
       toast.warn("New Password and Confirm Password are not Matched!");
       return;
     }
+    const dispatchFormData = { ...formData };
+    delete dispatchFormData.confirmpassword;
+    dispatch(ChangePasswordAction(dispatchFormData));
 
-    console.log("form data", formData);
+    // console.log("form data", formData);
   };
+
+  const responseHandler = () => {
+    if (response == 200) {
+      toast.success("Password Changed Successfully");
+    }
+  };
+
+  useEffect(() => {
+    if (passwordResponse) {
+      responseHandler();
+    }
+  }, [passwordResponse]);
+
   return (
     <>
       <div className="profile">
@@ -36,8 +62,8 @@ const ChangePassword = () => {
                 type="text"
                 className="form-control profile_inp "
                 placeholder="Current Password"
-                name="password"
-                value={formData.password}
+                name="oldPassword"
+                value={formData.oldPassword}
                 onChange={handleFormData}
               />
               <Form.Control.Feedback className="error_text" type="invalid">
@@ -50,8 +76,8 @@ const ChangePassword = () => {
                 type="text"
                 className="form-control profile_inp mt-4"
                 placeholder="Create New Password"
-                name="newpassword"
-                value={formData.newpassword}
+                name="newPassword"
+                value={formData.newPassword}
                 onChange={handleFormData}
               />
               <Form.Control.Feedback type="invalid" className="error_text">
