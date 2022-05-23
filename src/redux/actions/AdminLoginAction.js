@@ -7,6 +7,7 @@ import {
   SOCIAL_LOGIN_REQUEST,
   SOCIAL_LOGIN_SUCCESS,
   SOCIAL_LOGIN_FAIL,
+  SOCIAL_LOGOUT,
 } from "../types.js";
 
 // user login
@@ -18,7 +19,7 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://34.236.154.119:4437/api/v1.0/Auth/SignIn",
+      "https://toptierlessons.com:4437/api/v1.0/Auth/SignIn",
       formData
     );
     dispatch({
@@ -36,6 +37,10 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
   }
 };
 
+export const adminLoginReset = () => ({
+  type: ADMIN_LOGOUT,
+});
+
 export const SocialLoginAction = (formData) => async (dispatch) => {
   try {
     dispatch({
@@ -43,7 +48,7 @@ export const SocialLoginAction = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://34.236.154.119:4437/api/v1.0/Auth/ExternalLogin",
+      "https://toptierlessons.com:4437/api/v1.0/Auth/ExternalLogin",
       formData
     );
     dispatch({
@@ -60,3 +65,7 @@ export const SocialLoginAction = (formData) => async (dispatch) => {
     });
   }
 };
+
+export const socialLoginReset = () => ({
+  type: SOCIAL_LOGOUT,
+});

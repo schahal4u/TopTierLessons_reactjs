@@ -1,31 +1,30 @@
 // import axios from "axios";
 import { axiosInstance } from "../ApiInterceptor/Axios_Interceptors";
 import {
-  ADMIN_GET_PROFILE_REQUEST,
-  ADMIN_GET_PROFILE_SUCCESS,
-  ADMIN_GET_PROFILE_FAIL,
-  ADMIN_GET_PROFILE_RESET,
+  GET_PROFILE_DETAIL_REQUEST,
+  GET_PROFILE_DETAIL_SUCCESS,
+  GET_PROFILE_DETAIL_FAIL,
+  GET_PROFILE_DETAIL_RESET,
 } from "../types.js";
-
 
 export const AdminGetProfileDetailAction = () => async (dispatch) => {
   try {
     dispatch({
-      type: ADMIN_GET_PROFILE_REQUEST,
+      type: GET_PROFILE_DETAIL_REQUEST,
     });
     const { data } = await axiosInstance.get("User/GetUserProfile");
     dispatch({
-      type: ADMIN_GET_PROFILE_SUCCESS,
+      type: GET_PROFILE_DETAIL_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: ADMIN_GET_PROFILE_FAIL,
+      type: GET_PROFILE_DETAIL_FAIL,
       payload: error?.response?.data,
     });
   }
 };
 
 export const emptyGetProfileResponse = () => ({
-  type: ADMIN_GET_PROFILE_RESET,
+  type: GET_PROFILE_DETAIL_RESET,
 });

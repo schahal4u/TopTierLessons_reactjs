@@ -1,8 +1,8 @@
 import {
-  ADMIN_GET_PROFILE_REQUEST,
-  ADMIN_GET_PROFILE_SUCCESS,
-  ADMIN_GET_PROFILE_FAIL,
-  ADMIN_GET_PROFILE_RESET,
+  GET_PROFILE_DETAIL_REQUEST,
+  GET_PROFILE_DETAIL_SUCCESS,
+  GET_PROFILE_DETAIL_FAIL,
+  GET_PROFILE_DETAIL_RESET,
 } from "../types.js";
 
 const initialState = {
@@ -12,11 +12,11 @@ const initialState = {
 
 export const AdminGetProfileDetailReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADMIN_GET_PROFILE_REQUEST:
-      return { loading: true };
-    case ADMIN_GET_PROFILE_SUCCESS:
+    case GET_PROFILE_DETAIL_REQUEST:
+      return {...state, loading: true };
+    case GET_PROFILE_DETAIL_SUCCESS:
       return { ...state, loading: false, profileDetail: action.payload };
-    case ADMIN_GET_PROFILE_FAIL:
+    case GET_PROFILE_DETAIL_FAIL:
       return { ...state, loading: false, profileError: action.payload };
     default:
       return state;
@@ -25,7 +25,7 @@ export const AdminGetProfileDetailReducer = (state = initialState, action) => {
 
 export const AdminProfileGetReset = (state = initialState, action) => {
   switch (action.type) {
-    case ADMIN_GET_PROFILE_RESET:
+    case GET_PROFILE_DETAIL_RESET:
       return { ...state, loading: false, profileDetail: undefined };
   }
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://34.236.154.119:4437/api/v1.0/",
+  baseURL: "https://toptierlessons.com:4437/api/v1.0/",
 });
 axiosInstance.interceptors.request.use(
   (config) => {

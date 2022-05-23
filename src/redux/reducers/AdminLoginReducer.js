@@ -26,7 +26,7 @@ export const AdminLoginReducer = (state = initialState, action) => {
     case ADMIN_LOGIN_FAIL:
       return { ...state, loading: false, error: action.payload };
     case ADMIN_LOGOUT:
-      return {};
+      return { ...state, loading: false, adminInfo: null };
     default:
       return state;
   }
@@ -42,7 +42,7 @@ export const SocialLoginReducer = (state = initialState, action) => {
     case SOCIAL_LOGIN_FAIL:
       return { ...state, loading: false, errors: action.payload };
     case SOCIAL_LOGOUT:
-      return {};
+      return { ...state, loading: false, socialLoginInfo: null };
     default:
       return state;
   }

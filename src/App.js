@@ -2,14 +2,8 @@ import "./App.css";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-// import { Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-// const SignUp = React.lazy(() => import("./pages/SignUp.js"));
-// const SignIn = React.lazy(() => import("./pages/SignIn.js"));
-// const Home = React.lazy(() => import("./components/Views/Home"));
-// const ContactUs = React.lazy(() => import("./components/Views/ContactUs"));
-// const Services = React.lazy(() => import("./components/Views/Services"));
 import Home from "./components/Views/Home";
 import About from "./components/Views/About";
 import ContactUs from "./components/Views/ContactUs";
@@ -20,6 +14,10 @@ import Terms from "./components/Terms";
 import LessonsSignUp from "./pages/SignUpLessons/PersonalInfo";
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./components/dashboard/Dashboard.js";
+import PersonalDetail from "./pages/SignUpAthlete/PersonalDetail";
+import BasicInfo from "./pages/SignUpAthlete/BasicInfo";
+import BasicInfoKids from "./pages/SignUpAthlete/BasicInfoKids";
+import UploadPhoto from "./pages/SignUpLessons/UploadPhoto";
 
 function App() {
   const location = useLocation();
@@ -33,7 +31,12 @@ function App() {
     <>
       <ToastContainer autoClose={2000} />
       <div>
-        {url.includes("signIn") || url.includes("lessonsignup") ? null : (
+        {url.includes("signIn") ||
+        url.includes("coachsignup") ||
+        url.includes("athletesignup") ||
+        url.includes("basicinfo") ||
+        url.includes("basicinfokids") ||
+        url.includes("signupuploadphoto") ? null : (
           <Navbar />
         )}
         <Routes>
@@ -43,11 +46,20 @@ function App() {
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/signIn" element={<SignIn />} />
-          <Route path="/lessonsignup" element={<LessonsSignUp />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/coachsignup" element={<LessonsSignUp />} />
+          <Route path="/athletesignup" element={<PersonalDetail />} />
+          <Route path="/basicinfo" element={<BasicInfo />} />
+          <Route path="/basicinfokids" element={<BasicInfoKids />} />
+          <Route path="/basicinfokids" element={<BasicInfoKids />} />
+          <Route path="/signupuploadphoto" element={<UploadPhoto />} />
         </Routes>
       </div>
-      {url.includes("signIn") || url.includes("lessonsignup") ? null : (
+      {url.includes("signIn") ||
+      url.includes("coachsignup") ||
+      url.includes("athletesignup") ||
+      url.includes("basicinfo") ||
+      url.includes("basicinfokids") ||
+      url.includes("signupuploadphoto") ? null : (
         <Footer />
       )}
     </>

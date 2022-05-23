@@ -43,6 +43,7 @@
   border: 1px solid #ba6e3f !important;
   color: #ba6e3f !important;
   background-color: #000 !important;
+  padding: 8px 23px !important;
 }
 
 .signup-btn {
@@ -50,8 +51,11 @@
   border: 1px solid #ba6e3f !important;
   border: none;
   margin-left: 8px !important;
-  color: #fff !important;
+  /* color: #111 !important; */
   background-color: #ba6e3f !important;
+}
+.dropdown-toggle {
+  color: #fff !important;
 }
 .menu_items {
   text-align: center !important;
@@ -61,6 +65,16 @@
   border: 1px solid #ba6e3f !important;
   margin: 10px 0 !important;
   padding: 8px 9px !important;
+}
+.border_btnn {
+  border: 1px solid #ba6e3f !important;
+  margin: 10px 0 !important;
+  padding: 3px 9px !important;
+  line-height: 21px !important;
+}
+.dropdown-menu {
+  text-align: center !important;
+  padding: 15px !important;
 }
 
 element.style {
@@ -138,4 +152,7 @@ element.style {
 }
 .dropdown-item:hover {
   background: #e38226 !important;
+}
+.bg-clr {
+  color: #fff !important;
 }

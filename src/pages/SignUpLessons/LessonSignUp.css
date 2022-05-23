@@ -94,7 +94,7 @@
 .icon_divs {
   display: flex;
   justify-content: space-between;
-  width: 75%;
+  width: 70%;
   margin-top: 30px;
 }
 
@@ -144,5 +144,39 @@
 @media (max-width: 425px) {
   .signin_form {
     min-width: 95%;
+  }
+}
+.basic_upload_form {
+  min-height: 88% !important;
+  background-color: #313131 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+  max-width: 45% !important;
+  margin: 0px auto !important;
+  padding: 80px 0 !important;
+}
+.basic_upload_form h1 {
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 70px;
+  color: #e38226;
+  margin-bottom: 45px;
+  text-align: center;
+}
+@media (max-width: 1024px) {
+  .basic_upload_form {
+    max-width: 65% !important;
+  }
+}
+@media (max-width: 768px) {
+  .basic_upload_form {
+    max-width: 90% !important;
+    padding: 60px 0 !important;
+  }
+
+  .basic_upload_form h1 {
+    font-size: 46px;
   }
 }

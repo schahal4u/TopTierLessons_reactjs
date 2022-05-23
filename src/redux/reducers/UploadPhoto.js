@@ -2,6 +2,7 @@ import {
   UPLOAD_PHOTO_REQUEST,
   UPLOAD_PHOTO_SUCCESS,
   UPLOAD_PHOTO_FAIL,
+  UPLOAD_PHOTO_RESET,
 } from "../types.js";
 
 const initialState = {
@@ -17,6 +18,8 @@ export const PhotoUploadReducer = (state = initialState, action) => {
       return { ...state, loading: false, imgResponse: action.payload };
     case UPLOAD_PHOTO_FAIL:
       return { ...state, loading: false, imgError: action.payload };
+    case UPLOAD_PHOTO_RESET:
+      return { ...state, loading: false, imgResponse: null };
     default:
       return state;
   }

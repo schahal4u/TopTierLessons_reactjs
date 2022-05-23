@@ -3,24 +3,33 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { routes } from "../routes";
 import logo from "../assets/images/logo.png";
 import "./Navbar.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import profileLogo from "../assets/images/profileIcon.png";
 import down from "../assets/images/down-arrow.png";
-
+import { emptyUpdateProfileResponse } from "../redux/actions/AdminProfileUpdateAction";
+import { emptyProfileImageResponse } from "../redux/actions/UploadPhoto";
+import { AdminGetProfileDetailAction } from "../redux/actions/AdminGetProfileDetail";
+import {
+  adminLoginReset,
+  socialLoginReset,
+} from "../redux/actions/AdminLoginAction";
 const Navbar = () => {
   const navigate = useNavigate();
   const { adminInfo, error } = useSelector((state) => state.adminLogin);
   const { socialLoginInfo, errors } = useSelector((state) => state.socialLogin);
-  const { imgResponse } = useSelector((state) => state.profilePicResponse);
-  const response = imgResponse?.statusCode;
-
+  const { profileDetail, profileError } = useSelector(
+    (state) => state.getProfileDetail
+  );
+  const getResponse = profileDetail?.statusCode;
+  const dispatch = useDispatch();
   const defautFormData = {
     logo: profileLogo,
   };
   const [formData, setFormData] = useState(defautFormData);
 
   const profileHandler = () => {
-    console.log("click");
+    dispatch(emptyProfileImageResponse());
+    dispatch(emptyUpdateProfileResponse());
     navigate("/dashboard");
   };
 
@@ -33,10 +42,20 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (response === 200) {
-      setFormData({ ...formData, logo: imgResponse?.data?.url });
+    dispatch(AdminGetProfileDetailAction());
+  }, []);
+
+  useEffect(() => {
+    if (getResponse == 200) {
+      setFormData({ ...formData, logo: profileDetail?.data?.profileImage });
     }
-  }, [imgResponse]);
+  }, [profileDetail]);
+
+  const loginHandler = () => {
+    dispatch(adminLoginReset());
+    dispatch(socialLoginReset());
+    navigate("/signIn");
+  };
 
   return (
     <>
@@ -79,22 +98,54 @@ const Navbar = () => {
               !socialLoginInfo?.data?.access_token ? ( */}
               {!token ? (
                 <>
-                  <Link to="/signIn">
-                    <button className="btn signin-btn" type="submit">
-                      Sign In
-                    </button>
-                  </Link>
+                  {/* <Link to="/signIn"> */}
+                  <button
+                    className="btn signin-btn"
+                    type="submit"
+                    onClick={loginHandler}
+                  >
+                    Sign In
+                  </button>
+                  {/* </Link> */}
                   <div className="dropdown ">
                     <button
-                      className="btn signup-btn dropdown-toggle"
+                      style={{ color: "#fff !important" }}
                       type="button"
-                      id="dropdownMenuButton2"
-                      data-bs-toggle="dropdown"
+                      class="signup-btn nav-link dropdown-toggle  bg-clr"
+                      id="navbar-primary_dropdown_1"
+                      role="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
                       aria-expanded="false"
                     >
                       Sign Up
                     </button>
-                    <ul
+                    <div
+                      class="dropdown-menu menu_colour dropdown-menu-right"
+                      aria-labelledby="navbar-primary_dropdown_1"
+                    >
+                      <a
+                        class="dropdown-item disabled"
+                        onClick={profileHandler}
+                      >
+                        I Am looking for
+                      </a>
+                      <Link
+                        to="/athletesignup"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <a className="dropdown-item border_btn">Lessons</a>
+                      </Link>
+                      <Link
+                        to="/coachsignup"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <a className="dropdown-item border_btnn">
+                          Coaching <br /> Opportunities
+                        </a>
+                      </Link>
+                    </div>
+                    {/* <ul
                       className="dropdown-menu dropdown-menu-dark menu_items"
                       aria-labelledby="dropdownMenuButton2"
                     >
@@ -116,7 +167,7 @@ const Navbar = () => {
                           Coaching <br /> Opportunities
                         </a>
                       </li>
-                    </ul>
+                    </ul> */}
                   </div>
                 </>
               ) : (
@@ -129,18 +180,17 @@ const Navbar = () => {
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    onClick={profileHandler}
+                    // onClick={profileHandler}
                   >
                     <img
                       src={formData.logo || profileLogo}
                       style={{
                         borderRadius: "50%",
-                        width: "85px",
-                        height: "85px",
+                        width: "75px",
+                        height: "75px",
                         cursor: "pointer",
                       }}
                     />
-                    {/* <img style={{ paddingLeft: "5px" }} src={down} alt="down" /> */}
                   </div>
                   <div
                     class="dropdown-menu menu_colour dropdown-menu-right"
@@ -152,7 +202,6 @@ const Navbar = () => {
                     <a class="dropdown-item" onClick={logoutHandler}>
                       Logout
                     </a>
-                    {/* <div class="dropdown-divider"></div> */}
                   </div>
                 </>
               )}

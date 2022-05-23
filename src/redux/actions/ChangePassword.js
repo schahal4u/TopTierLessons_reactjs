@@ -3,6 +3,7 @@ import {
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  CHANGE_PASSWORD_RESET,
 } from "../types.js";
 
 export const ChangePasswordAction = (formData) => async (dispatch) => {
@@ -24,3 +25,7 @@ export const ChangePasswordAction = (formData) => async (dispatch) => {
     });
   }
 };
+
+export const emptyPasswordResponse = () => ({
+  type: CHANGE_PASSWORD_RESET,
+});

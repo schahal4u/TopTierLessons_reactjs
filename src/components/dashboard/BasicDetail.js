@@ -3,22 +3,16 @@ import { Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
-import {
-  AdminProfileUpdateAction,
-  emptyUpdateProfileResponse,
-} from "../../redux/actions/AdminProfileUpdateAction";
+import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
 import "./BasicDetail.css";
-
+import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
 const BasicDetail = () => {
   const { profileDetail, profileError } = useSelector(
     (state) => state.getProfileDetail
   );
-  const { updateProfileDetail } = useSelector((state) => state.profileUpdate);
-
+  const updateProfileDetail = useSelector((state) => state.profileUpdate);
   const getResponse = profileDetail?.statusCode;
   const response = updateProfileDetail?.statusCode;
-
-  console.log("update res", updateProfileDetail);
 
   const dispatch = useDispatch();
   const defautFormData = {
@@ -33,8 +27,6 @@ const BasicDetail = () => {
   const [validated, setValidated] = useState(false);
 
   useEffect(() => {
-    console.log("USE EFFECT WITH AdminGetProfileDetailAction ");
-    console.log("response", response);
     dispatch(AdminGetProfileDetailAction());
   }, []);
 
@@ -46,7 +38,6 @@ const BasicDetail = () => {
     e.preventDefault();
     // setValidated(true);
     dispatch(AdminProfileUpdateAction(formData));
-    // console.log("form data", formData);
   };
 
   useEffect(() => {
@@ -61,12 +52,9 @@ const BasicDetail = () => {
       });
     }
   }, [profileDetail]);
-  // console.log(updateProfileDetail, "updateProfileDetail");
   useEffect(() => {
-    if (response === 200) {
-      console.log("emptyUpdateProfileResponse ");
+    if (updateProfileDetail?.updateProfileDetail != null) {
       toast.success("Profile Updated Successfully");
-      dispatch(emptyUpdateProfileResponse());
     }
   }, [updateProfileDetail]);
 

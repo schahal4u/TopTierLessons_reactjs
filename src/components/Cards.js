@@ -37,7 +37,7 @@ const Cards = () => {
                 <img src={icon1} alt="icon" />
               </div>
             </div>
-            <div className="col-md-3 col-sm-12 card_box p-4 mt-5">
+            {/* <div className="col-md-3 col-sm-12 card_box p-4 mt-5">
               <div className="card_box_content">
                 <div className="title">
                   <h3>Practice Matches</h3>
@@ -52,8 +52,8 @@ const Cards = () => {
               <div className="card_icon">
                 <img src={icon2} alt="icon" />
               </div>
-            </div>
-            <div className="col-md-3 col-sm-12 card_box p-4 mt-5">
+            </div> */}
+            {/* <div className="col-md-3 col-sm-12 card_box p-4 mt-5">
               <div className="card_box_content">
                 <div className="title">
                   <h3>Video Coaching</h3>
@@ -68,7 +68,7 @@ const Cards = () => {
               <div className="card_icon">
                 <img src={icon3} alt="icon" />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

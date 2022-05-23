@@ -14,7 +14,7 @@ export const LessonsRegisterAction = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://34.236.154.119:4437/api/v1.0/Auth/Register",
+      "https://toptierlessons.com:4437//api/v1.0/Auth/Register",
       formData
     );
     dispatch({

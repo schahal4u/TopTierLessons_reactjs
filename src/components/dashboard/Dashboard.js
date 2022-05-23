@@ -12,11 +12,16 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
+import { emptyPasswordResponse } from "../../redux/actions/ChangePassword";
 
 const Dashboard = () => {
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
-  const response = imgResponse?.statusCode;
-  console.log("img response", imgResponse);
+  const responseCode = imgResponse?.statusCode;
+
+  const { profileDetail, profileError } = useSelector(
+    (state) => state.getProfileDetail
+  );
+  const getResponse = profileDetail?.statusCode;
 
   const imageType = [
     "image/tif",
@@ -48,12 +53,10 @@ const Dashboard = () => {
   const [preview, setPreview] = useState();
   const [selectedFile, setSelectedFile] = useState();
   const [photo, setPhoto] = useState();
-  // console.log("preview", preview, "jjjjjjjjjjj", selectedFile);
 
   const photoUpload = (e) => {
     setSelectedFile(e.target.files[0]);
     const incomingFile = e.target.files[0];
-    console.log("file", incomingFile);
     const fileType = incomingFile && (incomingFile?.type).toLowerCase();
     const size = incomingFile && e.target.files[0].size;
     const validImageTypes = imageType;
@@ -76,7 +79,6 @@ const Dashboard = () => {
       data.append("file", e.target.files[0]);
       setPhoto(data);
       setSelectedFile(e.target.files[0]);
-      // dispatch(uploadImageVenueReq(test));
     }
   };
 
@@ -103,12 +105,22 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    if (response === 200) {
+    if (responseCode === 200) {
       toast.success("Profile Photo Updated Successfully");
       dispatch(AdminGetProfileDetailAction());
-      setFormData({ ...formData, logo: imgResponse?.data?.url });
     }
   }, [imgResponse]);
+
+  useEffect(() => {
+    if (getResponse == 200) {
+      setFormData({ ...formData, logo: profileDetail?.data?.profileImage });
+    }
+  }, [profileDetail]);
+
+  const passwordHandler = () => {
+    setShow({ ...defaultShow, password: true });
+    dispatch(emptyPasswordResponse());
+  };
 
   return (
     <>
@@ -124,13 +136,13 @@ const Dashboard = () => {
             <div
               id="sidebar"
               class="collapse collapse-horizontal show border-end"
+              style={{ height: "724px" }}
             >
               <div
                 id="sidebar-nav"
                 class="list-group border-0 rounded-0 text-sm-start min-vh-100"
               >
                 <a
-                  href="#"
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                 >
@@ -139,8 +151,8 @@ const Dashboard = () => {
                     src={formData.logo || logo}
                     style={{
                       borderRadius: "50%",
-                      width: "85px",
-                      height: "85px",
+                      width: "75px",
+                      height: "75px",
                       cursor: "pointer",
                     }}
                     onClick={uploadLogo}
@@ -183,7 +195,6 @@ const Dashboard = () => {
                   </Modal.Footer>
                 </Modal>
                 <a
-                  href="#"
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={() => setShow({ ...defaultShow, basicDetail: true })}
@@ -191,8 +202,7 @@ const Dashboard = () => {
                 >
                   <span>Basic Details</span>
                 </a>
-                <a
-                  href="#"
+                {/* <a
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={() => setShow({ ...defaultShow, videoLesson: true })}
@@ -203,9 +213,8 @@ const Dashboard = () => {
                   }}
                 >
                   <span>Video Lessons</span>
-                </a>
+                </a> */}
                 <a
-                  href="#"
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={() => setShow({ ...defaultShow, training: true })}
@@ -218,7 +227,6 @@ const Dashboard = () => {
                   <span>Joined Trainings</span>
                 </a>
                 <a
-                  href="#"
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={() => setShow({ ...defaultShow, earning: true })}
@@ -231,10 +239,9 @@ const Dashboard = () => {
                   <span>Earning</span>
                 </a>
                 <a
-                  href="#"
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
-                  onClick={() => setShow({ ...defaultShow, password: true })}
+                  onClick={passwordHandler}
                   style={{
                     color: show?.password && "#e38226 !important",
                   }}
@@ -246,7 +253,7 @@ const Dashboard = () => {
           </div>
           <main class="col ps-md-2 pt-2 right_sidebar">
             {/* <a
-              href="#"
+              
               data-bs-target="#sidebar"
               data-bs-toggle="collapse"
               class="border rounded-3 p-1 text-decoration-none"

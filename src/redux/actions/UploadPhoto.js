@@ -3,6 +3,7 @@ import {
   UPLOAD_PHOTO_REQUEST,
   UPLOAD_PHOTO_SUCCESS,
   UPLOAD_PHOTO_FAIL,
+  UPLOAD_PHOTO_RESET,
 } from "../types.js";
 
 export const PhotoUploadAction = (formData) => async (dispatch) => {
@@ -27,3 +28,7 @@ export const PhotoUploadAction = (formData) => async (dispatch) => {
     });
   }
 };
+
+export const emptyProfileImageResponse = () => ({
+  type: UPLOAD_PHOTO_RESET,
+});

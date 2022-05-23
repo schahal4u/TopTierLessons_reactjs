@@ -25,7 +25,7 @@ const SignIn = () => {
   const errorResponse = error?.statusCode;
   const socialResponse = socialLoginInfo?.statusCode;
 
-  console.log("response is eeeeeeeeeeerrrrrrrr", error);
+  // console.log("response is eeeeeeeeeeerrrrrrrr", error);
 
   const defautFormData = {
     email: "",
@@ -58,15 +58,19 @@ const SignIn = () => {
   };
 
   const responseGoogle = (response) => {
-    let obj = {
-      grantType: "google",
-      email: response?.Lu?.Bv,
-      extrenalLoginToken: response?.Lu?.TW,
-    };
-    dispatch(SocialLoginAction(obj));
+    console.log("Google Response", response);
+    if (response) {
+      let obj = {
+        grantType: "google",
+        email: response?.Lu?.Bv,
+        extrenalLoginToken: response?.Lu?.TW,
+      };
+      dispatch(SocialLoginAction(obj));
+    }
   };
 
   const responseFacebook = (response) => {
+    console.log("Facebook Response", response);
     let obj = {
       grantType: "facebook",
       email: response.email,
@@ -208,7 +212,7 @@ const SignIn = () => {
               <div className="signIn_content">
                 <p className="register_main_text">
                   if you havn’t Registed yet ?
-                  <Link to="/lessonsignup" className="register_text">
+                  <Link to="/coachsignup" className="register_text">
                     &nbsp;
                     <span className="register_text">Register Now</span>
                   </Link>

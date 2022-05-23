@@ -2,6 +2,7 @@ import {
   CHANGE_PASSWORD_REQUEST,
   CHANGE_PASSWORD_SUCCESS,
   CHANGE_PASSWORD_FAIL,
+  CHANGE_PASSWORD_RESET,
 } from "../types.js";
 
 const initialState = {
@@ -17,6 +18,8 @@ export const ChangePasswordReducer = (state = initialState, action) => {
       return { ...state, loading: false, passwordResponse: action.payload };
     case CHANGE_PASSWORD_FAIL:
       return { ...state, loading: false, passwordError: action.payload };
+    case CHANGE_PASSWORD_RESET:
+      return { ...state, loading: false, passwordResponse: null };
     default:
       return state;
   }

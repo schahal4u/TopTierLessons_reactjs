@@ -12,7 +12,6 @@ const PersonalInfo = () => {
 
   const { lessonInfo, error } = useSelector((state) => state.lessonSignUp);
   const response = lessonInfo?.statusCode;
-
   // console.log("response is", lessonInfo, error);
 
   const defautFormData = {
@@ -37,7 +36,6 @@ const PersonalInfo = () => {
 
   const signUpHandler = (e) => {
     e.preventDefault();
-    console.log("clicked");
     setLoading(true);
     if (
       formData.name === "" ||
@@ -111,7 +109,6 @@ const PersonalInfo = () => {
               </div>
               <button
                 type="submit"
-                // onClick={() => signUpHandler()}
                 className="btn btn-primary signin_btn mt-4 mb-4"
               >
                 {loading && (

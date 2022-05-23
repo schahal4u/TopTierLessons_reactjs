@@ -7,7 +7,7 @@ import arrow from "../../assets/images/down.png";
 import avtar from "../../assets/images/profileIcon.png";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 
-const UploadPhoto = () => {
+const BasicInfoKids = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputFile = useRef(null);
@@ -25,11 +25,14 @@ const UploadPhoto = () => {
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
   const responseCode = imgResponse?.statusCode;
 
-  //   console.log("response is", responseCode);
+  console.log("response is", responseCode);
 
   const defautFormData = {
+    name: "",
     address: "",
-    bio: "",
+    age: "",
+    sport: "",
+    level: "",
     logo: avtar,
   };
 
@@ -38,6 +41,7 @@ const UploadPhoto = () => {
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [inp, setInp] = useState("");
+  const [checked, setChecked] = useState(false);
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -66,7 +70,6 @@ const UploadPhoto = () => {
   };
 
   const photoUpload = (e) => {
-    debugger;
     const incomingFile = e.target.files[0];
     const fileType = incomingFile && (incomingFile?.type).toLowerCase();
     const size = incomingFile && e.target.files[0].size;
@@ -100,7 +103,7 @@ const UploadPhoto = () => {
         <div className="container form_sign">
           <Form noValidate validated={validated} onSubmit={signUpHandler}>
             {/* <form onSubmit={signUpHandler}> */}
-            <div className="basic_upload_form">
+            <div className="personalinfo_form">
               <h1>Basic Detail</h1>
               <img
                 src={formData.logo || avtar}
@@ -109,7 +112,7 @@ const UploadPhoto = () => {
                   width: "120px",
                   height: "120px",
                   cursor: "pointer",
-                  marginBottom: "15px",
+                  marginBottom: "25px",
                 }}
                 onClick={uploadLogo}
               />
@@ -124,9 +127,9 @@ const UploadPhoto = () => {
                 <Form.Control
                   type="text"
                   className="form-control signin_inp mt-3"
-                  placeholder="Address"
-                  name="address"
-                  value={formData.address}
+                  placeholder="Name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleFormData}
                   required
                 />
@@ -139,13 +142,28 @@ const UploadPhoto = () => {
               </Form.Group>
               <Form.Group as={Col} md="12" controlId="validationCustom01">
                 <Form.Control
-                  as="textarea"
-                  rows={3}
                   type="text"
                   className="form-control signin_inp mt-3"
-                  placeholder="Bio"
-                  name="bio"
-                  value={formData.bio}
+                  placeholder="Address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleFormData}
+                  required
+                />
+                <Form.Control.Feedback
+                  type="invalid"
+                  style={{ marginLeft: "65px" }}
+                >
+                  Address is Required
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} md="12" controlId="validationCustom01">
+                <Form.Control
+                  type="number"
+                  className="form-control signin_inp mt-3"
+                  placeholder="Age"
+                  name="age"
+                  value={formData.age}
                   onChange={handleFormData}
                   required
                   pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
@@ -154,7 +172,52 @@ const UploadPhoto = () => {
                   type="invalid"
                   style={{ marginLeft: "65px" }}
                 >
-                  Bio is Required
+                  Age is Required
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} md="12" controlId="validationCustom01">
+                <Form.Select
+                  aria-label="Default select example"
+                  className="form-control form-select select_box mt-3"
+                  value={formData.type}
+                  onChange={handleFormData}
+                  name="type"
+                  required
+                >
+                  <option>Sport</option>
+                  <option value="1">Hocket</option>
+                  <option value="2">Cricket</option>
+                </Form.Select>
+                <img className="set_arrows" src={arrow} alt="arrow" />
+                <Form.Control.Feedback
+                  type="invalid"
+                  style={{ marginLeft: "65px" }}
+                >
+                  Please Select any Option
+                </Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} md="12" controlId="validationCustom01">
+                <Form.Select
+                  aria-label="Default select example"
+                  className="form-control form-select select_box mt-3"
+                  value={formData.level}
+                  onChange={handleFormData}
+                  name="level"
+                  required
+                >
+                  <option>Skill Level</option>
+                  <option value="1">Begginer</option>
+                  <option value="1">Intermidate</option>
+                  <option value="2">Expert</option>
+                </Form.Select>
+                <img className="set_arrows" src={arrow} alt="arrow" />
+                <Form.Control.Feedback
+                  type="invalid"
+                  style={{ marginLeft: "65px" }}
+                >
+                  Please Select any Option
                 </Form.Control.Feedback>
               </Form.Group>
               <button
@@ -171,7 +234,28 @@ const UploadPhoto = () => {
                 )}
                 Done
               </button>
+              <Form.Group
+                as={Col}
+                md="12"
+                controlId="validationCustom01"
+                style={{ width: "75%", marginLeft: "25px" }}
+              >
+                <Form.Check
+                  type="checkbox"
+                  id="checkbox"
+                  style={{ background: "background: #D4D4D4" }}
+                  checked={checked}
+                  onChange={(e) => setChecked(!checked)}
+                  name="checked"
+                />
+                <p className="checkbox_text">
+                  Share with
+                  <span className="inner_textt">Coach after Lesson</span> and
+                  <span className="inner_textt">booked</span>
+                </p>
+              </Form.Group>
             </div>
+            {/* </form> */}
           </Form>
         </div>
       </div>
@@ -179,4 +263,4 @@ const UploadPhoto = () => {
   );
 };
 
-export default UploadPhoto;
+export default BasicInfoKids;

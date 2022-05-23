@@ -16,7 +16,7 @@ const Header = () => {
           <button className="header_front_btn">Find Lessons</button>
           <button className="header_front_btn">I'm a Student Athlete</button>
         </div>
-        <div className="container counter">
+        {/* <div className="container counter">
           <div className="row">
             <div className="col-md-3 col-sm-6 col-xs-6 counter_box mt-4">
               <CountUp start={0} end={12} delay={0}>
@@ -63,7 +63,7 @@ const Header = () => {
               <p className="counter_bottom_text">Students</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
