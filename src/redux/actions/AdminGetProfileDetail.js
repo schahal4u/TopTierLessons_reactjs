@@ -1,4 +1,3 @@
-// import axios from "axios";
 import { axiosInstance } from "../ApiInterceptor/Axios_Interceptors";
 import {
   GET_PROFILE_DETAIL_REQUEST,

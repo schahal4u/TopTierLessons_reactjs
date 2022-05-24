@@ -25,10 +25,3 @@ export const AdminProfileUpdateReducer = (state = initialState, action) => {
   }
 };
 
-// export const AdminProfileUpdateReset = (state = initialState, action) => {
-//   debugger;
-//   switch (action.type) {
-//     case UPDATE_RESPONSE_RESET:
-//       return { ...state, loading: false, updateProfileDetail: null };
-//   }
-// };

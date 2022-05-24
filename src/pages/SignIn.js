@@ -114,7 +114,7 @@ const SignIn = () => {
       <div className="signIn">
         <div className="container form_sign">
           <Form noValidate validated={validated} onSubmit={loginHandler}>
-            <div className="signin_form">
+            <div className="signIn_Form">
               <h1>Sign In</h1>
               <Form.Group as={Col} md="12" controlId="validationCustom01">
                 <Form.Control

@@ -22,10 +22,12 @@ const BasicInfoKids = () => {
     "image/eps",
     "image/webp",
   ];
-  const { imgResponse } = useSelector((state) => state.profilePicResponse);
+  const { imgResponse, imgError } = useSelector(
+    (state) => state.profilePicResponse
+  );
   const responseCode = imgResponse?.statusCode;
 
-  console.log("response is", responseCode);
+  console.log("response is", responseCode, "error", imgError);
 
   const defautFormData = {
     name: "",
@@ -42,13 +44,10 @@ const BasicInfoKids = () => {
   const [validated, setValidated] = useState(false);
   const [inp, setInp] = useState("");
   const [checked, setChecked] = useState(false);
+  const [photo, setPhoto] = useState();
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const viewPassword = () => {
-    setShow(!show);
   };
 
   const signUpHandler = (e) => {
@@ -71,6 +70,7 @@ const BasicInfoKids = () => {
 
   const photoUpload = (e) => {
     const incomingFile = e.target.files[0];
+    console.log("file ", incomingFile);
     const fileType = incomingFile && (incomingFile?.type).toLowerCase();
     const size = incomingFile && e.target.files[0].size;
     const validImageTypes = imageType;
@@ -90,17 +90,24 @@ const BasicInfoKids = () => {
     if (e.target.files.length !== 0) {
       let data = new FormData();
       data.append("file", e.target.files[0]);
-      dispatch(PhotoUploadAction(data));
+      setPhoto(data);
     }
   };
 
   const uploadLogo = () => {
     inputFile.current.click();
   };
+
+  useEffect(() => {
+    if (photo) {
+      dispatch(PhotoUploadAction(photo));
+    }
+  }, [photo]);
+
   return (
     <>
       <div className="signIn">
-        <div className="container form_sign">
+        <div className="container form_signup">
           <Form noValidate validated={validated} onSubmit={signUpHandler}>
             {/* <form onSubmit={signUpHandler}> */}
             <div className="personalinfo_form">
@@ -127,7 +134,7 @@ const BasicInfoKids = () => {
                 <Form.Control
                   type="text"
                   className="form-control signin_inp mt-3"
-                  placeholder="Name"
+                  placeholder="Child Name"
                   name="name"
                   value={formData.name}
                   onChange={handleFormData}
@@ -186,7 +193,7 @@ const BasicInfoKids = () => {
                   required
                 >
                   <option>Sport</option>
-                  <option value="1">Hocket</option>
+                  <option value="1">Hockey</option>
                   <option value="2">Cricket</option>
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
@@ -238,7 +245,12 @@ const BasicInfoKids = () => {
                 as={Col}
                 md="12"
                 controlId="validationCustom01"
-                style={{ width: "75%", marginLeft: "25px" }}
+                style={{
+                  width: "75%",
+                  marginLeft: "25px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
               >
                 <Form.Check
                   type="checkbox"

@@ -25,7 +25,7 @@ const BasicInfo = () => {
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
   const responseCode = imgResponse?.statusCode;
 
-//   console.log("response is", responseCode);
+  //   console.log("response is", responseCode);
 
   const defautFormData = {
     address: "",
@@ -68,7 +68,6 @@ const BasicInfo = () => {
   };
 
   const photoUpload = (e) => {
-    debugger;
     const incomingFile = e.target.files[0];
     const fileType = incomingFile && (incomingFile?.type).toLowerCase();
     const size = incomingFile && e.target.files[0].size;
@@ -82,7 +81,7 @@ const BasicInfo = () => {
 
     if (size > 3000000) {
       setInp("");
-      toast.warn("Please Select File Size Upto 3mb !");
+      toast.warn("Please Select File Size Upto 3mb!");
       return;
     }
 

@@ -10,21 +10,22 @@
 
 .form_sign {
   min-height: 100% !important;
-  padding-top: 50px !important;
+  padding-top: 70px !important;
 }
 
-.signin_form {
+.signIn_Form {
   min-height: 88% !important;
   background-color: #313131 !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   flex-direction: column !important;
-  max-width: 60% !important;
+  max-width: 45% !important;
   margin: 0px auto !important;
+  padding: 50px 0;
 }
 
-.signin_form h1 {
+.signIn_Form h1 {
   font-weight: 700;
   font-size: 56px;
   line-height: 70px;
@@ -120,4 +121,19 @@
   font-size: 16px;
   cursor: pointer;
   text-decoration: none !important;
+}
+@media (max-width: 1024px) {
+  .signIn_Form {
+    max-width: 65% !important;
+  }
+}
+@media (max-width: 768px) {
+  .signIn_Form {
+    max-width: 90% !important;
+    padding: 60px 0 !important;
+  }
+
+  .signIn_Form h1 {
+    font-size: 46px;
+  }
 }

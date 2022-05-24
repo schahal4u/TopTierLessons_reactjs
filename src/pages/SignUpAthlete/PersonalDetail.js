@@ -197,7 +197,12 @@ const PersonalDetail = () => {
                 as={Col}
                 md="12"
                 controlId="validationCustom01"
-                style={{ width: "75%", marginLeft: "25px" }}
+                style={{
+                  width: "75%",
+                  marginLeft: "25px",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
               >
                 <Form.Check
                   type="checkbox"
