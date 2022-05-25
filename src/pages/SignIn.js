@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./SignIn.css";
 import eye from "../assets/images/eye.png";
+import eyeClose from "../assets/images/eye-close.png";
+
 import facebook from "../assets/images/facebook.png";
 import apple from "../assets/images/apple.png";
 import google from "../assets/images/google.png";
@@ -151,12 +153,21 @@ const SignIn = () => {
                     Password is Required
                   </Form.Control.Feedback>
                 </Form.Group>
-                <img
-                  src={eye}
-                  alt="eye"
-                  className="eye"
-                  onClick={viewPassword}
-                />
+                {show ? (
+                  <img
+                    src={eyeClose}
+                    alt="eye"
+                    className="eye"
+                    onClick={viewPassword}
+                  />
+                ) : (
+                  <img
+                    src={eye}
+                    alt="eye"
+                    className="eye"
+                    onClick={viewPassword}
+                  />
+                )}
               </div>
               <button
                 type="submit"

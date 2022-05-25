@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import arrow from "../../assets/images/down.png";
 import avtar from "../../assets/images/profileIcon.png";
+import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
+import { GetAllSportsAction } from "../../redux/actions/GetAllSports";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 
 const BasicInfoKids = () => {
@@ -27,15 +29,19 @@ const BasicInfoKids = () => {
   );
   const responseCode = imgResponse?.statusCode;
 
-  console.log("response is", responseCode, "error", imgError);
+  const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
+
+  const { updateProfileDetail } = useSelector((state) => state.profileUpdate);
+  const response = updateProfileDetail?.statusCode;
+  console.log("response is", response);
 
   const defautFormData = {
-    name: "",
+    childName: "",
     address: "",
     age: "",
-    sport: "",
-    level: "",
-    logo: avtar,
+    sportId: "",
+    skillLevel: "",
+    profileImage: avtar,
   };
 
   const [formData, setFormData] = useState(defautFormData);
@@ -56,15 +62,19 @@ const BasicInfoKids = () => {
     // setLoading(true);
     setValidated(true);
     if (
-      formData.name === "" ||
-      formData.password === "" ||
-      formData.age === ""
+      formData.childName === "" ||
+      formData.address === "" ||
+      formData.age === "" ||
+      formData.sportId === "" ||
+      formData.skillLevel === "" ||
+      formData.profileImage === "" ||
+      checked === false
     ) {
-      // setLoading(false);
-      setFormData({ ...formData, name: "", password: "", age: "" });
+      setLoading(false);
+      toast.warn("Please Fill All the fields");
     } else {
-      // setLoading(true);
-      //   dispatch(LessonsRegisterAction(formData));
+      setLoading(true);
+      dispatch(AdminProfileUpdateAction(formData));
     }
   };
 
@@ -104,6 +114,27 @@ const BasicInfoKids = () => {
     }
   }, [photo]);
 
+  useEffect(() => {
+    if (responseCode == 200) {
+      setFormData({ ...formData, profileImage: imgResponse?.data?.url });
+    }
+  }, [imgResponse]);
+
+  useEffect(() => {
+    let obj = {
+      page: 1,
+      pageSize: 100,
+    };
+
+    dispatch(GetAllSportsAction(obj));
+  }, []);
+
+  useEffect(() => {
+    if (response == 200) {
+      navigate("/");
+    }
+  }, [updateProfileDetail]);
+
   return (
     <>
       <div className="signIn">
@@ -113,7 +144,7 @@ const BasicInfoKids = () => {
             <div className="personalinfo_form">
               <h1>Basic Detail</h1>
               <img
-                src={formData.logo || avtar}
+                src={formData.profileImage || avtar}
                 style={{
                   borderRadius: "50%",
                   width: "120px",
@@ -135,8 +166,8 @@ const BasicInfoKids = () => {
                   type="text"
                   className="form-control signin_inp mt-3"
                   placeholder="Child Name"
-                  name="name"
-                  value={formData.name}
+                  name="childName"
+                  value={formData.childName}
                   onChange={handleFormData}
                   required
                 />
@@ -187,14 +218,20 @@ const BasicInfoKids = () => {
                 <Form.Select
                   aria-label="Default select example"
                   className="form-control form-select select_box mt-3"
-                  value={formData.type}
+                  value={formData.sportId}
                   onChange={handleFormData}
-                  name="type"
+                  name="sportId"
                   required
                 >
-                  <option>Sport</option>
-                  <option value="1">Hockey</option>
-                  <option value="2">Cricket</option>
+                  <option value="null">Select Sport</option>
+                  {getAllSports &&
+                    getAllSports?.data.map((item, i) => {
+                      return (
+                        <option key={i} value={item.sportId}>
+                          {item.sportName}
+                        </option>
+                      );
+                    })}
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
                 <Form.Control.Feedback
@@ -209,15 +246,15 @@ const BasicInfoKids = () => {
                 <Form.Select
                   aria-label="Default select example"
                   className="form-control form-select select_box mt-3"
-                  value={formData.level}
+                  value={formData.skillLevel}
                   onChange={handleFormData}
-                  name="level"
+                  name="skillLevel"
                   required
                 >
                   <option>Skill Level</option>
                   <option value="1">Begginer</option>
-                  <option value="1">Intermidate</option>
-                  <option value="2">Expert</option>
+                  <option value="2">Intermidate</option>
+                  <option value="3">Expert</option>
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
                 <Form.Control.Feedback

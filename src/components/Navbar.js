@@ -57,6 +57,11 @@ const Navbar = () => {
     navigate("/signIn");
   };
 
+  const coachHandler = () => {
+    dispatch(emptyUpdateProfileResponse());
+    navigate("/coachsignup");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg  bg-background">
@@ -136,14 +141,16 @@ const Navbar = () => {
                       >
                         <a className="dropdown-item border_btn">Lessons</a>
                       </Link>
-                      <Link
-                        to="/coachsignup"
-                        style={{ textDecoration: "none" }}
+                      {/* <Link */}
+                      {/* // to="/coachsignup" style={{ textDecoration: "none" }} */}
+                      {/* > */}
+                      <a
+                        className="dropdown-item border_btnn"
+                        onClick={coachHandler}
                       >
-                        <a className="dropdown-item border_btnn">
-                          Coaching <br /> Opportunities
-                        </a>
-                      </Link>
+                        Coaching <br /> Opportunities
+                      </a>
+                      {/* </Link> */}
                     </div>
                     {/* <ul
                       className="dropdown-menu dropdown-menu-dark menu_items"

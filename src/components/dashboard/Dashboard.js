@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
 import { emptyPasswordResponse } from "../../redux/actions/ChangePassword";
+import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
 
 const Dashboard = () => {
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
@@ -121,6 +122,10 @@ const Dashboard = () => {
     setShow({ ...defaultShow, password: true });
     dispatch(emptyPasswordResponse());
   };
+  const basicDetailHandler = () => {
+    setShow({ ...defaultShow, basicDetail: true });
+    dispatch(emptyUpdateProfileResponse());
+  };
 
   return (
     <>
@@ -197,7 +202,7 @@ const Dashboard = () => {
                 <a
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
-                  onClick={() => setShow({ ...defaultShow, basicDetail: true })}
+                  onClick={basicDetailHandler}
                   style={{ color: "#e38226" }}
                 >
                   <span>Basic Details</span>

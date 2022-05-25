@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import arrow from "../../assets/images/down.png";
 import avtar from "../../assets/images/profileIcon.png";
+import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 
 const UploadPhoto = () => {
@@ -27,10 +28,13 @@ const UploadPhoto = () => {
 
   //   console.log("response is", responseCode);
 
+  const { updateProfileDetail } = useSelector((state) => state.profileUpdate);
+  const response = updateProfileDetail?.statusCode;
+
   const defautFormData = {
     address: "",
     bio: "",
-    logo: avtar,
+    profileImage: avtar,
   };
 
   const [formData, setFormData] = useState(defautFormData);
@@ -43,30 +47,26 @@ const UploadPhoto = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const viewPassword = () => {
-    setShow(!show);
-  };
-
   const signUpHandler = (e) => {
     console.log("form data", formData);
     e.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     setValidated(true);
     if (
-      formData.name === "" ||
-      formData.password === "" ||
-      formData.age === ""
+      formData.address === "" ||
+      formData.bio === "" ||
+      formData.profileImage === ""
     ) {
-      // setLoading(false);
-      setFormData({ ...formData, name: "", password: "", age: "" });
+      setLoading(false);
+      toast.warn("Please Fill All the fields");
     } else {
-      // setLoading(true);
-      //   dispatch(LessonsRegisterAction(formData));
+      setLoading(true);
+      dispatch(AdminProfileUpdateAction(formData));
     }
   };
 
   const photoUpload = (e) => {
-    debugger;
+    // debugger;
     const incomingFile = e.target.files[0];
     const fileType = incomingFile && (incomingFile?.type).toLowerCase();
     const size = incomingFile && e.target.files[0].size;
@@ -94,6 +94,18 @@ const UploadPhoto = () => {
   const uploadLogo = () => {
     inputFile.current.click();
   };
+
+  useEffect(() => {
+    if (responseCode == 200) {
+      setFormData({ ...formData, profileImage: imgResponse?.data?.url });
+    }
+  }, [imgResponse]);
+
+  useEffect(() => {
+    if (response == 200) {
+      navigate("/");
+    }
+  }, [updateProfileDetail]);
   return (
     <>
       <div className="signIn">
@@ -103,7 +115,7 @@ const UploadPhoto = () => {
             <div className="basic_upload_form">
               <h1>Basic Detail</h1>
               <img
-                src={formData.logo || avtar}
+                src={formData.profileImage || avtar}
                 style={{
                   borderRadius: "50%",
                   width: "120px",

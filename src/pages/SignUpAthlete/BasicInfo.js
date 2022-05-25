@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import arrow from "../../assets/images/down.png";
 import avtar from "../../assets/images/profileIcon.png";
+import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
+import { GetAllSportsAction } from "../../redux/actions/GetAllSports";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 
 const BasicInfo = () => {
@@ -25,45 +27,45 @@ const BasicInfo = () => {
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
   const responseCode = imgResponse?.statusCode;
 
-  //   console.log("response is", responseCode);
+  const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
+
+  const { updateProfileDetail } = useSelector((state) => state.profileUpdate);
+  const response = updateProfileDetail?.statusCode;
+  // console.log("response is", response);
 
   const defautFormData = {
     address: "",
     age: "",
-    sport: "",
-    level: "",
-    logo: avtar,
+    sportId: "",
+    skillLevel: "",
+    profileImage: avtar,
   };
 
   const [formData, setFormData] = useState(defautFormData);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
-  const [inp, setInp] = useState("");
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const viewPassword = () => {
-    setShow(!show);
-  };
-
   const signUpHandler = (e) => {
     console.log("form data", formData);
     e.preventDefault();
-    // setLoading(true);
     setValidated(true);
     if (
-      formData.name === "" ||
-      formData.password === "" ||
-      formData.age === ""
+      formData.address === "" ||
+      formData.age === "" ||
+      formData.sportId === "" ||
+      formData.skillLevel === "" ||
+      formData.profileImage === ""
     ) {
-      // setLoading(false);
-      setFormData({ ...formData, name: "", password: "", age: "" });
+      setLoading(false);
+      toast.warn("Please Fill All the fields");
     } else {
-      // setLoading(true);
-      //   dispatch(LessonsRegisterAction(formData));
+      setLoading(true);
+      dispatch(AdminProfileUpdateAction(formData));
     }
   };
 
@@ -74,13 +76,11 @@ const BasicInfo = () => {
     const validImageTypes = imageType;
 
     if (incomingFile && !validImageTypes.includes(fileType)) {
-      setInp("");
       toast.warn("Please Select the Supported Image Format !");
       return;
     }
 
     if (size > 3000000) {
-      setInp("");
       toast.warn("Please Select File Size Upto 3mb!");
       return;
     }
@@ -96,6 +96,27 @@ const BasicInfo = () => {
     inputFile.current.click();
   };
 
+  useEffect(() => {
+    if (responseCode == 200) {
+      setFormData({ ...formData, profileImage: imgResponse?.data?.url });
+    }
+  }, [imgResponse]);
+
+  useEffect(() => {
+    let obj = {
+      page: 1,
+      pageSize: 100,
+    };
+
+    dispatch(GetAllSportsAction(obj));
+  }, []);
+
+  useEffect(() => {
+    if (response == 200) {
+      navigate("/");
+    }
+  }, [updateProfileDetail]);
+
   return (
     <>
       <div className="signIn">
@@ -105,7 +126,7 @@ const BasicInfo = () => {
             <div className="basic_form">
               <h1>Basic Detail</h1>
               <img
-                src={formData.logo || avtar}
+                src={formData.profileImage || avtar}
                 style={{
                   borderRadius: "50%",
                   width: "120px",
@@ -162,14 +183,20 @@ const BasicInfo = () => {
                 <Form.Select
                   aria-label="Default select example"
                   className="form-control form-select select_box mt-3"
-                  value={formData.type}
+                  value={formData.sportId}
                   onChange={handleFormData}
-                  name="type"
+                  name="sportId"
                   required
                 >
-                  <option>Sport</option>
-                  <option value="1">Hocket</option>
-                  <option value="2">Cricket</option>
+                  <option value="null">Select Sport</option>
+                  {getAllSports &&
+                    getAllSports?.data.map((item, i) => {
+                      return (
+                        <option key={i} value={item.sportId}>
+                          {item.sportName}
+                        </option>
+                      );
+                    })}
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
                 <Form.Control.Feedback
@@ -184,15 +211,15 @@ const BasicInfo = () => {
                 <Form.Select
                   aria-label="Default select example"
                   className="form-control form-select select_box mt-3"
-                  value={formData.level}
+                  value={formData.skillLevel}
                   onChange={handleFormData}
-                  name="level"
+                  name="skillLevel"
                   required
                 >
                   <option>Skill Level</option>
                   <option value="1">Begginer</option>
-                  <option value="1">Intermidate</option>
-                  <option value="2">Expert</option>
+                  <option value="2">Intermidate</option>
+                  <option value="3">Expert</option>
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
                 <Form.Control.Feedback

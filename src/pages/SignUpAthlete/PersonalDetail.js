@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import eye from "../../assets/images/eye.png";
+import eyeClose from "../../assets/images/eye-close.png";
 import "./AthleteSignUp.css";
 import arrow from "../../assets/images/down.png";
+import { LessonsRegisterAction } from "../../redux/actions/LessonsRegisterAction";
+import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
 
 const PersonalDetail = () => {
   const dispatch = useDispatch();
@@ -13,14 +16,14 @@ const PersonalDetail = () => {
 
   const { lessonInfo, error } = useSelector((state) => state.lessonSignUp);
   const response = lessonInfo?.statusCode;
-  // console.log("response is", lessonInfo, error);
+  console.log("response is", lessonInfo);
 
   const defautFormData = {
     name: "",
     email: "",
     phoneNumber: "",
     password: "",
-    type: "",
+    userType: "",
   };
 
   const [formData, setFormData] = useState(defautFormData);
@@ -40,37 +43,41 @@ const PersonalDetail = () => {
   const signUpHandler = (e) => {
     console.log("form data", formData);
     e.preventDefault();
-    // setLoading(true);
     setValidated(true);
     if (
       formData.name === "" ||
       formData.password === "" ||
       formData.email === "" ||
       formData.phoneNumber === "" ||
-      formData.type === "" ||
+      formData.userType === "" ||
       checked === false
     ) {
       toast.warn("Please Fill All the fields");
-    } else if (formData.type == "1") {
+    } else {
+      setLoading(true);
+      dispatch(LessonsRegisterAction(formData));
+      dispatch(emptyUpdateProfileResponse());
+    }
+  };
+
+  const responseHandler = () => {
+    if (response == 200 && formData.userType == "1") {
+      setLoading(false);
+      toast.success("Registered Successfully");
       navigate("/basicinfo");
-    } else if (formData.type == "2") {
+    }
+    if (response == 200 && formData.userType == "2") {
+      setLoading(false);
+      toast.success("Registered Successfully");
       navigate("/basicinfokids");
     }
   };
 
-  // const responseHandler = () => {
-  //   if (response == 200) {
-  //     setLoading(false);
-  //     toast.success("Registered Successfully");
-  //     navigate("/signIn");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (lessonInfo) {
-  //     responseHandler();
-  //   }
-  // }, [lessonInfo]);
+  useEffect(() => {
+    if (lessonInfo) {
+      responseHandler();
+    }
+  }, [lessonInfo]);
 
   return (
     <>
@@ -117,19 +124,22 @@ const PersonalDetail = () => {
               </Form.Group>
               <Form.Group as={Col} md="12" controlId="validationCustom01">
                 <Form.Control
-                  type="number"
+                  type="text"
                   className="form-control signin_inp mt-3"
                   placeholder="Mobile Number"
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleFormData}
                   required
+                  maxLength={10}
+                  pattern="^([0|\+[0-9]{1,5})?([0-9][0-9]{9})$"
+                  inputMode="numeric"
                 />
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
                 >
-                  Mobile Number is Required
+                  Mobile Number is Required & of Min 10 Character
                 </Form.Control.Feedback>
               </Form.Group>
               <div className="eyeHandler">
@@ -150,21 +160,30 @@ const PersonalDetail = () => {
                     Password is Required
                   </Form.Control.Feedback>
                 </Form.Group>
-                <img
-                  src={eye}
-                  alt="eye"
-                  className="eye"
-                  onClick={viewPassword}
-                />
+                {show ? (
+                  <img
+                    src={eyeClose}
+                    alt="eye"
+                    className="eye"
+                    onClick={viewPassword}
+                  />
+                ) : (
+                  <img
+                    src={eye}
+                    alt="eye"
+                    className="eye"
+                    onClick={viewPassword}
+                  />
+                )}
               </div>
               <Form.Group as={Col} md="12" controlId="validationCustom01">
                 <Form.Select
                   aria-label="Default select example"
                   placeholder="Password"
                   className="form-control form-select select_box mt-3"
-                  value={formData.type}
+                  value={formData.userType}
                   onChange={handleFormData}
-                  name="type"
+                  name="userType"
                   required
                 >
                   <option>I am creating account for</option>

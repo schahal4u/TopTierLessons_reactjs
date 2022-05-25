@@ -3,8 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import eye from "../../assets/images/eye.png";
+import eyeClose from "../../assets/images/eye-close.png";
+
 import { LessonsRegisterAction } from "../../redux/actions/LessonsRegisterAction";
 import "./LessonSignUp.css";
+import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
 
 const PersonalInfo = () => {
   const dispatch = useDispatch();
@@ -47,6 +50,7 @@ const PersonalInfo = () => {
     } else {
       setLoading(true);
       dispatch(LessonsRegisterAction(formData));
+      dispatch(emptyUpdateProfileResponse());
     }
   };
 
@@ -54,7 +58,7 @@ const PersonalInfo = () => {
     if (response == 200) {
       setLoading(false);
       toast.success("Registered Successfully");
-      navigate("/signIn");
+      navigate("/signupuploadphoto");
     }
   };
 
@@ -100,12 +104,21 @@ const PersonalInfo = () => {
                   onChange={handleFormData}
                   required
                 />
-                <img
-                  src={eye}
-                  alt="eye"
-                  className="eye"
-                  onClick={viewPassword}
-                />
+                {show ? (
+                  <img
+                    src={eyeClose}
+                    alt="eye"
+                    className="eye"
+                    onClick={viewPassword}
+                  />
+                ) : (
+                  <img
+                    src={eye}
+                    alt="eye"
+                    className="eye"
+                    onClick={viewPassword}
+                  />
+                )}
               </div>
               <button
                 type="submit"

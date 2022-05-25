@@ -9,7 +9,7 @@ import { AdminProfileUpdateReducer } from "./reducers/AdminProfileUpdateReducer"
 import { ChangePasswordReducer } from "./reducers/ChangePassword";
 import { GetAllSportsReducer } from "./reducers/GetAllSports";
 import { LessonsRegisterReducer } from "./reducers/LessonsRegisterReducer";
-import { PhotoUploadReducer } from "./reducers/UploadPhoto";
+import { PhotoUploadReducer, RegisterPhotoUploadReducer } from "./reducers/UploadPhoto";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
@@ -20,6 +20,7 @@ const rootReducer = combineReducers({
   profileUpdate: AdminProfileUpdateReducer,
   changePassResponse: ChangePasswordReducer,
   profilePicResponse: PhotoUploadReducer,
+  registerPicResponse: RegisterPhotoUploadReducer,
   getAllSportsResponse: GetAllSportsReducer,
 });
 
