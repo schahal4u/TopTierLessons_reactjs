@@ -6,7 +6,6 @@ import {
 
 const initialState = {
   lessonInfo: undefined,
-  error: undefined,
 };
 
 export const LessonsRegisterReducer = (state = initialState, action) => {
@@ -16,7 +15,7 @@ export const LessonsRegisterReducer = (state = initialState, action) => {
     case LESSONS_REGISTER_SUCCESS:
       return { ...state, loading: false, lessonInfo: action.payload };
     case LESSONS_REGISTER_FAIL:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, lessonInfo: action.payload };
     default:
       return state;
   }

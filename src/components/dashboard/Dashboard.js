@@ -54,6 +54,7 @@ const Dashboard = () => {
   const [preview, setPreview] = useState();
   const [selectedFile, setSelectedFile] = useState();
   const [photo, setPhoto] = useState();
+  const [open, setOpen] = useState(false);
 
   const photoUpload = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -127,6 +128,10 @@ const Dashboard = () => {
     dispatch(emptyUpdateProfileResponse());
   };
 
+  const sidebarHandler = () => {
+    setOpen(!open);
+  };
+
   return (
     <>
       <div className="dashboard">
@@ -141,7 +146,7 @@ const Dashboard = () => {
             <div
               id="sidebar"
               class="collapse collapse-horizontal show border-end"
-              style={{ height: "724px" }}
+              style={{ height: "756px" }}
             >
               <div
                 id="sidebar-nav"
@@ -154,12 +159,7 @@ const Dashboard = () => {
                   {/* <img src={logo} alt="icon" /> */}
                   <img
                     src={formData.logo || logo}
-                    style={{
-                      borderRadius: "50%",
-                      width: "75px",
-                      height: "75px",
-                      cursor: "pointer",
-                    }}
+                    className="logohandler"
                     onClick={uploadLogo}
                   />
                   <input
@@ -257,14 +257,19 @@ const Dashboard = () => {
             </div>
           </div>
           <main class="col ps-md-2 pt-2 right_sidebar">
-            {/* <a
-              
+            <a
               data-bs-target="#sidebar"
               data-bs-toggle="collapse"
-              class="border rounded-3 p-1 text-decoration-none"
+              class="p-1 text-decoration-none"
+              style={{ cursor: "pointer" }}
+              onClick={sidebarHandler}
             >
-              <i class="fa fa-list bi-lg py-2 p-1"></i>
-            </a> */}
+              {open ? (
+                <i class="fa fa-chevron-right bi-lg py-2 p-1"></i>
+              ) : (
+                <i class="fa fa-chevron-left bi-lg py-2 p-1"></i>
+              )}
+            </a>
             <div class="page-header pt-3">
               {show.basicDetail && <BasicDetail />}
               {show.videoLesson && <VideoLesson />}

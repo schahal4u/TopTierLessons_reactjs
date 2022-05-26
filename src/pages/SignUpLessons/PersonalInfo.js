@@ -13,9 +13,9 @@ const PersonalInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { lessonInfo, error } = useSelector((state) => state.lessonSignUp);
+  const { lessonInfo } = useSelector((state) => state.lessonSignUp);
   const response = lessonInfo?.statusCode;
-  // console.log("response is", lessonInfo, error);
+  // console.log("response is", lessonInfo);
 
   const defautFormData = {
     name: "",
@@ -59,6 +59,10 @@ const PersonalInfo = () => {
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/signupuploadphoto");
+    }
+    if (response == 422) {
+      setLoading(false);
+      toast.warn("Email is already Exists !");
     }
   };
 

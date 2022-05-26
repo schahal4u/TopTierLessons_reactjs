@@ -191,12 +191,7 @@ const Navbar = () => {
                   >
                     <img
                       src={formData.logo || profileLogo}
-                      style={{
-                        borderRadius: "50%",
-                        width: "75px",
-                        height: "75px",
-                        cursor: "pointer",
-                      }}
+                      className="logohandler"
                     />
                   </div>
                   <div

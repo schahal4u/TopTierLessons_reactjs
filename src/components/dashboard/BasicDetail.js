@@ -19,7 +19,7 @@ const BasicDetail = () => {
     name: profileDetail?.data?.name ? profileDetail?.data.name : "",
     email: profileDetail?.data?.email ? profileDetail?.data.email : "",
     address: profileDetail?.data?.address ? profileDetail?.data.address : "",
-    role: "",
+    role: profileDetail?.data?.userType ? profileDetail?.data.userType : "",
     bio: profileDetail?.data?.bio ? profileDetail?.data.bio : "",
   };
   const [formData, setFormData] = useState(defautFormData);
@@ -47,7 +47,7 @@ const BasicDetail = () => {
         name: profileDetail?.data?.name,
         email: profileDetail?.data?.email,
         address: profileDetail?.data?.address,
-        role: profileDetail?.data?.role,
+        role: profileDetail?.data?.userType,
         bio: profileDetail?.data?.bio,
       });
     }
@@ -85,7 +85,8 @@ const BasicDetail = () => {
                 placeholder="Email"
                 name="email"
                 value={formData.email}
-                onChange={handleFormData}
+                readOnly
+                // onChange={handleFormData}
               />
               <Form.Control.Feedback type="invalid" className="error_text">
                 Email is Required
@@ -108,12 +109,13 @@ const BasicDetail = () => {
             <Form.Group as={Col} md="10" controlId="validationCustom04">
               <Form.Control
                 required
+                readOnly
                 type="text"
                 className="form-control profile_inp mt-4"
                 placeholder="Role"
                 name="role"
                 value={formData.role}
-                onChange={handleFormData}
+                // onChange={handleFormData}
               />
               <Form.Control.Feedback type="invalid" className="error_text">
                 Role is Required

@@ -77,7 +77,7 @@
 }
 @media (max-width: 768px) {
   .contact_header h1 {
-    padding-top: 200px;
+    padding-top: 100px;
     font-size: 38px !important;
     text-align: center;
     font-weight: 600;
@@ -85,16 +85,19 @@
     line-height: 52px;
     text-transform: uppercase;
   }
+  .bg_forms{
+    display: none;
+  }
 }
 @media (max-width: 1024px) {
   .contact_header h1 {
-    padding-top: 200px;
+    padding-top: 100px;
     font-size: 38px;
   }
 }
 @media (max-width: 1440px) {
   .contact_header h1 {
-    padding-top: 200px;
+    padding-top: 100px;
     font-size: 54px;
     padding-bottom: 80px;
   }

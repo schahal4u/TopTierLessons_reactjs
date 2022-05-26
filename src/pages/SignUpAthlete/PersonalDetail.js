@@ -14,9 +14,9 @@ const PersonalDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { lessonInfo, error } = useSelector((state) => state.lessonSignUp);
+  const { lessonInfo } = useSelector((state) => state.lessonSignUp);
   const response = lessonInfo?.statusCode;
-  console.log("response is", lessonInfo);
+  // console.log("response is", lessonInfo);
 
   const defautFormData = {
     name: "",
@@ -61,15 +61,19 @@ const PersonalDetail = () => {
   };
 
   const responseHandler = () => {
-    if (response == 200 && formData.userType == "1") {
+    if (response == 200 && formData.userType == "3") {
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/basicinfo");
     }
-    if (response == 200 && formData.userType == "2") {
+    if (response == 200 && formData.userType == "4") {
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/basicinfokids");
+    }
+    if (response == 422) {
+      setLoading(false);
+      toast.warn("Email is already Exists !");
     }
   };
 
@@ -187,8 +191,8 @@ const PersonalDetail = () => {
                   required
                 >
                   <option>I am creating account for</option>
-                  <option value="1">Myself</option>
-                  <option value="2">Kids</option>
+                  <option value="3">Myself</option>
+                  <option value="4">Kids</option>
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
                 <Form.Control.Feedback

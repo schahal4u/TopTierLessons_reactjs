@@ -89,6 +89,14 @@ element.style {
 .align_btn {
   margin-left: 250px !important;
 }
+
+.logohandler {
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+}
+
 @media (max-width: 1800px) {
   .align_navbar {
     margin-left: 40% !important;
@@ -122,6 +130,10 @@ element.style {
 @media (max-width: 768px) {
   .align_btn {
     margin-left: 0% !important;
+  }
+  .logohandler {
+    width: 50px;
+    height: 50px;
   }
 }
 @media (max-width: 425px) {
