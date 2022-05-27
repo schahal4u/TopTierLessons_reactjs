@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { ChangePasswordAction } from "../../redux/actions/ChangePassword";
 const ChangePassword = () => {
-  const { passwordResponse, passwordError } = useSelector(
+  const { passwordResponse } = useSelector(
     (state) => state.changePassResponse
   );
   const response = passwordResponse?.statusCode;
 
-  console.log("password response", passwordResponse, passwordError);
+  console.log("password response", passwordResponse);
 
   const dispatch = useDispatch();
   const defautFormData = {
@@ -42,6 +42,9 @@ const ChangePassword = () => {
   const responseHandler = () => {
     if (response == 200) {
       toast.success("Password Changed Successfully");
+    }
+    if (response == 400) {
+      toast.warn("Old Password is Not Correct !");
     }
   };
 

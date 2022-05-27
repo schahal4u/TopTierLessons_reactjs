@@ -55,6 +55,12 @@
   border: 3px solid rgba(0, 0, 0, 0.8);
 } */
 
+.carousel-control-prev,
+.carousel-control-next {
+  margin-bottom: 60px !important;
+}
+
+
 @media (max-width: 420px) {
   .carousel-control-prev,
   .carousel-control-next {
@@ -80,7 +86,7 @@
   color: #ba6e3f;
 }
 .carousel-control-next i {
-  margin-left: 200px;
+  margin-left: 170px !important;
   color: #ba6e3f;
 }
 

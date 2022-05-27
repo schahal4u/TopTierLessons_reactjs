@@ -3,6 +3,7 @@ import {
   LESSONS_REGISTER_REQUEST,
   LESSONS_REGISTER_SUCCESS,
   LESSONS_REGISTER_FAIL,
+  LESSONS_REGISTER_RESET
 } from "../types.js";
 
 // user login
@@ -30,3 +31,7 @@ export const LessonsRegisterAction = (formData) => async (dispatch) => {
     });
   }
 };
+
+export const emptyRegisterResponse = () => ({
+  type: LESSONS_REGISTER_RESET,
+});

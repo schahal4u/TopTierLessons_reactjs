@@ -8,6 +8,7 @@ import eyeClose from "../../assets/images/eye-close.png";
 import { LessonsRegisterAction } from "../../redux/actions/LessonsRegisterAction";
 import "./LessonSignUp.css";
 import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
+import { emptyProfileImageResponse } from "../../redux/actions/UploadPhoto";
 
 const PersonalInfo = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const PersonalInfo = () => {
 
   const responseHandler = () => {
     if (response == 200) {
+      dispatch(emptyProfileImageResponse())
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/signupuploadphoto");
@@ -109,15 +111,16 @@ const PersonalInfo = () => {
                   required
                 />
                 {show ? (
-                  <img
-                    src={eyeClose}
+               
+                     <img
+                    src={eye}
                     alt="eye"
                     className="eye"
                     onClick={viewPassword}
                   />
                 ) : (
                   <img
-                    src={eye}
+                    src={eyeClose}
                     alt="eye"
                     className="eye"
                     onClick={viewPassword}
@@ -126,7 +129,7 @@ const PersonalInfo = () => {
               </div>
               <button
                 type="submit"
-                className="btn btn-primary signin_btn mt-4 mb-4"
+                className="btn btn-primary signUp_Btn mt-4 mb-4"
               >
                 {loading && (
                   <span

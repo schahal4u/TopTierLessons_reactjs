@@ -13,6 +13,7 @@ import {
   adminLoginReset,
   socialLoginReset,
 } from "../redux/actions/AdminLoginAction";
+import { emptyRegisterResponse } from "../redux/actions/LessonsRegisterAction";
 const Navbar = () => {
   const navigate = useNavigate();
   const { adminInfo, error } = useSelector((state) => state.adminLogin);
@@ -59,6 +60,7 @@ const Navbar = () => {
 
   const coachHandler = () => {
     dispatch(emptyUpdateProfileResponse());
+    dispatch(emptyRegisterResponse())
     navigate("/coachsignup");
   };
 

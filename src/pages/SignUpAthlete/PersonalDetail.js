@@ -9,6 +9,7 @@ import "./AthleteSignUp.css";
 import arrow from "../../assets/images/down.png";
 import { LessonsRegisterAction } from "../../redux/actions/LessonsRegisterAction";
 import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
+import { emptyProfileImageResponse } from "../../redux/actions/UploadPhoto";
 
 const PersonalDetail = () => {
   const dispatch = useDispatch();
@@ -62,11 +63,13 @@ const PersonalDetail = () => {
 
   const responseHandler = () => {
     if (response == 200 && formData.userType == "3") {
+      dispatch(emptyProfileImageResponse())
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/basicinfo");
     }
     if (response == 200 && formData.userType == "4") {
+      dispatch(emptyProfileImageResponse())
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/basicinfokids");
@@ -165,15 +168,16 @@ const PersonalDetail = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
                 {show ? (
-                  <img
-                    src={eyeClose}
+                
+                   <img
+                    src={eye}
                     alt="eye"
                     className="eye"
                     onClick={viewPassword}
                   />
                 ) : (
                   <img
-                    src={eye}
+                    src={eyeClose}
                     alt="eye"
                     className="eye"
                     onClick={viewPassword}

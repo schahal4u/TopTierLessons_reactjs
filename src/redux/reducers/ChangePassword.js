@@ -7,7 +7,6 @@ import {
 
 const initialState = {
   passwordResponse: undefined,
-  passwordError: undefined,
 };
 
 export const ChangePasswordReducer = (state = initialState, action) => {
@@ -17,7 +16,7 @@ export const ChangePasswordReducer = (state = initialState, action) => {
     case CHANGE_PASSWORD_SUCCESS:
       return { ...state, loading: false, passwordResponse: action.payload };
     case CHANGE_PASSWORD_FAIL:
-      return { ...state, loading: false, passwordError: action.payload };
+      return { ...state, loading: false, passwordResponse: action.payload };
     case CHANGE_PASSWORD_RESET:
       return { ...state, loading: false, passwordResponse: null };
     default:

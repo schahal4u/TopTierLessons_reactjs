@@ -154,15 +154,16 @@ const SignIn = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
                 {show ? (
-                  <img
-                    src={eyeClose}
+                
+                   <img
+                    src={eye}
                     alt="eye"
                     className="eye"
                     onClick={viewPassword}
                   />
                 ) : (
                   <img
-                    src={eye}
+                    src={eyeClose}
                     alt="eye"
                     className="eye"
                     onClick={viewPassword}
