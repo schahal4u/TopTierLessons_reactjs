@@ -47,7 +47,7 @@ const PersonalInfo = () => {
       formData.email === ""
     ) {
       setLoading(false);
-      setFormData({ ...formData, name: "", password: "", email: "" });
+      toast.warn("Please Fill All the fields");
     } else {
       setLoading(true);
       dispatch(LessonsRegisterAction(formData));

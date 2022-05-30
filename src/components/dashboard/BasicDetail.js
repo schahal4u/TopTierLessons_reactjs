@@ -36,8 +36,24 @@ const BasicDetail = () => {
 
   const profileHandler = (e) => {
     e.preventDefault();
-    // setValidated(true);
-    dispatch(AdminProfileUpdateAction(formData));
+    setValidated(true);
+    if (
+      formData.name === "" ||
+      formData.address === "" ||
+      formData.bio === ""
+    ) {
+      toast.warn("Please Fill All the fields");
+    } else {
+      setLoading(true);
+    
+      let obj = [formData]
+      let userData = {
+        users: obj,
+      };
+      // obj.push(userData);
+      console.log("daata--------------->", userData );
+      dispatch(AdminProfileUpdateAction(userData));
+    }
   };
 
   useEffect(() => {
@@ -54,6 +70,7 @@ const BasicDetail = () => {
   }, [profileDetail]);
   useEffect(() => {
     if (updateProfileDetail?.updateProfileDetail != null) {
+      setLoading(false);
       toast.success("Profile Updated Successfully");
     }
   }, [updateProfileDetail]);
@@ -128,7 +145,7 @@ const BasicDetail = () => {
                 required
                 type="text"
                 className="form-control profile_inp mt-4"
-                placeholder="Bio"
+                placeholder="Sell Yourself! Tell parents who you are, your major and athletic experiences and accomplishments. If you have taught lessons before or have any other cool Skills add it in! "
                 name="bio"
                 value={formData.bio}
                 onChange={handleFormData}

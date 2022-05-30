@@ -62,7 +62,7 @@ const ChangePassword = () => {
             <Form.Group as={Col} md="10" controlId="validationCustom01">
               <Form.Control
                 required
-                type="text"
+                type="password"
                 className="form-control profile_inp "
                 placeholder="Current Password"
                 name="oldPassword"
@@ -76,7 +76,7 @@ const ChangePassword = () => {
             <Form.Group as={Col} md="10" controlId="validationCustom02">
               <Form.Control
                 required
-                type="text"
+                type="password"
                 className="form-control profile_inp mt-4"
                 placeholder="Create New Password"
                 name="newPassword"
@@ -90,7 +90,7 @@ const ChangePassword = () => {
             <Form.Group as={Col} md="10" controlId="validationCustom03">
               <Form.Control
                 required
-                type="text"
+                type="password"
                 className="form-control profile_inp mt-4"
                 placeholder="Confirm New Password"
                 name="confirmpassword"

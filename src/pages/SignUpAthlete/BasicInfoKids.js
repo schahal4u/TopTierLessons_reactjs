@@ -35,16 +35,23 @@ const BasicInfoKids = () => {
   const response = updateProfileDetail?.statusCode;
   console.log("response is", response);
 
-  const defautFormData = {
-    childName: "",
-    address: "",
-    age: "",
-    sportId: "",
-    skillLevel: "",
-    profileImage: avtar,
-  };
+  const defautFormData = [
+    {
+      childName: "",
+      address: "",
+      age: "",
+      sportId: "",
+      skillLevel: "",
+      // profileImage: avtar,
+    },
+  ];
+
+  const logoData = {
+      profileImage: avtar,
+  }
 
   const [formData, setFormData] = useState(defautFormData);
+  const [image, setImage] = useState(logoData);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
@@ -52,8 +59,11 @@ const BasicInfoKids = () => {
   const [checked, setChecked] = useState(false);
   const [photo, setPhoto] = useState();
 
-  const handleFormData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleFormData = (e, i) => {
+    // setFormData({ ...formData, [e.target.name]: e.target.value });
+    let newFormValues = [...formData];
+    newFormValues[i][e.target.name] = e.target.value;
+    setFormData(newFormValues);
   };
 
   const signUpHandler = (e) => {
@@ -67,14 +77,18 @@ const BasicInfoKids = () => {
       formData.age === "" ||
       formData.sportId === "" ||
       formData.skillLevel === "" ||
-      formData.profileImage === "" ||
+      // formData.profileImage === "" ||
       checked === false
     ) {
       setLoading(false);
       toast.warn("Please Fill All the fields");
     } else {
       setLoading(true);
-      dispatch(AdminProfileUpdateAction(formData));
+
+      let user ={
+        users : formData
+      }
+      dispatch(AdminProfileUpdateAction(user));
     }
   };
 
@@ -116,7 +130,7 @@ const BasicInfoKids = () => {
 
   useEffect(() => {
     if (responseCode == 200) {
-      setFormData({ ...formData, profileImage: imgResponse?.data?.url });
+      setImage({ ...image, profileImage: imgResponse?.data?.url });
     }
   }, [imgResponse]);
 
@@ -135,6 +149,17 @@ const BasicInfoKids = () => {
     }
   }, [updateProfileDetail]);
 
+  const addChild = () => {
+    let obj = {
+      childName: "",
+      address: "",
+      age: "",
+      sportId: "",
+      skillLevel: "",
+    };
+    setFormData([...formData, obj]);
+  };
+
   return (
     <>
       <div className="signIn">
@@ -144,7 +169,7 @@ const BasicInfoKids = () => {
             <div className="personalinfo_form">
               <h1>Basic Detail</h1>
               <img
-                src={formData.profileImage || avtar}
+                src={image.profileImage || avtar}
                 style={{
                   borderRadius: "50%",
                   width: "120px",
@@ -161,109 +186,127 @@ const BasicInfoKids = () => {
                 style={{ display: "none" }}
                 onChange={photoUpload}
               />
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Control
-                  type="text"
-                  className="form-control signin_inp mt-3"
-                  placeholder="Child Name"
-                  name="childName"
-                  value={formData.childName}
-                  onChange={handleFormData}
-                  required
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Name is Required
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Control
-                  type="text"
-                  className="form-control signin_inp mt-3"
-                  placeholder="Address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleFormData}
-                  required
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Address is Required
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Control
-                  type="number"
-                  className="form-control signin_inp mt-3"
-                  placeholder="Age"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleFormData}
-                  required
-                  pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Age is Required
-                </Form.Control.Feedback>
-              </Form.Group>
 
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Select
-                  aria-label="Default select example"
-                  className="form-control form-select select_box mt-3"
-                  value={formData.sportId}
-                  onChange={handleFormData}
-                  name="sportId"
-                  required
-                >
-                  <option value="null">Select Sport</option>
-                  {getAllSports &&
-                    getAllSports?.data.map((item, i) => {
-                      return (
-                        <option key={i} value={item.sportId}>
-                          {item.sportName}
-                        </option>
-                      );
-                    })}
-                </Form.Select>
-                <img className="set_arrows" src={arrow} alt="arrow" />
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Please Select any Option
-                </Form.Control.Feedback>
-              </Form.Group>
+              {formData.map((item, i) => {
+                return(
+                  < >
+                  <Form.Group as={Col} md="12" controlId="validationCustom01" key={i}> 
+                    <Form.Control
+                      type="text"
+                      className="form-control signin_inp mt-3"
+                      placeholder="Child Name"
+                      name="childName"
+                      value={item.childName}
+                       onChange={(e) =>handleFormData(e,i)}
+                      required
+                    />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      style={{ marginLeft: "65px" }}
+                    >
+                      Name is Required
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group as={Col} md="12" controlId="validationCustom01">
+                    <Form.Control
+                      type="text"
+                      className="form-control signin_inp mt-3"
+                      placeholder="Address"
+                      name="address"
+                      value={item.address}
+                       onChange={(e) =>handleFormData(e,i)}
+                      required
+                    />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      style={{ marginLeft: "65px" }}
+                    >
+                      Address is Required
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group as={Col} md="12" controlId="validationCustom01">
+                    <Form.Control
+                      type="number"
+                      className="form-control signin_inp mt-3"
+                      placeholder="Age"
+                      name="age"
+                      value={item.age}
+                       onChange={(e) =>handleFormData(e,i)}
+                      required
+                      pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
+                    />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      style={{ marginLeft: "65px" }}
+                    >
+                      Age is Required
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group as={Col} md="12" controlId="validationCustom01">
+                    <Form.Select
+                      aria-label="Default select example"
+                      className="form-control form-select select_box mt-3"
+                      value={item.sportId}
+                       onChange={(e) =>handleFormData(e,i)}
+                      name="sportId"
+                      required
+                    >
+                      <option value="null">Select Sport</option>
+                      {getAllSports &&
+                        getAllSports?.data.map((item, i) => {
+                          return (
+                            <option key={i} value={item.sportId}>
+                              {item.sportName}
+                            </option>
+                          );
+                        })}
+                    </Form.Select>
+                    <img className="set_arrows" src={arrow} alt="arrow" />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      style={{ marginLeft: "65px" }}
+                    >
+                      Please Select any Option
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                  <Form.Group as={Col} md="12" controlId="validationCustom01">
+                    <Form.Select
+                      aria-label="Default select example"
+                      className="form-control form-select select_box mt-3"
+                      value={item.skillLevel}
+                      onChange={(e) =>handleFormData(e,i)}
+                      name="skillLevel"
+                      required
+                    >
+                      <option>Skill Level</option>
+                      <option value="1">Begginer</option>
+                      <option value="2">Intermidate</option>
+                      <option value="3">Expert</option>
+                    </Form.Select>
+                    <img className="set_arrows" src={arrow} alt="arrow" />
+                    <Form.Control.Feedback
+                      type="invalid"
+                      style={{ marginLeft: "65px" }}
+                    >
+                      Please Select any Option
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </>
+                )
+              })}
 
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Select
-                  aria-label="Default select example"
-                  className="form-control form-select select_box mt-3"
-                  value={formData.skillLevel}
-                  onChange={handleFormData}
-                  name="skillLevel"
-                  required
+              <div>
+                <p
+                  style={{
+                    color: "#fff",
+                    margin: "0 !important",
+                    cursor: "pointer",
+                  }}
+                  onClick={addChild}
                 >
-                  <option>Skill Level</option>
-                  <option value="1">Begginer</option>
-                  <option value="2">Intermidate</option>
-                  <option value="3">Expert</option>
-                </Form.Select>
-                <img className="set_arrows" src={arrow} alt="arrow" />
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Please Select any Option
-                </Form.Control.Feedback>
-              </Form.Group>
+                  Add Another Child
+                </p>
+              </div>
               <button
                 type="submit"
                 className="btn btn-primary signin_btn mt-4 mb-4"

@@ -9,7 +9,7 @@
   color: #e38226;
   font-size: 18px;
   line-height: 27px;
-  padding-top: 210px;
+  padding-top: 110px;
   font-weight: 600;
 }
 .cards_desc {
@@ -26,12 +26,12 @@
   height: auto;
   background-color: #313131;
   width: 400px !important;
-  height: 255px;
+  height: 295px;
   position: relative;
   /* overflow: hidden; */
 }
 
-.card_box::after {
+/* .card_box::after {
   content: "";
   position: absolute;
   width: 41px;
@@ -40,7 +40,7 @@
   background-color: #000;
   border-left: 1px solid #e9e9e9;
   right: -10px;
-}
+} */
 .card_box_content .title h3 {
   padding-top: 25px;
   font-size: 24px;

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import headerbg from "../assets/images/header-bg.png";
 import "./Header.css";
 import CountUp from "react-countup";
 
 const Header = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <div className="header">

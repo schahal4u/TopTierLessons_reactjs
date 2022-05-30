@@ -155,7 +155,7 @@ const UploadPhoto = () => {
                   rows={3}
                   type="text"
                   className="form-control signin_inp mt-3"
-                  placeholder="Bio"
+                  placeholder="Sell Yourself! Tell parents who you are, your major and athletic experiences and accomplishments. If you have taught lessons before or have any other cool Skills add it in! "
                   name="bio"
                   value={formData.bio}
                   onChange={handleFormData}

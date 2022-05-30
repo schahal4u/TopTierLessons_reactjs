@@ -21,7 +21,7 @@ const Cards = () => {
               marginTop: "60px",
             }}
           >
-            <div className="col-md-3 col-sm-12 card_box p-4 mt-5">
+            <div className="col-md-4 col-sm-12 card_box p-4 mt-5">
               <div className="card_box_content">
                 <div className="title">
                   <h3>Lessons</h3>
@@ -37,22 +37,21 @@ const Cards = () => {
                 <img src={icon1} alt="icon" />
               </div>
             </div>
-            {/* <div className="col-md-3 col-sm-12 card_box p-4 mt-5">
+            <div className="col-md-4 col-sm-12 card_box p-4 mt-5">
               <div className="card_box_content">
                 <div className="title">
-                  <h3>Practice Matches</h3>
+                  <h3>Recruiting Advice</h3>
                 </div>
                 <div className="desc">
                   <p>
-                    Take the step to the next level with our top-tier lessons
-                    taught by current student athletes
+                   Talk one on one with a college student athlete and hear exclusive insight into their recruiting experience and what it is like to be a student athlete in college
                   </p>
                 </div>
               </div>
               <div className="card_icon">
                 <img src={icon2} alt="icon" />
               </div>
-            </div> */}
+            </div>
             {/* <div className="col-md-3 col-sm-12 card_box p-4 mt-5">
               <div className="card_box_content">
                 <div className="title">
