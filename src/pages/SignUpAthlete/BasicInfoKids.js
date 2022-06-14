@@ -200,11 +200,12 @@ const BasicInfoKids = () => {
                        onChange={(e) =>handleFormData(e,i)}
                       required
                     />
+              <span class="required-asterisk">*</span>
                     <Form.Control.Feedback
                       type="invalid"
                       style={{ marginLeft: "65px" }}
                     >
-                      Name is Required
+                    Child  Name is Required
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group as={Col} md="12" controlId="validationCustom01">
@@ -217,6 +218,7 @@ const BasicInfoKids = () => {
                        onChange={(e) =>handleFormData(e,i)}
                       required
                     />
+              <span class="required-asterisk">*</span>
                     <Form.Control.Feedback
                       type="invalid"
                       style={{ marginLeft: "65px" }}
@@ -235,6 +237,7 @@ const BasicInfoKids = () => {
                       required
                       pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
                     />
+              <span class="required-asterisk">*</span>
                     <Form.Control.Feedback
                       type="invalid"
                       style={{ marginLeft: "65px" }}
@@ -262,6 +265,7 @@ const BasicInfoKids = () => {
                         })}
                     </Form.Select>
                     <img className="set_arrows" src={arrow} alt="arrow" />
+              <span class="required-asterisk">*</span>
                     <Form.Control.Feedback
                       type="invalid"
                       style={{ marginLeft: "65px" }}
@@ -284,6 +288,7 @@ const BasicInfoKids = () => {
                       <option value="3">Expert</option>
                     </Form.Select>
                     <img className="set_arrows" src={arrow} alt="arrow" />
+              <span class="required-asterisk">*</span>
                     <Form.Control.Feedback
                       type="invalid"
                       style={{ marginLeft: "65px" }}

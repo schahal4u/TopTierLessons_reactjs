@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import headerbg from "../assets/images/header-bg.png";
 import "./Header.css";
 import CountUp from "react-countup";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   useEffect(() => {
@@ -16,7 +17,14 @@ const Header = () => {
           </h1>
         </div>
         <div className="header_btn">
-          <button className="header_front_btn">Find Lessons</button>
+          <button className="header_front_btn">
+            <Link
+              to="/coachSearch"
+              style={{ textDecorationL: "none", color: "#fff" }}
+            >
+              Find Lessons
+            </Link>
+          </button>
           <button className="header_front_btn">I'm a Student Athlete</button>
         </div>
         {/* <div className="container counter">

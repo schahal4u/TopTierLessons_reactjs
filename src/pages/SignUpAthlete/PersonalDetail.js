@@ -104,6 +104,7 @@ const PersonalDetail = () => {
                   onChange={handleFormData}
                   required
                 />
+              <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -122,6 +123,7 @@ const PersonalDetail = () => {
                   required
                   pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
                 />
+              <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -142,6 +144,7 @@ const PersonalDetail = () => {
                   pattern="^([0|\+[0-9]{1,5})?([0-9][0-9]{9})$"
                   inputMode="numeric"
                 />
+              <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -160,6 +163,7 @@ const PersonalDetail = () => {
                     onChange={handleFormData}
                     required
                   />
+              <span class="required-asterisk">*</span>
                   <Form.Control.Feedback
                     type="invalid"
                     style={{ marginLeft: "65px" }}
@@ -199,6 +203,7 @@ const PersonalDetail = () => {
                   <option value="4">Kids</option>
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
+              <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}

@@ -90,6 +90,7 @@ const BasicDetail = () => {
                 value={formData.name}
                 onChange={handleFormData}
               />
+              <span class="required-asterisk">*</span>
               <Form.Control.Feedback className="error_text" type="invalid">
                 Name is Required
               </Form.Control.Feedback>
@@ -105,6 +106,7 @@ const BasicDetail = () => {
                 readOnly
                 // onChange={handleFormData}
               />
+              <span class="required-asterisk">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 Email is Required
               </Form.Control.Feedback>
@@ -119,6 +121,7 @@ const BasicDetail = () => {
                 value={formData.address}
                 onChange={handleFormData}
               />
+              <span class="required-asterisk">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 Address is Required
               </Form.Control.Feedback>
@@ -134,6 +137,7 @@ const BasicDetail = () => {
                 value={formData.role}
                 // onChange={handleFormData}
               />
+              <span class="required-asterisk">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 Role is Required
               </Form.Control.Feedback>
@@ -150,6 +154,7 @@ const BasicDetail = () => {
                 value={formData.bio}
                 onChange={handleFormData}
               />
+              <span class="required-asterisk">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 Bio is Required
               </Form.Control.Feedback>

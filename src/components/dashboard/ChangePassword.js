@@ -69,6 +69,7 @@ const ChangePassword = () => {
                 value={formData.oldPassword}
                 onChange={handleFormData}
               />
+              <span class="required-asterisk">*</span>
               <Form.Control.Feedback className="error_text" type="invalid">
                 Password is Required
               </Form.Control.Feedback>
@@ -83,6 +84,7 @@ const ChangePassword = () => {
                 value={formData.newPassword}
                 onChange={handleFormData}
               />
+              <span class="required-asterisk">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 New Password is Required
               </Form.Control.Feedback>
@@ -97,6 +99,7 @@ const ChangePassword = () => {
                 value={formData.confirmpassword}
                 onChange={handleFormData}
               />
+              <span class="required-asterisk">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 Confirm Password is Required
               </Form.Control.Feedback>

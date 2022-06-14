@@ -153,6 +153,7 @@ const BasicInfo = () => {
                   onChange={handleFormData}
                   required
                 />
+              <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -171,6 +172,7 @@ const BasicInfo = () => {
                   required
                   pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
                 />
+              <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -199,6 +201,7 @@ const BasicInfo = () => {
                     })}
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
+              <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -222,6 +225,7 @@ const BasicInfo = () => {
                   <option value="3">Expert</option>
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
+              <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}

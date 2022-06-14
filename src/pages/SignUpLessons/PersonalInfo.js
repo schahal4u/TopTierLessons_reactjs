@@ -81,6 +81,7 @@ const PersonalInfo = () => {
           <form onSubmit={signUpHandler}>
             <div className="signin_form">
               <h1>Create Account</h1>
+              <div className="col-md-12">
               <input
                 type="text"
                 className="form-control signin_inp mt-3"
@@ -90,6 +91,9 @@ const PersonalInfo = () => {
                 onChange={handleFormData}
                 required
               />
+              <span class="asterisk">*</span>
+              </div>
+              <div className="col-md-12">
               <input
                 type="email"
                 className="form-control signin_inp mt-3"
@@ -100,7 +104,9 @@ const PersonalInfo = () => {
                 required
                 pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
               />
-              <div className="eyeHandler">
+              <span class="asterisk">*</span>
+              </div>
+              <div className="eyeHandler col-md-12" >
                 <input
                   type={show ? "text" : "password"}
                   className="form-control signinput_inp mt-3"
@@ -126,6 +132,7 @@ const PersonalInfo = () => {
                     onClick={viewPassword}
                   />
                 )}
+              <span class="asterisk">*</span>
               </div>
               <button
                 type="submit"
