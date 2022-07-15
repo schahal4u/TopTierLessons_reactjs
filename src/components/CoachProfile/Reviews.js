@@ -1,13 +1,17 @@
-import React from "react";
-import "./Review.css";
+import React, { useEffect } from "react";
 
 const Reviews = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
-      <div className="reviews">
-        <p className="review_header">Clients</p>
-        <p className="review_desc">REVIEWS</p>
-        <div className="d-flex align-items-center py-5 mh-100 mt-5 mb-5">
+      <div className="reviews_container">
+        <h1 style={{ textAlign: "left" }}>
+          Reviews
+        </h1>
+        <div className="d-flex align-items-center py-2 mh-100 mt-2 mb-2">
           <div className="container reviewcontainer">
             <div
               id="mycarousel"

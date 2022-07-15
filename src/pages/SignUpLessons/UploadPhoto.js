@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import arrow from "../../assets/images/down.png";
 import avtar from "../../assets/images/profileIcon.png";
 import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
+import { GetAllSportsAction } from "../../redux/actions/GetAllSports";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 
 const UploadPhoto = () => {
@@ -30,11 +31,13 @@ const UploadPhoto = () => {
 
   const { updateProfileDetail } = useSelector((state) => state.profileUpdate);
   const response = updateProfileDetail?.statusCode;
+  const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
 
   const defautFormData = {
     address: "",
     bio: "",
     profileImage: avtar,
+    sportId: "",
   };
 
   const [formData, setFormData] = useState(defautFormData);
@@ -55,18 +58,22 @@ const UploadPhoto = () => {
     if (
       formData.address === "" ||
       formData.bio === "" ||
-      formData.profileImage === ""
+      formData.profileImage === "" ||
+      formData.sportId === ""
     ) {
       setLoading(false);
       toast.warn("Please Fill All the fields");
     } else {
       setLoading(true);
-      dispatch(AdminProfileUpdateAction(formData));
+      let obj = [formData];
+      let userData = {
+        users: obj,
+      };
+      dispatch(AdminProfileUpdateAction(userData));
     }
   };
 
   const photoUpload = (e) => {
-    // debugger;
     const incomingFile = e.target.files[0];
     const fileType = incomingFile && (incomingFile?.type).toLowerCase();
     const size = incomingFile && e.target.files[0].size;
@@ -106,6 +113,15 @@ const UploadPhoto = () => {
       navigate("/");
     }
   }, [updateProfileDetail]);
+
+  useEffect(() => {
+    let obj = {
+      page: 1,
+      pageSize: 100,
+    };
+    dispatch(GetAllSportsAction(obj));
+  }, []);
+
   return (
     <>
       <div className="signIn">
@@ -167,6 +183,34 @@ const UploadPhoto = () => {
                   style={{ marginLeft: "65px" }}
                 >
                   Bio is Required
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group as={Col} md="12" controlId="validationCustom01">
+                <Form.Select
+                  aria-label="Default select example"
+                  className="form-control form-select select_box mt-3"
+                  value={formData.sportId}
+                  onChange={handleFormData}
+                  name="sportId"
+                  required
+                >
+                  <option value="null">Select Sport</option>
+                  {getAllSports &&
+                    getAllSports?.data.map((item, i) => {
+                      return (
+                        <option key={i} value={item.sportId}>
+                          {item.sportName}
+                        </option>
+                      );
+                    })}
+                </Form.Select>
+                <img className="set_arrows" src={arrow} alt="arrow" />
+                {/* <span class="required-asterisk">*</span> */}
+                <Form.Control.Feedback
+                  type="invalid"
+                  style={{ marginLeft: "65px" }}
+                >
+                  Please Select any Option
                 </Form.Control.Feedback>
               </Form.Group>
               <button

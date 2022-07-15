@@ -29,7 +29,7 @@ const BasicInfoKids = () => {
   );
   const responseCode = imgResponse?.statusCode;
 
-  const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
+  const { getAllSports } = useSelector((state) => state.getAllSportsResponse)
 
   const { updateProfileDetail } = useSelector((state) => state.profileUpdate);
   const response = updateProfileDetail?.statusCode;
@@ -47,8 +47,8 @@ const BasicInfoKids = () => {
   ];
 
   const logoData = {
-      profileImage: avtar,
-  }
+    profileImage: avtar,
+  };
 
   const [formData, setFormData] = useState(defautFormData);
   const [image, setImage] = useState(logoData);
@@ -85,9 +85,10 @@ const BasicInfoKids = () => {
     } else {
       setLoading(true);
 
-      let user ={
-        users : formData
-      }
+      let user = {
+        users: formData,
+      };
+
       dispatch(AdminProfileUpdateAction(user));
     }
   };
@@ -139,7 +140,6 @@ const BasicInfoKids = () => {
       page: 1,
       pageSize: 100,
     };
-
     dispatch(GetAllSportsAction(obj));
   }, []);
 
@@ -188,116 +188,121 @@ const BasicInfoKids = () => {
               />
 
               {formData.map((item, i) => {
-                return(
-                  < >
-                  <Form.Group as={Col} md="12" controlId="validationCustom01" key={i}> 
-                    <Form.Control
-                      type="text"
-                      className="form-control signin_inp mt-3"
-                      placeholder="Child Name"
-                      name="childName"
-                      value={item.childName}
-                       onChange={(e) =>handleFormData(e,i)}
-                      required
-                    />
-              <span class="required-asterisk">*</span>
-                    <Form.Control.Feedback
-                      type="invalid"
-                      style={{ marginLeft: "65px" }}
+                return (
+                  <>
+                    <Form.Group
+                      as={Col}
+                      md="12"
+                      controlId="validationCustom01"
+                      key={i}
                     >
-                    Child  Name is Required
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} md="12" controlId="validationCustom01">
-                    <Form.Control
-                      type="text"
-                      className="form-control signin_inp mt-3"
-                      placeholder="Address"
-                      name="address"
-                      value={item.address}
-                       onChange={(e) =>handleFormData(e,i)}
-                      required
-                    />
-              <span class="required-asterisk">*</span>
-                    <Form.Control.Feedback
-                      type="invalid"
-                      style={{ marginLeft: "65px" }}
-                    >
-                      Address is Required
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} md="12" controlId="validationCustom01">
-                    <Form.Control
-                      type="number"
-                      className="form-control signin_inp mt-3"
-                      placeholder="Age"
-                      name="age"
-                      value={item.age}
-                       onChange={(e) =>handleFormData(e,i)}
-                      required
-                      pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
-                    />
-              <span class="required-asterisk">*</span>
-                    <Form.Control.Feedback
-                      type="invalid"
-                      style={{ marginLeft: "65px" }}
-                    >
-                      Age is Required
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} md="12" controlId="validationCustom01">
-                    <Form.Select
-                      aria-label="Default select example"
-                      className="form-control form-select select_box mt-3"
-                      value={item.sportId}
-                       onChange={(e) =>handleFormData(e,i)}
-                      name="sportId"
-                      required
-                    >
-                      <option value="null">Select Sport</option>
-                      {getAllSports &&
-                        getAllSports?.data.map((item, i) => {
-                          return (
-                            <option key={i} value={item.sportId}>
-                              {item.sportName}
-                            </option>
-                          );
-                        })}
-                    </Form.Select>
-                    <img className="set_arrows" src={arrow} alt="arrow" />
-              <span class="required-asterisk">*</span>
-                    <Form.Control.Feedback
-                      type="invalid"
-                      style={{ marginLeft: "65px" }}
-                    >
-                      Please Select any Option
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group as={Col} md="12" controlId="validationCustom01">
-                    <Form.Select
-                      aria-label="Default select example"
-                      className="form-control form-select select_box mt-3"
-                      value={item.skillLevel}
-                      onChange={(e) =>handleFormData(e,i)}
-                      name="skillLevel"
-                      required
-                    >
-                      <option>Skill Level</option>
-                      <option value="1">Begginer</option>
-                      <option value="2">Intermidate</option>
-                      <option value="3">Expert</option>
-                    </Form.Select>
-                    <img className="set_arrows" src={arrow} alt="arrow" />
-              <span class="required-asterisk">*</span>
-                    <Form.Control.Feedback
-                      type="invalid"
-                      style={{ marginLeft: "65px" }}
-                    >
-                      Please Select any Option
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </>
-                )
+                      <Form.Control
+                        type="text"
+                        className="form-control signin_inp mt-3"
+                        placeholder="Child Name"
+                        name="childName"
+                        value={item.childName}
+                        onChange={(e) => handleFormData(e, i)}
+                        required
+                      />
+                      <span class="required-asterisk">*</span>
+                      <Form.Control.Feedback
+                        type="invalid"
+                        style={{ marginLeft: "65px" }}
+                      >
+                        Child Name is Required
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="12" controlId="validationCustom01">
+                      <Form.Control
+                        type="text"
+                        className="form-control signin_inp mt-3"
+                        placeholder="Address"
+                        name="address"
+                        value={item.address}
+                        onChange={(e) => handleFormData(e, i)}
+                        required
+                      />
+                      <span class="required-asterisk">*</span>
+                      <Form.Control.Feedback
+                        type="invalid"
+                        style={{ marginLeft: "65px" }}
+                      >
+                        Address is Required
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="12" controlId="validationCustom01">
+                      <Form.Control
+                        type="number"
+                        className="form-control signin_inp mt-3"
+                        placeholder="Age"
+                        name="age"
+                        value={item.age}
+                        onChange={(e) => handleFormData(e, i)}
+                        required
+                        pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
+                      />
+                      <span class="required-asterisk">*</span>
+                      <Form.Control.Feedback
+                        type="invalid"
+                        style={{ marginLeft: "65px" }}
+                      >
+                        Age is Required
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="12" controlId="validationCustom01">
+                      <Form.Select
+                        aria-label="Default select example"
+                        className="form-control form-select select_box mt-3"
+                        value={item.sportId}
+                        onChange={(e) => handleFormData(e, i)}
+                        name="sportId"
+                        required
+                      >
+                        <option value="null">Select Sport</option>
+                        {getAllSports &&
+                          getAllSports?.data.map((item, i) => {
+                            return (
+                              <option key={i} value={item.sportId}>
+                                {item.sportName}
+                              </option>
+                            );
+                          })}
+                      </Form.Select>
+                      <img className="set_arrows" src={arrow} alt="arrow" />
+                      <span class="required-asterisk">*</span>
+                      <Form.Control.Feedback
+                        type="invalid"
+                        style={{ marginLeft: "65px" }}
+                      >
+                        Please Select any Option
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group as={Col} md="12" controlId="validationCustom01">
+                      <Form.Select
+                        aria-label="Default select example"
+                        className="form-control form-select select_box mt-3"
+                        value={item.skillLevel}
+                        onChange={(e) => handleFormData(e, i)}
+                        name="skillLevel"
+                        required
+                      >
+                        <option>Skill Level</option>
+                        <option value="1">Begginer</option>
+                        <option value="2">Intermidate</option>
+                        <option value="3">Expert</option>
+                      </Form.Select>
+                      <img className="set_arrows" src={arrow} alt="arrow" />
+                      <span class="required-asterisk">*</span>
+                      <Form.Control.Feedback
+                        type="invalid"
+                        style={{ marginLeft: "65px" }}
+                      >
+                        Please Select any Option
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  </>
+                );
               })}
 
               <div>

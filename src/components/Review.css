@@ -5,6 +5,7 @@
   width: 100%;
   padding: 110px 0;
 }
+
 .review_header {
   text-align: center;
   color: #e38226;
@@ -14,6 +15,7 @@
   text-transform: uppercase;
   font-weight: 600;
 }
+
 .review_desc {
   color: #fff;
   font-size: 50px;
@@ -30,34 +32,41 @@
   background-color: #313131;
   padding: 0;
 }
+
 .review {
   font-size: 30px;
   font-weight: 600;
   padding: 30px 0;
   color: #fff;
 }
+
 .name {
   font-size: 18px;
   color: #c1e718;
   margin: 0;
 }
+
 .name p {
   color: #e38226;
 }
+
 .job {
   color: #c8c8c8;
   font-size: 14px;
 }
+
 /* .carousel-inner {
   max-width: 800px;
 } */
 .fa-minus {
   font-size: 14px;
 }
+
 .carousel-indicators {
   bottom: -20px;
   right: 0;
   margin: 0;
+  top: 410px;
 }
 
 .carousel-indicators [data-bs-target] {
@@ -67,39 +76,49 @@
   background-color: inherit;
   border-radius: 50%;
 }
+
 .carousel-indicators .active {
   border: 2px solid transparent;
   background-color: #c1e718;
 }
+
 .left {
   color: rgb(20, 20, 20);
   font-weight: 600;
 }
+
 .right {
   color: rgb(12, 12, 12);
   font-weight: 600;
 }
+
 .carousel-control-next,
 .carousel-control-prev {
   position: relative;
 }
+
 @media (max-width: 560px) {
   .review {
     font-size: 14px;
     font-weight: 600;
   }
+
   .name {
     font-size: 13px;
   }
+
   .job {
     font-size: 10px;
   }
+
   .right {
     font-size: 12px;
   }
+
   .left {
     font-size: 12px;
   }
+
   .carousel-indicators [data-bs-target] {
     height: 8px;
     border: 1px solid black;
@@ -107,6 +126,7 @@
     background-color: inherit;
     border-radius: 50%;
   }
+
   .carousel-indicators .active {
     border: 1px solid transparent;
     background-color: #c1e718;

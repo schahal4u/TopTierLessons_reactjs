@@ -1,4 +1,6 @@
 import axios from "axios";
+import { axiosInstance } from "../ApiInterceptor/Axios_Interceptors";
+
 import {
   ADMIN_LOGIN_REQUEST,
   ADMIN_LOGIN_SUCCESS,
@@ -13,6 +15,7 @@ import {
 // user login
 
 export const AdminLoginAction = (formData) => async (dispatch) => {
+  // debugger;
   try {
     dispatch({
       type: ADMIN_LOGIN_REQUEST,
@@ -22,6 +25,8 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
       "https://toptierlessons.com:4437/api/v1.0/Auth/SignIn",
       formData
     );
+    // const { data } = await axiosInstance.post("Auth/SignIn", formData);
+
     dispatch({
       type: ADMIN_LOGIN_SUCCESS,
       payload: data,

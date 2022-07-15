@@ -57,7 +57,10 @@
 .search_card {
     width: 90%;
     margin: 10px auto !important;
-
+    /* border: 1px solid red; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .name h4 {
@@ -73,7 +76,7 @@
 
 .cards_box {
     /* border: 1px solid red; */
-    /* width: 31% !important; */
+    width: 30% !important;
     border-radius: 18px;
     background: #313131;
 }
@@ -110,7 +113,7 @@
 }
 
 .icon_padding {
-    padding-bottom: 8px;
+    padding-bottom: 4px;
     padding-left: 10px;
 }
 
@@ -123,7 +126,6 @@
 
 .dotImg {
     padding-bottom: 8px;
-
 }
 
 .book_btn {
@@ -135,4 +137,75 @@
     padding: 14px;
     color: #fff;
     font-size: 18px;
+}
+
+.sidePhoto_text {
+    text-align: left;
+}
+
+@media (max-width: 1485px) {
+    .icon_padding {
+        padding-left: 0px;
+    }
+
+    .startext {
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 1150px) {
+    .sidePhoto_text {
+        text-align: right;
+    }
+}
+
+@media (max-width: 1034px) {
+    .cards_box {
+        width: 45% !important;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 550px) {
+    .cards_box {
+        width: 90% !important;
+        margin: 0 auto;
+    }
+
+    .sidePhoto_text {
+        text-align: center;
+    }
+
+    .startPhoto_text {
+        text-align: center;
+    }
+
+    .start_line {
+        display: none;
+    }
+
+    .starPhoto_text {
+        text-align: center;
+    }
+
+    .dotImg {
+        display: none;
+    }
+
+    .dot_text {
+        width: 100%;
+        padding-left: 15px;
+    }
+
+    .search_icon {
+        right: 85%;
+    }
+
+    .line_icon {
+        left: 85%;
+    }
+
+    .filter_icon {
+        left: 87%;
+    }
 }

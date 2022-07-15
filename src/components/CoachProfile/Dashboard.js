@@ -1,28 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./Dashboard.css";
 import logo from "../../assets/images/profileIcon.png";
-import BasicDetail from "./BasicDetail";
-import Earning from "./Earning";
-import Training from "./Training";
-import VideoLesson from "./VideoLesson";
-import ChangePassword from "./ChangePassword";
-import { NavLink } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
-import { emptyPasswordResponse } from "../../redux/actions/ChangePassword";
-import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
+import Bio from "./Bio";
+import Availability from "./Availability";
+import Location from "./Location";
+import Pricing from "./Pricing";
+import Reviews from "./Reviews";
+import "./CoachProfile.css";
 
-const Dashboard = () => {
+const CoachDashboard = () => {
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
-  const responseCode = imgResponse?.statusCode;
+  const { getCoachProfile } = useSelector((state) => state.getAllCoachResponse);
 
-  const { profileDetail, profileError } = useSelector(
-    (state) => state.getProfileDetail
-  );
-  const getResponse = profileDetail?.statusCode;
+  const responseCode = imgResponse?.statusCode;
 
   const imageType = [
     "image/tif",
@@ -35,11 +29,11 @@ const Dashboard = () => {
     "image/webp",
   ];
   const defaultShow = {
-    basicDetail: false,
-    training: false,
-    videoLesson: false,
-    earning: false,
-    password: false,
+    bio: false,
+    location: false,
+    availability: false,
+    pricing: false,
+    reviews: false,
   };
   const defautFormData = {
     logo: logo,
@@ -48,8 +42,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const inputFile = useRef(null);
   const [formData, setFormData] = useState(defautFormData);
-  const [inp, setInp] = useState("");
-  const [show, setShow] = useState({ ...defaultShow, basicDetail: true });
+  const [show, setShow] = useState({ ...defaultShow, bio: true });
   const [modalShow, setModalShow] = useState(false);
   const [preview, setPreview] = useState();
   const [selectedFile, setSelectedFile] = useState();
@@ -64,13 +57,11 @@ const Dashboard = () => {
     const validImageTypes = imageType;
 
     if (incomingFile && !validImageTypes.includes(fileType)) {
-      setInp("");
       toast.warn("Please Select the Supported Image Format !");
       return;
     }
 
     if (size > 3000000) {
-      setInp("");
       toast.warn("Please Select File Size Upto 3mb !");
       return;
     }
@@ -93,11 +84,8 @@ const Dashboard = () => {
       setPreview(undefined);
       return;
     }
-
     const objectUrl = URL.createObjectURL(selectedFile);
     setPreview(objectUrl);
-
-    // free memory when ever this component is unmounted
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
@@ -113,30 +101,19 @@ const Dashboard = () => {
     }
   }, [imgResponse]);
 
-  useEffect(() => {
-    if (getResponse == 200) {
-      setFormData({ ...formData, logo: profileDetail?.data?.profileImage });
-    }
-  }, [profileDetail]);
-
-  const passwordHandler = () => {
-    setShow({ ...defaultShow, password: true });
-    dispatch(emptyPasswordResponse());
-  };
-  const basicDetailHandler = () => {
-    setShow({ ...defaultShow, basicDetail: true });
-    dispatch(emptyUpdateProfileResponse());
+  const bioHandler = () => {
+    setShow({ ...defaultShow, bio: true });
+    // dispatch(emptyUpdateProfileResponse());
   };
 
   const sidebarHandler = () => {
     setOpen(!open);
   };
-
   return (
-    <>
+    <div>
       <div className="dashboard">
         <div className="dashboard_desc">
-          <h1>Your Account Details</h1>
+          <h1>Profile Details</h1>
         </div>
       </div>
       {/* <div className="dashboard_conatiner"> */}
@@ -158,7 +135,7 @@ const Dashboard = () => {
                 >
                   {/* <img src={logo} alt="icon" /> */}
                   <img
-                    src={formData.logo || logo}
+                    src={getCoachProfile?.data?.profileImage || logo}
                     className="logohandler"
                     onClick={uploadLogo}
                   />
@@ -202,56 +179,60 @@ const Dashboard = () => {
                 <a
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
-                  onClick={basicDetailHandler}
+                  onClick={bioHandler}
                   style={{ color: "#e38226" }}
                 >
-                  <span>Basic Details</span>
-                </a>
-                {/* <a
-                  class="list-group-item border-end-0 d-inline-block text-truncate"
-                  data-bs-parent="#sidebar"
-                  onClick={() => setShow({ ...defaultShow, videoLesson: true })}
-                  style={{
-                    color: show.videoLesson
-                      ? "#e38226 !important"
-                      : "#515151 !important",
-                  }}
-                >
-                  <span>Video Lessons</span>
-                </a> */}
-                <a
-                  class="list-group-item border-end-0 d-inline-block text-truncate"
-                  data-bs-parent="#sidebar"
-                  onClick={() => setShow({ ...defaultShow, training: true })}
-                  style={{
-                    color: show.training
-                      ? "#e38226  !important"
-                      : "#515151 !important",
-                  }}
-                >
-                  <span>Joined Trainings</span>
+                  <span>Bio</span>
                 </a>
                 <a
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
-                  onClick={() => setShow({ ...defaultShow, earning: true })}
+                  onClick={() => setShow({ ...defaultShow, location: true })}
                   style={{
-                    color: show.earning
+                    color: show.location
+                      ? "red  !important"
+                      : "blue !important",
+                  }}
+                >
+                  <span>Location</span>
+                </a>
+                <a
+                  class="list-group-item border-end-0 d-inline-block text-truncate"
+                  data-bs-parent="#sidebar"
+                  onClick={() =>
+                    setShow({ ...defaultShow, availability: true })
+                  }
+                  style={{
+                    color: show.availability
                       ? "#e38226 !important"
                       : "#51515 !important",
                   }}
                 >
-                  <span>Earning</span>
+                  <span>Availability</span>
                 </a>
+                {/* <a
+                  class="list-group-item border-end-0 d-inline-block text-truncate"
+                  data-bs-parent="#sidebar"
+                  onClick={() => setShow({ ...defaultShow, pricing: true })}
+                  style={{
+                    color: show.pricing
+                      ? "#e38226 !important"
+                      : "#51515 !important",
+                  }}
+                >
+                  <span>Pricing</span>
+                </a> */}
                 <a
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
-                  onClick={passwordHandler}
+                  onClick={() => setShow({ ...defaultShow, reviews: true })}
                   style={{
-                    color: show?.password && "#e38226 !important",
+                    color: show.reviews
+                      ? "#e38226 !important"
+                      : "#51515 !important",
                   }}
                 >
-                  <span>Change Password</span>
+                  <span>Reviews</span>
                 </a>
               </div>
             </div>
@@ -271,27 +252,17 @@ const Dashboard = () => {
               )}
             </a>
             <div class="page-header pt-3">
-              {show.basicDetail && <BasicDetail />}
-              {show.videoLesson && <VideoLesson />}
-              {show.earning && <Earning />}
-              {show.training && <Training />}
-              {show.password && <ChangePassword />}
+              {show.bio && <Bio />}
+              {show.location && <Location />}
+              {show.availability && <Availability />}
+              {show.pricing && <Pricing />}
+              {show.reviews && <Reviews />}
             </div>
           </main>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Dashboard;
-
-
-
-
-
-
-
-
-
-
+export default CoachDashboard;

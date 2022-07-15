@@ -20,6 +20,7 @@ import BasicInfoKids from "./pages/SignUpAthlete/BasicInfoKids";
 import UploadPhoto from "./pages/SignUpLessons/UploadPhoto";
 import CoachSearch from "./components/CoachSearch/CoachSearch";
 import Calender from "./components/BookingComponent/Calender";
+import CoachDashboard from "./components/CoachProfile/Dashboard";
 
 function App() {
   const location = useLocation();
@@ -51,6 +52,7 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/coachSearch" element={<CoachSearch />} />
+          <Route path="/coachProfile" element={<CoachDashboard />} />
           <Route path="/booking" element={<Calender />} />
           <Route path="/coachsignup" element={<LessonsSignUp />} />
           <Route path="/athletesignup" element={<PersonalDetail />} />
