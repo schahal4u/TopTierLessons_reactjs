@@ -12,6 +12,10 @@ import {
   GET_COACH_PROFILE_SUCCESS,
   GET_COACH_PROFILE_FAIL,
   GET_COACH_PROFILE_RESET,
+  GET_COACH_SLOTS_REQUEST,
+  GET_COACH_SLOTS_SUCCESS,
+  GET_COACH_SLOTS_FAIL,
+  GET_COACH_SLOTS_RESET,
 } from "../types.js";
 
 export const GetAllCoachAction = (formData) => async (dispatch) => {
@@ -45,7 +49,7 @@ export const GetCoachByIdAction = (formData) => async (dispatch) => {
       type: GET_COACHBYID_REQUEST,
     });
     const { data } = await axiosInstance.post(
-      "Sport/GetCoachBySportId",
+      "Sport/GetCoachByFilter",
       formData
     );
     dispatch({
@@ -84,4 +88,29 @@ export const GetCoachProfileAction = (formData) => async (dispatch) => {
 
 export const ResetCoachProfileResponse = () => ({
   type: GET_COACH_PROFILE_RESET,
+});
+
+export const GetCoachSlotsAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_COACH_SLOTS_REQUEST,
+    });
+    const { data } = await axiosInstance.post(
+      "Booking/CheckAvailability",
+      formData
+    );
+    dispatch({
+      type: GET_COACH_SLOTS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_COACH_SLOTS_FAIL,
+      payload: error?.response?.data,
+    });
+  }
+};
+
+export const ResetCoachSlotsResponse = () => ({
+  type: GET_COACH_SLOTS_RESET,
 });

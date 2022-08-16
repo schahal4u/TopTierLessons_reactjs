@@ -21,6 +21,8 @@ import UploadPhoto from "./pages/SignUpLessons/UploadPhoto";
 import CoachSearch from "./components/CoachSearch/CoachSearch";
 import Calender from "./components/BookingComponent/Calender";
 import CoachDashboard from "./components/CoachProfile/Dashboard";
+import Bookings from "./components/BookingComponent/Bookings";
+import Success from "./components/BookingComponent/Success";
 
 function App() {
   const location = useLocation();
@@ -36,6 +38,7 @@ function App() {
       <div>
         {url.includes("signIn") ||
         url.includes("coachsignup") ||
+        url.includes("success") ||
         url.includes("athletesignup") ||
         url.includes("basicinfo") ||
         url.includes("booking") ||
@@ -53,17 +56,19 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/coachSearch" element={<CoachSearch />} />
           <Route path="/coachProfile" element={<CoachDashboard />} />
-          <Route path="/booking" element={<Calender />} />
+          <Route path="/booking" element={<Bookings />} />
           <Route path="/coachsignup" element={<LessonsSignUp />} />
           <Route path="/athletesignup" element={<PersonalDetail />} />
           <Route path="/basicinfo" element={<BasicInfo />} />
           <Route path="/basicinfokids" element={<BasicInfoKids />} />
           <Route path="/basicinfokids" element={<BasicInfoKids />} />
           <Route path="/signupuploadphoto" element={<UploadPhoto />} />
+          <Route path="/success" element={<Success />} />
         </Routes>
       </div>
       {url.includes("signIn") ||
       url.includes("coachsignup") ||
+      url.includes("success") ||
       url.includes("booking") ||
       url.includes("athletesignup") ||
       url.includes("basicinfo") ||

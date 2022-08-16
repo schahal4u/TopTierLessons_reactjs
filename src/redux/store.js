@@ -8,6 +8,7 @@ import {
 import { AdminProfileUpdateReducer } from "./reducers/AdminProfileUpdateReducer";
 import { ChangePasswordReducer } from "./reducers/ChangePassword";
 import { GetAllCoachReducer } from "./reducers/coach";
+import { ContactUsReducer } from "./reducers/common";
 import { GetAllSportsReducer } from "./reducers/GetAllSports";
 import { LessonsRegisterReducer } from "./reducers/LessonsRegisterReducer";
 import {
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   registerPicResponse: RegisterPhotoUploadReducer,
   getAllSportsResponse: GetAllSportsReducer,
   getAllCoachResponse: GetAllCoachReducer,
+  contactUsResponse: ContactUsReducer,
 });
 
 const store = createStore(

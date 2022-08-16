@@ -7,6 +7,7 @@ import {
 } from "../types.js";
 
 export const GetAllSportsAction = (formData) => async (dispatch) => {
+  // debugger;
   try {
     dispatch({
       type: GET_ALL_SPORTS_REQUEST,

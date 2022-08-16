@@ -8,9 +8,7 @@ const Reviews = () => {
   return (
     <>
       <div className="reviews_container">
-        <h1 style={{ textAlign: "left" }}>
-          Reviews
-        </h1>
+        <h1 style={{ textAlign: "left" }}>Reviews</h1>
         <div className="d-flex align-items-center py-2 mh-100 mt-2 mb-2">
           <div className="container reviewcontainer">
             <div

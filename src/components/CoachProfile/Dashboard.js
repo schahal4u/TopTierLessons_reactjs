@@ -11,6 +11,7 @@ import Location from "./Location";
 import Pricing from "./Pricing";
 import Reviews from "./Reviews";
 import "./CoachProfile.css";
+import { ResetCoachSlotsResponse } from "../../redux/actions/coach";
 
 const CoachDashboard = () => {
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
@@ -104,6 +105,11 @@ const CoachDashboard = () => {
   const bioHandler = () => {
     setShow({ ...defaultShow, bio: true });
     // dispatch(emptyUpdateProfileResponse());
+  };
+  const availabilityHandler = () => {
+    // debugger;
+    dispatch(ResetCoachSlotsResponse());
+    setShow({ ...defaultShow, availability: true });
   };
 
   const sidebarHandler = () => {
@@ -199,9 +205,7 @@ const CoachDashboard = () => {
                 <a
                   class="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
-                  onClick={() =>
-                    setShow({ ...defaultShow, availability: true })
-                  }
+                  onClick={availabilityHandler}
                   style={{
                     color: show.availability
                       ? "#e38226 !important"
