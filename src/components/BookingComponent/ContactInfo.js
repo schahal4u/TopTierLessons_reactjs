@@ -2,9 +2,20 @@ import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import arrow from "../../assets/images/down.png";
 
-const ContactInfo = ({ handleFormData }) => {
-  const [validated, setValidated] = useState(false);
-
+const ContactInfo = ({ validated, handleFormData }) => {
+  const defautFormData = {
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    continueLessons: null,
+    sourceType: 0,
+  };
+  const [formData, setFormData] = useState(defautFormData);
+  const handleOnChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    handleFormData(e);
+  };
   return (
     <div className="detail_form">
       <h2 className="detail_form_header">Contact Information</h2>
@@ -17,8 +28,8 @@ const ContactInfo = ({ handleFormData }) => {
                 className="form-control booking_inp mt-3"
                 placeholder="First Name"
                 name="firstName"
-                // value={item.address}
-                onChange={handleFormData}
+                value={formData.firstName}
+                onChange={handleOnChange}
                 required
               />
               {/* <span class="required-asterisk">*</span> */}
@@ -35,8 +46,8 @@ const ContactInfo = ({ handleFormData }) => {
                 className="form-control booking_inp mt-3"
                 placeholder="Last Name"
                 name="lastName"
-                // value={item.address}
-                // onChange={(e) => handleFormData(e, i)}
+                value={formData.lastName}
+                onChange={handleOnChange}
                 required
               />
               {/* <span class="required-asterisk">*</span> */}
@@ -49,13 +60,15 @@ const ContactInfo = ({ handleFormData }) => {
             </Form.Group>
             <Form.Group as={Col} md="6" controlId="validationCustom01">
               <Form.Control
-                type="text"
+                type="number"
                 className="form-control booking_inp mt-3"
                 placeholder="Phone Number"
-                name="mobile"
-                // value={item.address}
-                // onChange={(e) => handleFormData(e, i)}
+                name="phone"
+                value={formData.phone}
+                onChange={handleOnChange}
                 required
+                maxLength={10}
+                pattern="^([0|\+[0-9]{1,5})?([0-9][0-9]{9})$"
               />
               {/* <span class="required-asterisk">*</span> */}
               <Form.Control.Feedback
@@ -71,9 +84,10 @@ const ContactInfo = ({ handleFormData }) => {
                 className="form-control booking_inp mt-3"
                 placeholder="Email ID"
                 name="email"
-                // value={item.address}
-                // onChange={(e) => handleFormData(e, i)}
+                value={formData.email}
+                onChange={handleOnChange}
                 required
+                pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
               />
               {/* <span class="required-asterisk">*</span> */}
               <Form.Control.Feedback
@@ -85,19 +99,18 @@ const ContactInfo = ({ handleFormData }) => {
             </Form.Group>
             <Form.Group as={Col} md="12" controlId="validationCustom01">
               <Form.Select
-                aria-label="Do you plan on taking more lessons if these go well?"
+                aria-label="Default select example"
                 className="form-control form-select booking_select_box mt-3"
-                value="eeee"
-                // onChange={(e) => handleFormData(e, i)}
-                name="sportId"
+                value={formData.continueLessons}
+                onChange={handleOnChange}
+                name="continueLessons"
                 required
               >
                 <option value="null">
                   Do you plan on taking more lessons if these go well?
                 </option>
-                <option value="null">
-                  Do you plan on taking more lessons if these go well?
-                </option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </Form.Select>
               <img className="set_arrowsss" src={arrow} alt="arrow" />
               {/* <span class="required-asterisk">*</span> */}
@@ -111,15 +124,16 @@ const ContactInfo = ({ handleFormData }) => {
 
             <Form.Group as={Col} md="12" controlId="validationCustom01">
               <Form.Select
-                aria-label="How Long Lessons Do You Want?"
+                aria-label="Default select example"
                 className="form-control form-select booking_select_box mt-4"
-                value="eeee"
-                // onChange={(e) => handleFormData(e, i)}
-                name="sportId"
+                value={formData.sourceType}
+                onChange={handleOnChange}
+                name="sourceType"
                 required
               >
-                <option value="null">How did you hear about us?</option>
-                <option value="null">How did you hear about us?</option>
+                <option value="0">How did you hear about us?</option>
+                <option value="1">Family</option>
+                <option value="2">Friend</option>
               </Form.Select>
               <img className="set_arrowsss" src={arrow} alt="arrow" />
               {/* <span class="required-asterisk">*</span> */}

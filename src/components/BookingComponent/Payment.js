@@ -1,17 +1,51 @@
 import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import arrow from "../../assets/images/down.png";
 import success from "../../assets/images/success.png";
+let prevTxt = "";
 
-const Payment = () => {
-  const [validated, setValidated] = useState(false);
+const Payment = ({ validated, handleFormData }) => {
+  const { createBooking } = useSelector((state) => state.createBookingResponse);
+  const [expireMonth, setExpireMonth] = useState("");
+  const paymentData = {
+    bookingId: createBooking?.data.bookingId,
+    cardNumber: "",
+    expireMonth: parseInt(expireMonth.split("/")[0]),
+    expireYear: parseInt(expireMonth.split("/")[1]),
+    cvc: "",
+    amount: createBooking?.data.totalPrice,
+    description: "",
+  };
+  const [formData, setFormData] = useState(paymentData);
+
+  const handleOnChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+
+    handleFormData(e);
+  };
+  const monthHandle = (e) => {
+    if (prevTxt.length > e.target.value.length) {
+      setExpireMonth(e.target.value);
+    } else {
+      if (expireMonth.length === 2) {
+        const lastTxt = e.target.value.charAt(e.target.value.length - 1);
+        setExpireMonth(`${expireMonth}/${lastTxt}`);
+      } else setExpireMonth(e.target.value);
+    }
+    prevTxt = e.target.value;
+    handleOnChange(e);
+  };
 
   return (
     <div className="detail_form">
       <h2 className="detail_form_header">Payment Information</h2>
       <div className="d-flex justify-content-between">
         <h4 className="total_header">Total(After Discount)</h4>
-        <h2 className="total_amt">$849</h2>
+        <h2 className="total_amt">{`$${createBooking?.data.totalPrice}`}</h2>
       </div>
       <Form noValidate validated={validated}>
         <div className="detail_form_container">
@@ -22,8 +56,8 @@ const Payment = () => {
                 className="form-control booking_inp mt-3"
                 placeholder="Card Number"
                 name="cardNumber"
-                // value={item.address}
-                // onChange={(e) => handleFormData(e, i)}
+                value={formData.cardNumber}
+                onChange={handleOnChange}
                 required
               />
               {/* <span class="required-asterisk">*</span> */}
@@ -31,7 +65,7 @@ const Payment = () => {
                 type="invalid"
                 style={{ marginLeft: "65px" }}
               >
-                Card Number
+                Card Number is Required
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="6" controlId="validationCustom01">
@@ -39,9 +73,10 @@ const Payment = () => {
                 type="text"
                 className="form-control booking_inp mt-3"
                 placeholder="CVV"
-                name="cvv"
-                // value={item.address}
-                // onChange={(e) => handleFormData(e, i)}
+                name="cvc"
+                value={formData.cvc}
+                onChange={handleOnChange}
+                maxLength={3}
                 required
               />
               {/* <span class="required-asterisk">*</span> */}
@@ -56,10 +91,11 @@ const Payment = () => {
               <Form.Control
                 type="text"
                 className="form-control booking_inp mt-3"
-                placeholder="MM/YYYY"
-                name="date"
-                // value={item.address}
-                // onChange={(e) => handleFormData(e, i)}
+                placeholder="MM/YY"
+                name="expireMonth"
+                value={expireMonth}
+                onChange={monthHandle}
+                maxLength={5}
                 required
               />
               {/* <span class="required-asterisk">*</span> */}

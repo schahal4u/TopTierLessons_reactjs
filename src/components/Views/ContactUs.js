@@ -9,9 +9,9 @@ import logo6 from "../../assets/images/logo6.png";
 import Services from "../Services";
 
 const ContactUs = () => {
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <div className="contact">

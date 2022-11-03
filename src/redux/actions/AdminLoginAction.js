@@ -32,7 +32,7 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
       payload: data,
     });
     localStorage.setItem("userData", JSON.stringify(data.data));
-    localStorage.setItem("token", JSON.stringify(data.data.access_token));
+    localStorage.setItem("token", data.data.access_token);
   } catch (error) {
     dispatch({
       type: ADMIN_LOGIN_FAIL,

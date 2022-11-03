@@ -6,11 +6,13 @@ import {
   SocialLoginReducer,
 } from "./reducers/AdminLoginReducer";
 import { AdminProfileUpdateReducer } from "./reducers/AdminProfileUpdateReducer";
+import { CreateBookingReducer } from "./reducers/Bookings";
 import { ChangePasswordReducer } from "./reducers/ChangePassword";
 import { GetAllCoachReducer } from "./reducers/coach";
 import { ContactUsReducer } from "./reducers/common";
 import { GetAllSportsReducer } from "./reducers/GetAllSports";
 import { LessonsRegisterReducer } from "./reducers/LessonsRegisterReducer";
+import { CreatePaymentReducer } from "./reducers/Payment";
 import {
   PhotoUploadReducer,
   RegisterPhotoUploadReducer,
@@ -29,6 +31,8 @@ const rootReducer = combineReducers({
   getAllSportsResponse: GetAllSportsReducer,
   getAllCoachResponse: GetAllCoachReducer,
   contactUsResponse: ContactUsReducer,
+  createBookingResponse: CreateBookingReducer,
+  createPaymentResponse: CreatePaymentReducer,
 });
 
 const store = createStore(

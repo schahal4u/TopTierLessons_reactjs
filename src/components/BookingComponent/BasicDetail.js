@@ -1,40 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import arrow from "../../assets/images/down.png";
 import "./Booking.css";
-
-const BasicDetail = () => {
+const BasicDetail = ({ slotsBook, handleFormData }) => {
   const [validated, setValidated] = useState(false);
   const [checked, setChecked] = useState(false);
-
+  const defautFormData = {
+    lessonsDuration: 0,
+    addFriend: 0,
+    locationType: 0,
+    location: "",
+  };
+  const [formData, setFormData] = useState(defautFormData);
+  const handleOnChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    handleFormData(e);
+  };
   return (
     <div className="detail_form">
       <h2 className="detail_form_header">Basic Detail</h2>
       <div className="basic_detail_card_cont">
-        <div className="basic_detail_card">
-          <p>
-            Date - <span> 24-6-2022</span>
-          </p>
-          <p>
-            Time - <span> 10:00 am</span>
-          </p>
-        </div>
-        <div className="basic_detail_card">
-          <p className="book_more">Want to book multiple lessons</p>
-        </div>
+        {slotsBook?.map((_val) => {
+          return (
+            <div className="basic_detail_card">
+              <p>
+                Date - <span> {_val.date.toLocaleDateString()}</span>
+              </p>
+              <p>
+                Time - <span>{_val.entry}</span>
+              </p>
+            </div>
+          );
+        })}
       </div>
       <Form noValidate validated={validated}>
         <Form.Group as={Col} md="12" controlId="validationCustom01">
           <Form.Select
-            aria-label="How Long Lessons Do You Want?"
+            aria-label="Default select example"
             className="form-control form-select booking_select_box mt-3"
-            value="eeee"
-            // onChange={(e) => handleFormData(e, i)}
-            name="sportId"
+            value={formData.lessonsDuration}
+            onChange={handleOnChange}
+            name="lessonsDuration"
             required
           >
-            <option value="null">How Long Lessons Do You Want?</option>
-            <option value="null">How Long Lessons Do You Want?</option>
+            <option value="0">How Long Lessons Do You Want?</option>
+            <option value="1">30 minutes</option>
+            <option value="2">60 minutes</option>
           </Form.Select>
           <img className="set_arrowss" src={arrow} alt="arrow" />
           {/* <span class="required-asterisk">*</span> */}
@@ -45,18 +56,21 @@ const BasicDetail = () => {
 
         <Form.Group as={Col} md="12" controlId="validationCustom01">
           <Form.Select
-            aria-label="How Long Lessons Do You Want?"
+            aria-label="Default select example"
             className="form-control form-select booking_select_box mt-4"
-            value="eeee"
-            // onChange={(e) => handleFormData(e, i)}
-            name="sportId"
+            value={formData.addFriend}
+            onChange={handleOnChange}
+            name="addFriend"
             required
           >
-            <option value="null">Add a Friend for $10 per Hour!</option>
-            <option value="null">Add a Friend for $10 per Hour!</option>
+            <option value="0">Add a Friend for $10 per Hour!</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
           </Form.Select>
           <img className="set_arrowss" src={arrow} alt="arrow" />
-          {/* <span class="required-asterisk">*</span> */}
           <Form.Control.Feedback type="invalid" style={{ marginLeft: "65px" }}>
             Please Select any Option
           </Form.Control.Feedback>
@@ -64,18 +78,18 @@ const BasicDetail = () => {
 
         <Form.Group as={Col} md="12" controlId="validationCustom01">
           <Form.Select
-            aria-label="How Long Lessons Do You Want?"
+            aria-label="Default select example"
             className="form-control form-select booking_select_box mt-4"
-            value="eeee"
-            // onChange={(e) => handleFormData(e, i)}
-            name="sportId"
+            value={formData.locationType}
+            onChange={handleOnChange}
+            name="locationType"
             required
           >
-            <option value="null">Where do you want your lessons?</option>
-            <option value="null">Where do you want your lessons?</option>
+            <option value="0">Where do you want your lessons?</option>
+            <option value="1">Coach Location</option>
+            <option value="2">Your Location</option>
           </Form.Select>
           <img className="set_arrowss" src={arrow} alt="arrow" />
-          {/* <span class="required-asterisk">*</span> */}
           <Form.Control.Feedback type="invalid" style={{ marginLeft: "65px" }}>
             Please Select any Option
           </Form.Control.Feedback>
@@ -112,10 +126,9 @@ const BasicDetail = () => {
             placeholder="Enter location"
             name="location"
             readOnly={!checked}
-            // value={item.address}
-            // onChange={(e) => handleFormData(e, i)}
+            value={formData.location}
+            onChange={handleOnChange}
           />
-          {/* <span class="required-asterisk">*</span> */}
         </Form.Group>
       </Form>
     </div>

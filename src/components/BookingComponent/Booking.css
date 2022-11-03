@@ -1,394 +1,411 @@
 .bookings {
-    margin: 0;
-    padding: 0;
-    background-image: url("../../assets/images/signInBg.png");
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh !important;
-    min-width: 100vw;
+  margin: 0;
+  padding: 0;
+  background-image: url("../../assets/images/signInBg.png");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh !important;
+  min-width: 100vw;
 }
 
 .bookings_container {
-    min-height: 100% !important;
-    padding-top: 70px !important;
+  min-height: 100% !important;
+  padding-top: 70px !important;
 }
 
 .bookings_form {
-    min-height: 88% !important;
-    background-color: #313131 !important;
-    display: flex !important;
-    justify-content: center !important;
-    flex-direction: column !important;
-    max-width: 80% !important;
-    margin: 0px auto !important;
-    padding: 50px 0;
-    /* border: 1px solid red; */
+  min-height: 88% !important;
+  background-color: #313131 !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  max-width: 80% !important;
+  margin: 0px auto !important;
+  padding: 50px 0;
+  /* border: 1px solid red; */
 }
 
 .calender_header {
-    color: #d9d9d9;
-    margin-bottom: 60px;
-    font-size: 36px;
-    font-weight: 600;
+  color: #d9d9d9;
+  margin-bottom: 60px;
+  font-size: 36px;
+  font-weight: 600;
 }
 
 .calender_box {
-    margin: 35px auto;
-    padding: 8px;
-    /* border: 1px solid red; */
+  margin: 35px auto;
+  padding: 8px;
+  /* border: 1px solid red; */
 }
 
 .calender_cards {
-    margin: 35px auto;
+  margin: 35px auto;
 }
 
 .react-calendar {
-    width: 565px !important;
-    background: #313131 !important;
-    border: none !important;
-    font-family: Arial, Helvetica, sans-serif;
-    line-height: 1.125em;
-    border-radius: 18px;
-    padding: 22px;
-    background: linear-gradient(354.9deg, rgba(113, 113, 113, 0.1) 4.41%, rgba(255, 255, 255, 0.1) 91.68%) !important;
-    box-shadow: 0px 2.66334px 21.3067px rgb(170 170 170 / 3%);
-    border-radius: 7.99001px;
-    margin: 10px auto;
+  width: 565px !important;
+  background: #313131 !important;
+  border: none !important;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+  border-radius: 18px;
+  padding: 22px;
+  background: linear-gradient(
+    354.9deg,
+    rgba(113, 113, 113, 0.1) 4.41%,
+    rgba(255, 255, 255, 0.1) 91.68%
+  ) !important;
+  box-shadow: 0px 2.66334px 21.3067px rgb(170 170 170 / 3%);
+  border-radius: 7.99001px;
+  margin: 10px auto;
+}
+
+.no_records {
+  color: #d9d9d9;
+  font-size: 18px;
+  font-weight: 500;
+  align-self: center;
 }
 
 .react-calendar__navigation__prev2-button,
 .react-calendar__navigation__next2-button {
-    display: none;
+  display: none;
 }
 
 .react-calendar__navigation__prev-button,
 .react-calendar__navigation__next-button {
-    color: #e38226;
+  color: #e38226;
 }
 
 .react-calendar__navigation__prev-button:hover,
 .react-calendar__navigation__next-button:hover {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 .react-calendar__navigation__label__labelText {
-    color: #d9d9d9;
+  color: #d9d9d9;
 }
 
 .react-calendar__navigation__label:hover {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 abbr[data-bs-original-title],
 abbr[title] {
-    text-decoration: none !important;
-    cursor: initial !important;
-    text-decoration-skip-ink: none;
-    color: #7d7d7d !important;
+  text-decoration: none !important;
+  cursor: initial !important;
+  text-decoration-skip-ink: none;
+  color: #7d7d7d !important;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
-    color: #d7d118 !important;
+  color: #d7d118 !important;
 }
 
 .react-calendar__month-view__days__day {
-    color: #adadad !important;
+  color: #adadad !important;
 }
 
 .react-calendar__month-view__days__day:hover {
-    background-color: #e38226 !important;
-    border-radius: 100px !important;
+  background-color: #e38226 !important;
+  border-radius: 100px !important;
 }
 
 .react-calendar__month-view__days__day--weekend {
-    color: #adadad !important;
+  color: #adadad !important;
 }
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-    background: #e38226 !important;
-    border-radius: 50px !important;
-    color: white !important;
-
+  background: #e38226 !important;
+  border-radius: 50px !important;
+  color: white !important;
 }
 
 .react-calendar__tile--now {
-    background: #e38226 !important;
-    border-radius: 50px !important;
-    color: white !important;
-
+  background: #e38226 !important;
+  border-radius: 50px !important;
+  color: white !important;
 }
 
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
-    color: red !important;
+  color: red !important;
 }
 
 .react-calendar__tile--active {
-    background: #e38226 !important;
-    color: white !important;
-    border-radius: 50px !important;
-
+  background: #e38226 !important;
+  color: white !important;
+  border-radius: 50px !important;
 }
 
 .react-calendar button {
-    margin: 0;
-    border: 0;
-    outline: none;
-    height: 40px !important;
+  margin: 0;
+  border: 0;
+  outline: none;
+  height: 40px !important;
 }
 
 .row_container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .time_cards {
-    background: linear-gradient(354.9deg, rgba(113, 113, 113, 0.1) 4.41%, rgba(255, 255, 255, 0.1) 91.68%);
-    box-shadow: 0px 3.70336px 29.6269px rgba(170, 170, 170, 0.03);
-    border-radius: 5px;
-    width: 30%;
-    text-align: center;
+  background: linear-gradient(
+    354.9deg,
+    rgba(113, 113, 113, 0.1) 4.41%,
+    rgba(255, 255, 255, 0.1) 91.68%
+  );
+  box-shadow: 0px 3.70336px 29.6269px rgba(170, 170, 170, 0.03);
+  border-radius: 5px;
+  width: 30%;
+  text-align: center;
 }
 
 .time_cards p {
-    color: #fff;
-    padding-top: 10px;
+  color: #fff;
+  padding-top: 10px;
+
 }
 
 @media (max-width: 768px) {
-    .calender_form {
-        max-width: 100% !important;
-    }
+  .calender_form {
+    max-width: 100% !important;
+  }
 
-    .react-calendar {
-        width: 520px !important;
-    }
+  .react-calendar {
+    width: 520px !important;
+  }
 }
 
 @media (max-width: 568px) {
-    .react-calendar {
-        width: 450px !important;
-    }
+  .react-calendar {
+    width: 450px !important;
+  }
 }
 
 @media (max-width: 508px) {
-    .react-calendar {
-        width: 400px !important;
-    }
+  .react-calendar {
+    width: 400px !important;
+  }
 }
 
 @media (max-width: 444px) {
-    .react-calendar {
-        width: 350px !important;
-    }
+  .react-calendar {
+    width: 350px !important;
+  }
 
-    .calender_header {
-        font-size: 30px;
-        text-align: center;
-    }
+  .calender_header {
+    font-size: 30px;
+    text-align: center;
+  }
 }
 
 @media (max-width: 380px) {
-    .react-calendar {
-        width: 320px !important;
-    }
+  .react-calendar {
+    width: 320px !important;
+  }
 }
 
 .booking_bars_container {
-    height: 10px;
-    width: 80%;
-    margin: 0 auto;
-    display: flex;
-    /* border: 1px solid red; */
+  height: 10px;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  /* border: 1px solid red; */
 }
 
 .booking_bars_active {
-    height: 8px;
-    width: 25%;
-    background: #e38226;
-    margin: 0 2px;
+  height: 8px;
+  width: 25%;
+  background: #e38226;
+  margin: 0 2px;
 }
 
 .booking_bars {
-    height: 8px;
-    width: 25%;
-    background: rgba(227, 130, 38, 0.4);
-    margin: 0 2px;
+  height: 8px;
+  width: 25%;
+  background: rgba(227, 130, 38, 0.4);
+  margin: 0 2px;
 }
 
 .booking_buttons {
-    text-align: right;
-    margin-right: 80px;
+  text-align: right;
+  margin-right: 80px;
 }
 
 .booking_bttn {
-    width: 20% !important;
-    /* margin: 20px auto; */
-    background: #e38226;
-    border: none;
-    padding: 14px;
-    color: #fff;
-    font-size: 18px;
-    /* border: 1px solid red; */
+  width: 20% !important;
+  /* margin: 20px auto; */
+  background: #e38226;
+  border: none;
+  padding: 14px;
+  color: #fff;
+  font-size: 18px;
+  /* border: 1px solid red; */
 }
 
 .back_btnn {
-    color: #fff;
-    background: none;
-    /* border: 1px solid red; */
-    border: none;
-    padding: 14px;
-    color: #fff;
-    font-size: 18px;
+  color: #fff;
+  background: none;
+  /* border: 1px solid red; */
+  border: none;
+  padding: 14px;
+  color: #fff;
+  font-size: 18px;
 }
 
 .detail_form {
-    min-height: 88% !important;
-    background-color: #313131 !important;
-    display: flex !important;
-    justify-content: center !important;
-    flex-direction: column !important;
-    width: 80% !important;
-    margin: 0px auto !important;
-    padding: 50px 0;
-    /* border: 1px solid red; */
+  min-height: 88% !important;
+  background-color: #313131 !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-direction: column !important;
+  width: 80% !important;
+  margin: 0px auto !important;
+  padding: 50px 0;
+  /* border: 1px solid red; */
 }
 
 .detail_form_header {
-    color: #d9d9d9;
-    margin-bottom: 50px;
-    font-size: 36px;
-    font-weight: 600;
-    /* margin-left: 110px !important; */
+  color: #d9d9d9;
+  margin-bottom: 50px;
+  font-size: 36px;
+  font-weight: 600;
+  /* margin-left: 110px !important; */
 }
 
 .set_arrowss {
-    position: absolute;
-    top: 25px;
-    right: 45px;
+  position: absolute;
+  top: 25px;
+  right: 45px;
 }
 
 .set_arrowsss {
-    position: absolute;
-    top: 52px;
-    right: 45px;
+  position: absolute;
+  top: 52px;
+  right: 45px;
 }
 
 .basic_detail_card_cont {
-    display: flex;
-    /* border: 1px solid red; */
-    width: 65%;
-    margin: 10px auto;
-    justify-content: space-between;
+  display: flex;
+  /* border: 1px solid red; */
+  width: 100%;
+  margin: 10px auto;
+  justify-content: flex-start;
+  flex-direction: row;
 }
 
 .basic_detail_card {
-    background: linear-gradient(354.9deg, rgba(113, 113, 113, 0.1) 4.41%, rgba(255, 255, 255, 0.1) 91.68%);
-    box-shadow: 0px 3.70336px 29.6269px rgba(170, 170, 170, 0.03);
-    border-radius: 12px;
-    width: 35%;
-    text-align: center;
-    padding: 30px;
+  background: linear-gradient(
+    354.9deg,
+    rgba(113, 113, 113, 0.1) 4.41%,
+    rgba(255, 255, 255, 0.1) 91.68%
+  );
+  box-shadow: 0px 3.70336px 29.6269px rgba(170, 170, 170, 0.03);
+  border-radius: 12px;
+  text-align: center;
+  padding: 30px;
+   margin: 10px; 
 }
 
 .basic_detail_card p {
-    color: #fff;
+  color: #fff;
 }
 
 .basic_detail_card p span {
-    color: #e38226;
+  color: #e38226;
 }
 
 .book_more {
-    color: #e38226 !important;
-    text-decoration: underline;
-    cursor: pointer;
+  color: #e38226 !important;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .booking_inp {
-    background: transparent !important;
-    width: 100% !important;
-    margin: 10px auto !important;
-    border: 1px solid #e9e9e9 !important;
-    border-radius: 0 !important;
-    color: #fff !important;
-    padding: 30px 10px !important;
-    margin-top: 30px !important;
-    position: relative;
-    /* border: 1px solid red !important; */
+  background: transparent !important;
+  width: 100% !important;
+  margin: 10px auto !important;
+  border: 1px solid #e9e9e9 !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  padding: 30px 10px !important;
+  margin-top: 30px !important;
+  position: relative;
+  /* border: 1px solid red !important; */
 }
 
 .booking_input {
-    background: transparent !important;
-    width: 100% !important;
-    margin: 10px auto !important;
-    border: 1px solid #626060 !important;
-    border-radius: 0 !important;
-    color: #d4d4d4 !important;
-    padding: 30px 10px !important;
-    margin-top: 30px !important;
-    position: relative;
+  background: transparent !important;
+  width: 100% !important;
+  margin: 10px auto !important;
+  border: 1px solid #626060 !important;
+  border-radius: 0 !important;
+  color: #d4d4d4 !important;
+  padding: 30px 10px !important;
+  margin-top: 30px !important;
+  position: relative;
 }
 
 .booking_select_box {
-    background: #313131 !important;
-    width: 100% !important;
-    color: #fff !important;
-    border-radius: 0 !important;
-    margin: 10px auto !important;
-    border: 1px solid #e9e9e9 !important;
-    height: 59px !important;
-    margin-top: 30px !important;
-    position: relative;
+  background: #313131 !important;
+  width: 100% !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+  margin: 10px auto !important;
+  border: 1px solid #e9e9e9 !important;
+  height: 59px !important;
+  margin-top: 30px !important;
+  position: relative;
 }
 
 .total_header {
-    color: #fff;
-    font-weight: 400;
+  color: #fff;
+  font-weight: 400;
 }
 
 .total_amt {
-    color: #e38226;
+  color: #e38226;
 }
 
 .success_container {
-    text-align: center;
-    margin: 100px auto !important;
+  text-align: center;
+  margin: 100px auto !important;
 }
 
 .success_container h2 {
-    color: #e38226;
-    margin: 20px auto;
-    font-size: 32px;
-    font-weight: 600;
-
+  color: #e38226;
+  margin: 20px auto;
+  font-size: 32px;
+  font-weight: 600;
 }
 
 .success_container h4 {
-    color: #aeaeae;
-    margin: 20px auto;
-    font-size: 24px;
-    font-weight: 400;
+  color: #aeaeae;
+  margin: 20px auto;
+  font-size: 24px;
+  font-weight: 400;
 }
 
 .success_container h6 {
-    color: #aeaeae;
-    margin: 20px auto;
-    font-size: 20px;
-    font-weight: 400;
+  color: #aeaeae;
+  margin: 20px auto;
+  font-size: 20px;
+  font-weight: 400;
 }
 
 .success_bttn {
-    width: 30% !important;
-    background: #e38226;
-    border: none;
-    padding: 12px;
-    color: #fff;
-    font-size: 18px;
+  width: 30% !important;
+  background: #e38226;
+  border: none;
+  padding: 12px;
+  color: #fff;
+  font-size: 18px;
 }

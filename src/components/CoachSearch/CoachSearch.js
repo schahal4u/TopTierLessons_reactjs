@@ -33,6 +33,8 @@ const CoachSearch = () => {
   const data = getCoachById?.data;
   const response = getCoachById?.statusCode;
   const sportId = localStorage.sportsId;
+  const isUser = localStorage.coachId;
+  console.log("isUser=>", isUser);
 
   const defautFormData = {
     address: "",
@@ -47,16 +49,15 @@ const CoachSearch = () => {
   const [formData, setFormData] = useState(defautFormData);
   const [validated, setValidated] = useState(false);
   const [list, setList] = useState([]);
+
   const [show, setShow] = useState(false);
   const [value, setValue] = useState([20, 200]);
 
+  console.log("value", list);
   const handleChange = (event, newValue) => {
-    // console.log("value", newValue[0]);
     setFormData({ ...formData, minPrice: newValue[0], maxPrice: newValue[1] });
     setValue(newValue);
   };
-
-  console.log("formdata", formData);
 
   const handleFormData = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -81,7 +82,13 @@ const CoachSearch = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const bookingHandler = () => {
+  const bookingHandler = (data) => {
+    localStorage.setItem("coachId", data.coachId);
+    let obj = {
+      coachId: data.coachId,
+    };
+    dispatch(emptyProfileImageResponse());
+    dispatch(GetCoachProfileAction(obj));
     navigate("/booking");
   };
 
@@ -177,6 +184,7 @@ const CoachSearch = () => {
                                 }
                                 alt="team"
                                 height="125px"
+                                width="125px"
                                 style={{ borderRadius: "50%" }}
                               />
                             </div>
@@ -216,7 +224,7 @@ const CoachSearch = () => {
                           </div>
                           <button
                             className="book_btn"
-                            onClick={() => bookingHandler()}
+                            onClick={() => bookingHandler(user)}
                           >
                             Book Lesson
                           </button>
