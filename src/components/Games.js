@@ -5,6 +5,7 @@ import { useState } from "react";
 import { GetCoachByIdAction } from "../redux/actions/coach";
 import { useNavigate } from "react-router-dom";
 import "./Games.css";
+import ReactGA from "react-ga";
 
 const Games = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,10 @@ const Games = () => {
     };
     dispatch(GetCoachByIdAction(obj));
     navigate("/coachSearch");
+    ReactGA.event({
+      category: "Sports",
+      action: `SportsName - ${data.sportName}`,
+    });
   };
 
   const rightSlideHandler = () => {
@@ -128,6 +133,7 @@ const Games = () => {
                   onClick={rightSlideHandler}
                 ></i>
               </a>
+              
             </div>
           </div>
         </div>

@@ -8,7 +8,6 @@ import Home from "./components/Views/Home";
 import About from "./components/Views/About";
 import ContactUs from "./components/Views/ContactUs";
 import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import Terms from "./components/Terms";
 import LessonsSignUp from "./pages/SignUpLessons/PersonalInfo";
@@ -19,10 +18,10 @@ import BasicInfo from "./pages/SignUpAthlete/BasicInfo";
 import BasicInfoKids from "./pages/SignUpAthlete/BasicInfoKids";
 import UploadPhoto from "./pages/SignUpLessons/UploadPhoto";
 import CoachSearch from "./components/CoachSearch/CoachSearch";
-import Calender from "./components/BookingComponent/Calender";
 import CoachDashboard from "./components/CoachProfile/Dashboard";
 import Bookings from "./components/BookingComponent/Bookings";
 import Success from "./components/BookingComponent/Success";
+import ReactGA from "react-ga";
 
 function App() {
   const location = useLocation();
@@ -30,7 +29,9 @@ function App() {
 
   useEffect(() => {
     setUrl(location.pathname);
+    ReactGA.pageview(location.pathname);
   }, [location]);
+
 
   return (
     <>

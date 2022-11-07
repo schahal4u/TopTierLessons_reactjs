@@ -6,7 +6,6 @@ import Earning from "./Earning";
 import Training from "./Training";
 import VideoLesson from "./VideoLesson";
 import ChangePassword from "./ChangePassword";
-import { NavLink } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
