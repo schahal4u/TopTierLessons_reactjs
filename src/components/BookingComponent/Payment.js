@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import arrow from "../../assets/images/down.png";
-import success from "../../assets/images/success.png";
 let prevTxt = "";
 
 const Payment = ({ validated, handleFormData }) => {

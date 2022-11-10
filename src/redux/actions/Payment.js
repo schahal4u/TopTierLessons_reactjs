@@ -13,7 +13,7 @@ export const CreatePaymentAction = (formData) => async (dispatch) => {
       type: CREATE_PAYMENT_REQUEST,
     });
     const { data } = await axiosInstance.post(
-      "StripePayment/CreatePayment",
+      "PayPalpayment/CreateOrder",
       formData
     );
     dispatch({

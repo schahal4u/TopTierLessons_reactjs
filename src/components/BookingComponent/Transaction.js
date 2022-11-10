@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import success from "../../assets/images/success.png";
 
-const Success = () => {
+const Transaction = () => {
   return (
     <div className="bookings">
       <div className="container bookings_container">
@@ -22,4 +22,4 @@ const Success = () => {
   );
 };
 
-export default Success;
+export default Transaction;

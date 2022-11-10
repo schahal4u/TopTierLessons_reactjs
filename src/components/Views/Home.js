@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Cards from "../Cards";
 import Header from "../Header";
 import "./Home.css";
@@ -12,9 +12,11 @@ import misson from "../../assets/images/misson.png";
 import Games from "../Games";
 import Services from "../Services";
 import Reviews from "../Reviews";
+import { useUID } from "react-uid";
 
 const Home = () => {
-  
+  const uid = useUID();
+  console.log("uid==>", uid);
   return (
     <>
       <div

@@ -20,7 +20,8 @@ import UploadPhoto from "./pages/SignUpLessons/UploadPhoto";
 import CoachSearch from "./components/CoachSearch/CoachSearch";
 import CoachDashboard from "./components/CoachProfile/Dashboard";
 import Bookings from "./components/BookingComponent/Bookings";
-import Success from "./components/BookingComponent/Success";
+import Transaction from "./components/BookingComponent/Transaction";
+import Rejection from "./components/BookingComponent/Rejection";
 import ReactGA from "react-ga";
 
 function App() {
@@ -31,7 +32,6 @@ function App() {
     setUrl(location.pathname);
     ReactGA.pageview(location.pathname);
   }, [location]);
-
 
   return (
     <>
@@ -64,7 +64,8 @@ function App() {
           <Route path="/basicinfokids" element={<BasicInfoKids />} />
           <Route path="/basicinfokids" element={<BasicInfoKids />} />
           <Route path="/signupuploadphoto" element={<UploadPhoto />} />
-          <Route path="/success" element={<Success />} />
+          <Route path="/transaction" element={<Transaction />} />
+          <Route path="/rejection" element={<Rejection />} />
         </Routes>
       </div>
       {url.includes("signIn") ||

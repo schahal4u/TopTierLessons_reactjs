@@ -4,7 +4,8 @@ import "./Booking.css";
 import Calender from "./Calender";
 import ContactInfo from "./ContactInfo";
 import Payment from "./Payment";
-import Success from "./Success";
+import Transaction from "./Transaction";
+import Rejection from "./Rejection";
 import { useDispatch, useSelector } from "react-redux";
 import { CreateBookingAction } from "../../redux/actions/Bookings";
 import { CreatePaymentAction } from "../../redux/actions/Payment";
@@ -63,6 +64,16 @@ const Bookings = () => {
       defautFormData = { ...defautFormData, slotsList: data, price: _price };
   }, [data]);
 
+  useEffect(() => {
+    if (createPayment?.statusCode === 200) {
+      window.open(
+        createPayment?.data?.paymentLink,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }
+  }, [createPayment]);
+
   const bookingHandler = (e) => {
     setStep(step + 1);
     if (slotsBook.length === 0) {
@@ -85,16 +96,23 @@ const Bookings = () => {
         setFormData(defautFormData);
         dispatch(CreateBookingAction(defautFormData));
       }
+    } else if (createBooking?.statusCode != 200) {
+      setStep(3);
+      setFormData("");
     }
   };
 
+  // let paymentObj = {
+  //   bookingId: createBooking?.data.bookingId,
+  //   cardNumber: "",
+  //   expireMonth: "",
+  //   expireYear: "",
+  //   cvc: "",
+  //   amount: createBooking?.data.totalPrice,
+  // };
   let paymentObj = {
-    bookingId: createBooking?.data.bookingId,
-    cardNumber: "",
-    expireMonth: "",
-    expireYear: "",
-    cvc: "",
     amount: createBooking?.data.totalPrice,
+    currency: "USD",
   };
 
   const handlePaymentFormData = (e) => {
@@ -112,19 +130,23 @@ const Bookings = () => {
     }
   };
 
+  // const paymentHandle = () => {
+  //   setIsValidated(true);
+  //   if (!paymentObj.cardNumber || !paymentObj.cvc || !paymentObj.expireMonth) {
+  //     toast.warn("Please Fill All the fields");
+  //     setStep(4);
+  //   } else if (paymentObj.cardNumber.length != 16) {
+  //     toast.warn("Please Fill valid card number");
+  //     setStep(4);
+  //   } else {
+  //     dispatch(CreatePaymentAction(paymentObj));
+  //     if (createPayment === undefined) setStep(4);
+  //     else setStep(step + 1);
+  //   }
+  // };
+
   const paymentHandle = () => {
-    setIsValidated(true);
-    if (!paymentObj.cardNumber || !paymentObj.cvc || !paymentObj.expireMonth) {
-      toast.warn("Please Fill All the fields");
-      setStep(4);
-    } else if (paymentObj.cardNumber.length != 16) {
-      toast.warn("Please Fill valid card number");
-      setStep(4);
-    } else {
-      dispatch(CreatePaymentAction(paymentObj));
-      if (createPayment === undefined) setStep(4);
-      else setStep(step + 1);
-    }
+    dispatch(CreatePaymentAction(paymentObj));
   };
 
   const RenderUI = () => {
@@ -149,7 +171,7 @@ const Bookings = () => {
           />
         );
       case 5:
-        return <Success />;
+        return <Transaction />;
       default:
         return null;
     }
