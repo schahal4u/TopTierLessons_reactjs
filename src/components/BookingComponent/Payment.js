@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Col, Form } from "react-bootstrap";
+import { Col, Form, Spinner } from "react-bootstrap";
 import { useSelector } from "react-redux";
 let prevTxt = "";
 
-const Payment = ({ validated, handleFormData }) => {
+const Payment = ({ validated, handleFormData, link, createPayment }) => {
   const { createBooking } = useSelector((state) => state.createBookingResponse);
   const [expireMonth, setExpireMonth] = useState("");
   const paymentData = {
@@ -45,7 +45,20 @@ const Payment = ({ validated, handleFormData }) => {
         <h4 className="total_header">Total(After Discount)</h4>
         <h2 className="total_amt">{`$${createBooking?.data.totalPrice}`}</h2>
       </div>
-      <Form noValidate validated={validated}>
+      {createPayment?.statusCode === 200 && (
+        <iframe
+          width="900px"
+          height="350px"
+          src={link}
+          style={{
+            position: "absolute",
+            zIndex: 1,
+            alignSelf: "center",
+            marginTop: "25px",
+          }}
+        />
+      )}
+      {/* <Form noValidate validated={validated}>
         <div className="detail_form_container">
           <div className="row">
             <Form.Group as={Col} md="12" controlId="validationCustom01">
@@ -58,7 +71,6 @@ const Payment = ({ validated, handleFormData }) => {
                 onChange={handleOnChange}
                 required
               />
-              {/* <span class="required-asterisk">*</span> */}
               <Form.Control.Feedback
                 type="invalid"
                 style={{ marginLeft: "65px" }}
@@ -77,7 +89,6 @@ const Payment = ({ validated, handleFormData }) => {
                 maxLength={3}
                 required
               />
-              {/* <span class="required-asterisk">*</span> */}
               <Form.Control.Feedback
                 type="invalid"
                 style={{ marginLeft: "65px" }}
@@ -96,7 +107,6 @@ const Payment = ({ validated, handleFormData }) => {
                 maxLength={5}
                 required
               />
-              {/* <span class="required-asterisk">*</span> */}
               <Form.Control.Feedback
                 type="invalid"
                 style={{ marginLeft: "65px" }}
@@ -114,17 +124,10 @@ const Payment = ({ validated, handleFormData }) => {
                 // onChange={(e) => handleFormData(e, i)}
                 required
               />
-              {/* <span class="required-asterisk">*</span> */}
-              {/* <Form.Control.Feedback
-                type="invalid"
-                style={{ marginLeft: "65px" }}
-              >
-                Address is Required
-              </Form.Control.Feedback> */}
             </Form.Group>
           </div>
         </div>
-      </Form>
+      </Form> */}
     </div>
   );
 };

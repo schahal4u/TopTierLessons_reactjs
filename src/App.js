@@ -21,7 +21,6 @@ import CoachSearch from "./components/CoachSearch/CoachSearch";
 import CoachDashboard from "./components/CoachProfile/Dashboard";
 import Bookings from "./components/BookingComponent/Bookings";
 import Transaction from "./components/BookingComponent/Transaction";
-import Rejection from "./components/BookingComponent/Rejection";
 import ReactGA from "react-ga";
 
 function App() {
@@ -65,7 +64,6 @@ function App() {
           <Route path="/basicinfokids" element={<BasicInfoKids />} />
           <Route path="/signupuploadphoto" element={<UploadPhoto />} />
           <Route path="/transaction" element={<Transaction />} />
-          <Route path="/rejection" element={<Rejection />} />
         </Routes>
       </div>
       {url.includes("signIn") ||

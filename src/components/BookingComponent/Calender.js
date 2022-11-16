@@ -3,6 +3,7 @@ import Calendar from "react-calendar";
 import "./Booking.css";
 import { useDispatch, useSelector } from "react-redux";
 import { GetCoachSlotsAction } from "../../redux/actions/coach";
+import { toast } from "react-toastify";
 
 const Calender = ({ slotsBook, setSlotsBook }) => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Calender = ({ slotsBook, setSlotsBook }) => {
   // }, [value]);
 
   const slotsList = (date) => {
+    console.log("Date==>", date);
     setDate(date);
     let obj = {
       coachId: coachID,
@@ -35,6 +37,7 @@ const Calender = ({ slotsBook, setSlotsBook }) => {
 
   useEffect(() => {
     if (res == 200) setSlots(data);
+    else if (res == 404) toast.warn("Slots are no Available.");
   }, [getCoachSlots]);
 
   const addedSlots = (user) => {

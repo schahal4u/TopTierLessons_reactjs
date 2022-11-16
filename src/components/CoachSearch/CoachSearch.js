@@ -33,8 +33,6 @@ const CoachSearch = () => {
   const data = getCoachById?.data;
   const response = getCoachById?.statusCode;
   const sportId = localStorage.sportsId;
-  const isUser = localStorage.coachId;
-  console.log("isUser=>", isUser);
 
   const defautFormData = {
     address: "",

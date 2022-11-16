@@ -9,13 +9,10 @@ const Availability = () => {
   const { getCoachSlots } = useSelector((state) => state.getAllCoachResponse);
   const res = getCoachSlots?.statusCode;
   const data = getCoachSlots?.data;
-
-  console.log("eeee", data);
   const coachID = localStorage.coachId;
 
   const [value, onChange] = useState(new Date());
   const [slots, setSlots] = useState([]);
-  console.log("val", slots);
 
   useEffect(() => {
     let obj = {
@@ -28,11 +25,6 @@ const Availability = () => {
   useEffect(() => {
     if (res == 200) setSlots(data);
   }, [getCoachSlots]);
-
-  // useEffect(() => {
-  //   onChange("");
-  //   setSlots("");
-  // }, []);
 
   return (
     <>

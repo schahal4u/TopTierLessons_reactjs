@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import BasicDetail from "./BasicDetail";
 import "./Booking.css";
 import Calender from "./Calender";
 import ContactInfo from "./ContactInfo";
 import Payment from "./Payment";
 import Transaction from "./Transaction";
-import Rejection from "./Rejection";
 import { useDispatch, useSelector } from "react-redux";
 import { CreateBookingAction } from "../../redux/actions/Bookings";
 import { CreatePaymentAction } from "../../redux/actions/Payment";
 import { toast } from "react-toastify";
+import { Spinner } from "react-bootstrap";
 
 let price = 0;
-const coachID = localStorage.coachId;
 let defautFormData = {
-  slotsList: "",
-  coachID: coachID,
   lessonsDuration: 0,
   addFriend: 0,
   locationType: 0,
-  price: "",
   location: "",
   firstName: "",
   lastName: "",
@@ -31,7 +27,6 @@ let defautFormData = {
 const Bookings = () => {
   const dispatch = useDispatch();
   const { createBooking } = useSelector((state) => state.createBookingResponse);
-  console.log("createBooking=>", createBooking);
   const { createPayment } = useSelector((state) => state.createPaymentResponse);
   const [validated, setValidated] = useState(false);
   const [isvalidated, setIsValidated] = useState(false);
@@ -39,6 +34,7 @@ const Bookings = () => {
   const [slotsBook, setSlotsBook] = useState([]);
   const [_price, setPrice] = useState(0);
   const [data, setData] = useState();
+  const [link, setLink] = useState("");
 
   useEffect(() => {
     if (slotsBook) arr();
@@ -66,11 +62,7 @@ const Bookings = () => {
 
   useEffect(() => {
     if (createPayment?.statusCode === 200) {
-      window.open(
-        createPayment?.data?.paymentLink,
-        "_blank",
-        "noopener,noreferrer"
-      );
+      setLink(createPayment?.data?.paymentLink);
     }
   }, [createPayment]);
 
@@ -93,12 +85,10 @@ const Bookings = () => {
         toast.warn("Please Fill All the fields");
         setStep(3);
       } else {
+        const coachID = localStorage.coachId;
         setFormData(defautFormData);
-        dispatch(CreateBookingAction(defautFormData));
+        dispatch(CreateBookingAction({ ...defautFormData, coachID: coachID }));
       }
-    } else if (createBooking?.statusCode != 200) {
-      setStep(3);
-      setFormData("");
     }
   };
 
@@ -110,9 +100,20 @@ const Bookings = () => {
   //   cvc: "",
   //   amount: createBooking?.data.totalPrice,
   // };
+
   let paymentObj = {
     amount: createBooking?.data.totalPrice,
     currency: "USD",
+  };
+
+  const isloader = () => {
+    if (createBooking?.statusCode != 200) {
+      return <Spinner animation="border" variant="warning" />;
+    } else if (createBooking?.statusCode == 200) {
+      return null;
+    } else if (createBooking?.statusCode > 200) {
+      return "Something went wrong !";
+    }
   };
 
   const handlePaymentFormData = (e) => {
@@ -163,12 +164,18 @@ const Bookings = () => {
         );
       case 4:
         return (
-          <Payment
-            validated={isvalidated}
-            // expireMonth={expireMonth}
-            // setExpireMonth={(e)=>setExpireMonth(e)}
-            handleFormData={handlePaymentFormData}
-          />
+          <div>
+            {createBooking?.statusCode === 200 ? (
+              <Payment
+                validated={isvalidated}
+                createPayment={createPayment}
+                link={link}
+                handleFormData={handlePaymentFormData}
+              />
+            ) : (
+              isloader()
+            )}
+          </div>
         );
       case 5:
         return <Transaction />;

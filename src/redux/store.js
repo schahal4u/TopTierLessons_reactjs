@@ -13,6 +13,7 @@ import { ContactUsReducer } from "./reducers/common";
 import { GetAllSportsReducer } from "./reducers/GetAllSports";
 import { LessonsRegisterReducer } from "./reducers/LessonsRegisterReducer";
 import { CreatePaymentReducer } from "./reducers/Payment";
+import { CapturePaymentReducer } from "./reducers/CapturePayment";
 import {
   PhotoUploadReducer,
   RegisterPhotoUploadReducer,
@@ -33,6 +34,7 @@ const rootReducer = combineReducers({
   contactUsResponse: ContactUsReducer,
   createBookingResponse: CreateBookingReducer,
   createPaymentResponse: CreatePaymentReducer,
+  capturePaymentResponse: CapturePaymentReducer
 });
 
 const store = createStore(
