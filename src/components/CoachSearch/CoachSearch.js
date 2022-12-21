@@ -132,7 +132,7 @@ const CoachSearch = () => {
 
   return (
     <>
-      <div className="search">
+      <div id="search">
         <div className="search_desc">
           <h1>Search For Coaches</h1>
         </div>

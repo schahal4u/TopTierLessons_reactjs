@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { routes } from "../routes";
+import { navbarMenu1, navbarMenu2, navbarMenu3 } from "../routes";
 import logo from "../assets/images/logo.png";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,7 @@ import {
 } from "../redux/actions/AdminLoginAction";
 import { emptyRegisterResponse } from "../redux/actions/LessonsRegisterAction";
 const Navbar = () => {
+  const token = localStorage?.userData;
   const navigate = useNavigate();
   const { adminInfo, error } = useSelector((state) => state.adminLogin);
   const { socialLoginInfo, errors } = useSelector((state) => state.socialLogin);
@@ -27,14 +28,13 @@ const Navbar = () => {
     logo: profileLogo,
   };
   const [formData, setFormData] = useState(defautFormData);
+  const [routes, setRoutes] = useState([]);
 
   const profileHandler = () => {
     dispatch(emptyProfileImageResponse());
     dispatch(emptyUpdateProfileResponse());
     navigate("/dashboard");
   };
-
-  const token = localStorage.userData;
 
   const logoutHandler = () => {
     localStorage.removeItem("userData");
@@ -43,8 +43,11 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    let parsing = token ? JSON.parse(localStorage?.userData) : null;
+    let usertype = parsing?.userType || null;
     dispatch(AdminGetProfileDetailAction());
-  }, []);
+    setRoutes(usertype === 2 ? navbarMenu2 : navbarMenu1);
+  }, [token]);
 
   useEffect(() => {
     if (getResponse == 200) {
@@ -60,7 +63,7 @@ const Navbar = () => {
 
   const coachHandler = () => {
     dispatch(emptyUpdateProfileResponse());
-    dispatch(emptyRegisterResponse())
+    dispatch(emptyRegisterResponse());
     navigate("/coachsignup");
   };
 
@@ -84,23 +87,26 @@ const Navbar = () => {
               {" "}
             </i>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <div
+            className="collapse navbar-collapse justify-content-end"
+            id="navbarSupportedContent"
+          >
             <ul className="navbar-nav mb-2 mb-lg-0 align_navbar">
-              {routes.map((page) => (
-                <li className="nav-item" key={page.id}>
+              {routes.map((item) => (
+                <li className="mx-3" key={item.id}>
                   <NavLink
                     className={({ isActive }) =>
                       isActive ? "link-active" : "link"
                     }
-                    aria-current="page"
-                    to={page.path}
+                    aria-current="item"
+                    to={item.path}
                   >
-                    {page.name}
+                    {item.name}
                   </NavLink>
                 </li>
               ))}
             </ul>
-            <div className="d-flex align_btn">
+            <div className="d-flex">
               {/* {!adminInfo?.data?.access_token &&
               !socialLoginInfo?.data?.access_token ? ( */}
               {!token ? (

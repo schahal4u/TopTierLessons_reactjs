@@ -27,8 +27,6 @@ const SignIn = () => {
   const errorResponse = error?.statusCode;
   const socialResponse = socialLoginInfo?.statusCode;
 
-  // console.log("response is eeeeeeeeeeerrrrrrrr", error);
-
   const defautFormData = {
     email: "",
     password: "",
@@ -154,8 +152,7 @@ const SignIn = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
                 {show ? (
-                
-                   <img
+                  <img
                     src={eye}
                     alt="eye"
                     className="eye"

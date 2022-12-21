@@ -21,11 +21,7 @@ export const AdminLoginAction = (formData) => async (dispatch) => {
       type: ADMIN_LOGIN_REQUEST,
     });
 
-    const { data } = await axios.post(
-      "https://toptierlessons.com:4437/api/v1.0/Auth/SignIn",
-      formData
-    );
-    // const { data } = await axiosInstance.post("Auth/SignIn", formData);
+    const { data } = await axiosInstance.post("Auth/SignIn", formData);
 
     dispatch({
       type: ADMIN_LOGIN_SUCCESS,
@@ -52,16 +48,13 @@ export const SocialLoginAction = (formData) => async (dispatch) => {
       type: SOCIAL_LOGIN_REQUEST,
     });
 
-    const { data } = await axios.post(
-      "https://toptierlessons.com:4437/api/v1.0/Auth/ExternalLogin",
-      formData
-    );
+    const { data } = await axiosInstance.post("Auth/ExternalLogin", formData);
     dispatch({
       type: SOCIAL_LOGIN_SUCCESS,
       payload: data,
     });
     localStorage.setItem("userData", JSON.stringify(data.data));
-    localStorage.setItem("token", JSON.stringify(data.data.access_token));
+    localStorage.setItem("token", data.data.access_token);
   } catch (error) {
     dispatch({
       type: SOCIAL_LOGIN_FAIL,

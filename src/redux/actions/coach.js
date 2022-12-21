@@ -16,6 +16,13 @@ import {
   GET_COACH_SLOTS_SUCCESS,
   GET_COACH_SLOTS_FAIL,
   GET_COACH_SLOTS_RESET,
+  GET_NEAR_BY_VENUE_REQUEST,
+  GET_NEAR_BY_VENUE_SUCCESS,
+  GET_NEAR_BY_VENUE_FAIL,
+  DELETE_VENUE_REQUEST,
+  DELETE_VENUE_SUCCESS,
+  DELETE_VENUE_FAIL,
+  DELETE_VENUE_RESET,
 } from "../types.js";
 
 export const GetAllCoachAction = (formData) => async (dispatch) => {
@@ -111,6 +118,49 @@ export const GetCoachSlotsAction = (formData) => async (dispatch) => {
   }
 };
 
+export const GetNearbyVenueAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_NEAR_BY_VENUE_REQUEST,
+    });
+    const { data } = await axiosInstance.post("Sport/GetNearbyVenue", formData);
+    dispatch({
+      type: GET_NEAR_BY_VENUE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_NEAR_BY_VENUE_FAIL,
+      payload: error?.response?.data,
+    });
+  }
+};
+
 export const ResetCoachSlotsResponse = () => ({
   type: GET_COACH_SLOTS_RESET,
+});
+
+export const deleteCoachVenueAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: DELETE_VENUE_REQUEST,
+    });
+    const { data } = await axiosInstance.post(
+      "Venue/DeleteCoachVenue",
+      formData
+    );
+    dispatch({
+      type: DELETE_VENUE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_VENUE_FAIL,
+      payload: error?.response?.data,
+    });
+  }
+};
+
+export const deleteCoachVenueResponse = () => ({
+  type: DELETE_VENUE_RESET,
 });

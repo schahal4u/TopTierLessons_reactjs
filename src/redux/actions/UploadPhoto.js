@@ -8,6 +8,12 @@ import {
   REGISTER_UPLOAD_PHOTO_SUCCESS,
   REGISTER_UPLOAD_PHOTO_FAIL,
   REGISTER_UPLOAD_PHOTO_RESET,
+  UPLOAD_FILE_REQUEST,
+  UPLOAD_FILE_SUCCESS,
+  UPLOAD_FILE_FAIL,
+  UPLOAD_DOCUMENT_REQUEST,
+  UPLOAD_DOCUMENT_SUCCESS,
+  UPLOAD_DOCUMENT_FAIL,
 } from "../types.js";
 
 export const PhotoUploadAction = (formData) => async (dispatch) => {
@@ -55,6 +61,52 @@ export const RegisterPhotoUploadAction = (formData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: REGISTER_UPLOAD_PHOTO_FAIL,
+      payload: error?.response?.data,
+    });
+  }
+};
+
+///// upload documents
+
+export const updateFileAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: UPLOAD_FILE_REQUEST,
+    });
+
+    const { data } = await axiosInstance.post("User/UploadFile", formData);
+
+    dispatch({
+      type: UPLOAD_FILE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPLOAD_FILE_FAIL,
+      payload: error?.response?.data,
+    });
+  }
+};
+
+// upload docs
+export const UploadDocumentAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: UPLOAD_DOCUMENT_REQUEST,
+    });
+
+    const { data } = await axiosInstance.post(
+      "Document/UploadDocument",
+      formData
+    );
+
+    dispatch({
+      type: UPLOAD_DOCUMENT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPLOAD_DOCUMENT_FAIL,
       payload: error?.response?.data,
     });
   }

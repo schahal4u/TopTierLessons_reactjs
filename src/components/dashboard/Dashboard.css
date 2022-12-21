@@ -1,4 +1,4 @@
-.dashboard {
+#dashboard {
   margin: 0;
   padding: 0;
   background-image: url("../../assets/images/dashboard-bg.png");
@@ -22,13 +22,14 @@
   padding-left: 70px;
   padding-right: 70px;
   background: #313131 !important;
+  height: -webkit-fill-available;
 }
 .list-group-item {
   border: none !important;
   padding-top: 60px 0;
   font-size: 20px;
   font-weight: 600;
-  color: #515151 !important;
+  /* color: #515151  !important; */
   background: #313131 !important;
   text-align: center;
   text-decoration: none !important;
@@ -38,6 +39,16 @@
   background: #313131 !important;
   color: #fff !important;
 }
+.container-height {
+  height: 780px;
+}
+
+.main_fixed{
+  height: auto;
+  overflow-y: scroll;
+ 
+}
+
 @media (max-width: 1024px) {
   #sidebar {
     padding-top: 50px;
@@ -78,3 +89,5 @@
     cursor: pointer;
   }
 }
+
+

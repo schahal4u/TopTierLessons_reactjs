@@ -1,33 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { Col, Form } from "react-bootstrap";
+import { Col, Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
 import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
 import "./BasicDetail.css";
 import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-google-places-autocomplete";
+import { Slider } from "@mui/material";
+import { GetAllSportsAction } from "../../redux/actions/GetAllSports";
 const BasicDetail = () => {
+  const API_KEY = "AIzaSyDx_6SY-xRPDGlQoPt8PTRbCtTHKCbiCXQ";
   const { profileDetail, profileError } = useSelector(
     (state) => state.getProfileDetail
   );
+  const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
   const updateProfileDetail = useSelector((state) => state.profileUpdate);
   const getResponse = profileDetail?.statusCode;
   const response = updateProfileDetail?.statusCode;
 
   const dispatch = useDispatch();
   const defautFormData = {
-    name: profileDetail?.data?.name ? profileDetail?.data.name : "",
-    email: profileDetail?.data?.email ? profileDetail?.data.email : "",
-    address: profileDetail?.data?.address ? profileDetail?.data.address : "",
-    role: profileDetail?.data?.userType ? profileDetail?.data.userType : "",
-    bio: profileDetail?.data?.bio ? profileDetail?.data.bio : "",
+    name: "",
+    email: "",
+    address: "",
+    role: "",
+    bio: "",
+    radius: "",
+    sportId: "",
+    price: "",
   };
   const [formData, setFormData] = useState(defautFormData);
+  console.log("formData", formData);
   const [loading, setLoading] = useState(false);
   const [validated, setValidated] = useState(false);
-
+  const [place, setPlace] = useState("");
+  console.log("place=====>", place);
   useEffect(() => {
     dispatch(AdminGetProfileDetailAction());
+    let obj = {
+      page: 1,
+      pageSize: 100,
+    };
+    dispatch(GetAllSportsAction(obj));
   }, []);
 
   const handleFormData = (e) => {
@@ -45,13 +63,12 @@ const BasicDetail = () => {
       toast.warn("Please Fill All the fields");
     } else {
       setLoading(true);
-    
-      let obj = [formData]
+
+      let obj = [formData];
       let userData = {
         users: obj,
       };
       // obj.push(userData);
-      console.log("daata--------------->", userData );
       dispatch(AdminProfileUpdateAction(userData));
     }
   };
@@ -65,9 +82,13 @@ const BasicDetail = () => {
         address: profileDetail?.data?.address,
         role: profileDetail?.data?.userType,
         bio: profileDetail?.data?.bio,
+        radius: profileDetail?.data?.radius,
+        sportId: profileDetail?.data?.sportId,
+        price: profileDetail?.data?.price,
       });
     }
   }, [profileDetail]);
+
   useEffect(() => {
     if (updateProfileDetail?.updateProfileDetail != null) {
       setLoading(false);
@@ -75,22 +96,48 @@ const BasicDetail = () => {
     }
   }, [updateProfileDetail]);
 
+  // useEffect(() => {
+  //   if (place.label) {
+  //     setFormData({ ...formData, address: place.Label });
+  //   }
+  // }, [place]);
+
+  useEffect(() => {
+    if (place) {
+      geocodeByAddress(place?.label)
+        .then((results) => getLatLng(results[0]))
+        .then(
+          ({ lat, lng }) =>
+            setFormData({
+              ...formData,
+              address: place.label,
+              latitude: lat,
+              longitude: lng,
+            })
+          // console.log("Successfully got latitude and longitude", { lat, lng })
+        );
+    }
+  }, [place]);
+
+  function valuetext(value) {
+    return `Radius ${value} `;
+  }
   return (
     <>
-      <div className="profile">
+      <div className="profile ">
         <Form noValidate validated={validated} onSubmit={profileHandler}>
-          <div className="profile_form">
+          <div className="profile_form ">
             <Form.Group as={Col} md="10" controlId="validationCustom01">
               <Form.Control
                 required
                 type="text"
-                className="form-control profile_inp "
+                className="input-control"
                 placeholder="Name"
                 name="name"
                 value={formData.name}
                 onChange={handleFormData}
               />
-              <span class="required-asterisk">*</span>
+              <span class="required">*</span>
               <Form.Control.Feedback className="error_text" type="invalid">
                 Name is Required
               </Form.Control.Feedback>
@@ -99,20 +146,48 @@ const BasicDetail = () => {
               <Form.Control
                 required
                 type="email"
-                className="form-control profile_inp mt-4"
+                className="input-control"
                 placeholder="Email"
                 name="email"
                 value={formData.email}
                 readOnly
                 // onChange={handleFormData}
               />
-              <span class="required-asterisk">*</span>
+              <span class="required">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 Email is Required
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="10" controlId="validationCustom03">
+
+            <Form.Group as={Col} md="10" controlId="validationCustom04">
               <Form.Control
+                required
+                readOnly
+                type="text"
+                className="input-control"
+                placeholder="Role"
+                name="role"
+                value={formData.role}
+                // onChange={handleFormData}
+              />
+              <span class="required">*</span>
+              <Form.Control.Feedback type="invalid" className="error_text">
+                Role is Required
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="10" controlId="validationCustom03">
+              <GooglePlacesAutocomplete
+                apiKey={API_KEY}
+                selectProps={{
+                  place,
+                  onChange: setPlace,
+                  placeholder: `${
+                    formData.address ? formData.address : "Address"
+                  }`,
+                }}
+              />
+
+              {/* <Form.Control
                 required
                 type="text"
                 className="form-control profile_inp mt-4"
@@ -120,26 +195,88 @@ const BasicDetail = () => {
                 name="address"
                 value={formData.address}
                 onChange={handleFormData}
-              />
-              <span class="required-asterisk">*</span>
+              /> */}
+
+              {/* <span class="required">*</span> */}
               <Form.Control.Feedback type="invalid" className="error_text">
                 Address is Required
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group as={Col} md="10" controlId="validationCustom02">
+              {/* <Form.Label style={{ color: "white" }}>radius</Form.Label> */}
+              <Slider
+                name="radius"
+                sx={{ width: "100%", color: "orange" }}
+                aria-label="Temperature"
+                defaultValue={10}
+                getAriaValueText={valuetext}
+                // getAriaValueText={valuetext}
+                valueLabelFormat={valuetext}
+                valueLabelDisplay="auto"
+                step={5}
+                value={formData.radius}
+                onChange={handleFormData}
+                marks
+                min={0}
+                max={100}
+              />
+              <Form.Control.Feedback
+                type="invalid"
+                style={{ marginLeft: "65px" }}
+              >
+                radius
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group as={Col} md="10" controlId="validationCustom06">
+              <Form.Select
+                aria-label="Default select example"
+                className="input-control"
+                value={formData.sportId}
+                onChange={handleFormData}
+                name="sportId"
+                disabled={
+                  formData.latitude !== null &&
+                  formData.longitude !== null &&
+                  formData.radius !== null
+                    ? ""
+                    : "true"
+                }
+                required
+              >
+                <option value="null">Select Sport</option>
+                {getAllSports &&
+                  getAllSports?.data.map((item, i) => {
+                    return (
+                      <option key={i} value={item.sportId}>
+                        {item.sportName}
+                      </option>
+                    );
+                  })}
+              </Form.Select>
+              {/* <img className="set_arrows" src={arrow} alt="arrow" /> */}
+              {/* <span class="required-asterisk">*</span> */}
+              <Form.Control.Feedback
+                type="invalid"
+                style={{ marginLeft: "65px" }}
+              >
+                Please Select any Option
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="10" controlId="validationCustom04">
               <Form.Control
                 required
-                readOnly
-                type="text"
-                className="form-control profile_inp mt-4"
-                placeholder="Role"
-                name="role"
-                value={formData.role}
-                // onChange={handleFormData}
+                type="number"
+                className="input-control"
+                placeholder="Price"
+                name="price"
+                min="0"
+                value={formData.price}
+                onChange={handleFormData}
               />
-              <span class="required-asterisk">*</span>
+              <span class="required">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
-                Role is Required
+                price is Required
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="10" controlId="validationCustom05">
@@ -154,7 +291,7 @@ const BasicDetail = () => {
                 value={formData.bio}
                 onChange={handleFormData}
               />
-              <span class="required-asterisk">*</span>
+              <span class="required">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 Bio is Required
               </Form.Control.Feedback>

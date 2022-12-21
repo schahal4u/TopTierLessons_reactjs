@@ -15,6 +15,13 @@ import {
   GET_COACH_SLOTS_SUCCESS,
   GET_COACH_SLOTS_FAIL,
   GET_COACH_SLOTS_RESET,
+  GET_NEAR_BY_VENUE_REQUEST,
+  GET_NEAR_BY_VENUE_SUCCESS,
+  GET_NEAR_BY_VENUE_FAIL,
+  DELETE_VENUE_REQUEST,
+  DELETE_VENUE_SUCCESS,
+  DELETE_VENUE_FAIL,
+  DELETE_VENUE_RESET,
 } from "../types.js";
 
 const initialState = {
@@ -22,6 +29,7 @@ const initialState = {
   getCoachById: undefined,
   getCoachProfile: undefined,
   getCoachSlots: [],
+  getNearbyVenue: [],
 };
 
 export const GetAllCoachReducer = (state = initialState, action) => {
@@ -112,6 +120,44 @@ export const GetAllCoachReducer = (state = initialState, action) => {
       return {
         ...state,
         getCoachSlots: null,
+      };
+    case GET_NEAR_BY_VENUE_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_NEAR_BY_VENUE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        getNearbyVenue: action.payload,
+      };
+    case GET_NEAR_BY_VENUE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        getNearbyVenue: action.payload,
+      };
+
+    case DELETE_VENUE_REQUEST:
+      return {
+        loading: true,
+      };
+    case DELETE_VENUE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        deleteVenue: action.payload,
+      };
+    case DELETE_VENUE_FAIL:
+      return {
+        ...state,
+        loading: false,
+        deleteVenue: action.payload,
+      };
+    case DELETE_VENUE_RESET:
+      return {
+        ...state,
+        deleteVenue: null,
       };
 
     default:

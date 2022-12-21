@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-const baseURL = "https://toptierlessons.com:4437/api/v1.0/";
+const baseURL = "http://192.168.0.168:8080/api/v1.0/";
 
 export const axiosInstance = axios.create({
   baseURL,
@@ -28,7 +28,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.log("error=>", error?.response?.data?.returnMessage[0]);
+    // console.log("error=>", error);
     toast.warn(error?.response?.data?.returnMessage[0]);
     if (error.response.status === 401) {
       console.log("error.response", error.response);

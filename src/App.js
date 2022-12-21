@@ -22,6 +22,12 @@ import CoachDashboard from "./components/CoachProfile/Dashboard";
 import Bookings from "./components/BookingComponent/Bookings";
 import Transaction from "./components/BookingComponent/Transaction";
 import ReactGA from "react-ga";
+import BookingList from "./pages/CoachScreens/BookingList";
+import BookingDetails from "./pages/CoachScreens/BookingDetails";
+import BookingSlot from "./pages/CoachScreens/BookingSlot";
+import Venue from "./pages/CoachScreens/Venue";
+import Scroller from "./components/feature/Scroller";
+import Chat from "./components/feature/Chat";
 
 function App() {
   const location = useLocation();
@@ -64,6 +70,10 @@ function App() {
           <Route path="/basicinfokids" element={<BasicInfoKids />} />
           <Route path="/signupuploadphoto" element={<UploadPhoto />} />
           <Route path="/transaction" element={<Transaction />} />
+          <Route path="/bookingList" element={<BookingList />} />
+          <Route path="/bookingList/:id" element={<BookingDetails />} />
+          <Route path="/bookingslot" element={<BookingSlot />} />
+          <Route path="/venue" element={<Venue />} />
         </Routes>
       </div>
       {url.includes("signIn") ||
@@ -76,6 +86,8 @@ function App() {
       url.includes("signupuploadphoto") ? null : (
         <Footer />
       )}
+      <Scroller />
+      {/* <Chat /> */}
     </>
   );
 }

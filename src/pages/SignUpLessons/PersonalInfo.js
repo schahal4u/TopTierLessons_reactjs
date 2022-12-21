@@ -16,7 +16,7 @@ const PersonalInfo = () => {
 
   const { lessonInfo } = useSelector((state) => state.lessonSignUp);
   const response = lessonInfo?.statusCode;
-  // console.log("response is", lessonInfo);
+  console.log("response is", lessonInfo);
 
   const defautFormData = {
     name: "",
@@ -56,8 +56,9 @@ const PersonalInfo = () => {
   };
 
   const responseHandler = () => {
+    console.log("response====>", response);
     if (response == 200) {
-      dispatch(emptyProfileImageResponse())
+      dispatch(emptyProfileImageResponse());
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/signupuploadphoto");
@@ -82,31 +83,31 @@ const PersonalInfo = () => {
             <div className="signin_form">
               <h1>Create Account</h1>
               <div className="col-md-12">
-              <input
-                type="text"
-                className="form-control signin_inp mt-3"
-                placeholder="Name"
-                name="name"
-                value={formData.name}
-                onChange={handleFormData}
-                required
-              />
-              <span class="asterisk">*</span>
+                <input
+                  type="text"
+                  className="form-control signin_inp mt-3"
+                  placeholder="Name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleFormData}
+                  required
+                />
+                <span class="asterisk">*</span>
               </div>
               <div className="col-md-12">
-              <input
-                type="email"
-                className="form-control signin_inp mt-3"
-                placeholder="Email"
-                name="email"
-                value={formData.email}
-                onChange={handleFormData}
-                required
-                pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
-              />
-              <span class="asterisk">*</span>
+                <input
+                  type="email"
+                  className="form-control signin_inp mt-3"
+                  placeholder="Email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleFormData}
+                  required
+                  pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
+                />
+                <span class="asterisk">*</span>
               </div>
-              <div className="eyeHandler col-md-12" >
+              <div className="eyeHandler col-md-12">
                 <input
                   type={show ? "text" : "password"}
                   className="form-control signinput_inp mt-3"
@@ -117,8 +118,7 @@ const PersonalInfo = () => {
                   required
                 />
                 {show ? (
-               
-                     <img
+                  <img
                     src={eye}
                     alt="eye"
                     className="eye"
@@ -132,7 +132,7 @@ const PersonalInfo = () => {
                     onClick={viewPassword}
                   />
                 )}
-              <span class="asterisk">*</span>
+                <span class="asterisk">*</span>
               </div>
               <button
                 type="submit"

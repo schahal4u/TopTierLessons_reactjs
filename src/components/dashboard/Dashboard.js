@@ -13,6 +13,9 @@ import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
 import { AdminGetProfileDetailAction } from "../../redux/actions/AdminGetProfileDetail";
 import { emptyPasswordResponse } from "../../redux/actions/ChangePassword";
 import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpdateAction";
+import CoachDocs from "../CoachProfile/CoachDocs";
+import Venue from "./Venue";
+import { MultiSelect } from "react-multi-select-component";
 
 const Dashboard = () => {
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
@@ -22,7 +25,7 @@ const Dashboard = () => {
     (state) => state.getProfileDetail
   );
   const getResponse = profileDetail?.statusCode;
-
+  console.log(profileDetail);
   const imageType = [
     "image/tif",
     "image/tiff",
@@ -49,6 +52,7 @@ const Dashboard = () => {
   const [formData, setFormData] = useState(defautFormData);
   const [inp, setInp] = useState("");
   const [show, setShow] = useState({ ...defaultShow, basicDetail: true });
+  console.log("show======>", show.coachDocs);
   const [modalShow, setModalShow] = useState(false);
   const [preview, setPreview] = useState();
   const [selectedFile, setSelectedFile] = useState();
@@ -126,6 +130,13 @@ const Dashboard = () => {
     setShow({ ...defaultShow, basicDetail: true });
     dispatch(emptyUpdateProfileResponse());
   };
+  const documentsHandler = () => {
+    setShow({ ...defaultShow, coachDocs: true });
+  };
+  const venueHandler = () => {
+    // window.location.hash = "Venue";
+    setShow({ ...defaultShow, venue: true });
+  };
 
   const sidebarHandler = () => {
     setOpen(!open);
@@ -133,26 +144,25 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="dashboard">
+      <div id="dashboard">
         <div className="dashboard_desc">
           <h1>Your Account Details</h1>
         </div>
       </div>
       {/* <div className="dashboard_conatiner"> */}
-      <div class="container-fluid">
-        <div class="row flex-nowrap">
-          <div class="col-auto px-0">
+      <div className="container-fluid">
+        <div className="row flex-nowrap  container-height ">
+          <div className="col-auto px-0">
             <div
               id="sidebar"
-              class="collapse collapse-horizontal show border-end"
-              style={{ height: "756px" }}
+              className="collapse collapse-horizontal show border-end"
             >
               <div
                 id="sidebar-nav"
-                class="list-group border-0 rounded-0 text-sm-start min-vh-100"
+                className="list-group border-0 rounded-0 text-sm-start min-vh-100"
               >
                 <a
-                  class="list-group-item border-end-0 d-inline-block text-truncate"
+                  className="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                 >
                   {/* <img src={logo} alt="icon" /> */}
@@ -199,15 +209,15 @@ const Dashboard = () => {
                   </Modal.Footer>
                 </Modal>
                 <a
-                  class="list-group-item border-end-0 d-inline-block text-truncate"
+                  className="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={basicDetailHandler}
-                  style={{ color: "#e38226" }}
+                  style={{ color: show.basicDetail ? "#e38226" : "#515151" }}
                 >
                   <span>Basic Details</span>
                 </a>
                 {/* <a
-                  class="list-group-item border-end-0 d-inline-block text-truncate"
+                  className="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={() => setShow({ ...defaultShow, videoLesson: true })}
                   style={{
@@ -219,62 +229,78 @@ const Dashboard = () => {
                   <span>Video Lessons</span>
                 </a> */}
                 <a
-                  class="list-group-item border-end-0 d-inline-block text-truncate"
+                  className="list-group-item border-end-0 d-inline-block text-truncate "
                   data-bs-parent="#sidebar"
                   onClick={() => setShow({ ...defaultShow, training: true })}
                   style={{
-                    color: show.training
-                      ? "#e38226  !important"
-                      : "#515151 !important",
+                    color: show.training ? "#e38226" : "#515151",
                   }}
                 >
                   <span>Joined Trainings</span>
                 </a>
                 <a
-                  class="list-group-item border-end-0 d-inline-block text-truncate"
+                  className="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={() => setShow({ ...defaultShow, earning: true })}
-                  style={{
-                    color: show.earning
-                      ? "#e38226 !important"
-                      : "#51515 !important",
-                  }}
+                  style={{ color: show.earning ? "#e38226" : "#515151" }}
                 >
                   <span>Earning</span>
                 </a>
                 <a
-                  class="list-group-item border-end-0 d-inline-block text-truncate"
+                  className="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={passwordHandler}
                   style={{
-                    color: show?.password && "#e38226 !important",
+                    color: show?.password ? "#e38226" : "#515151",
                   }}
                 >
                   <span>Change Password</span>
                 </a>
+                <a
+                  className="list-group-item border-end-0 d-inline-block text-truncate"
+                  style={{ color: show.coachDocs ? "#e38226" : "#515151" }}
+                  data-bs-parent="#sidebar"
+                  onClick={documentsHandler}
+                >
+                  <p>Documents</p>
+                </a>
+                {(profileDetail?.data?.address !== null ||
+                  profileDetail?.data?.latitude !== null ||
+                  profileDetail?.data?.longitude !== null) && (
+                  <a
+                    className="list-group-item border-end-0 d-inline-block text-truncate "
+                    style={{ color: show.venue ? "#e38226" : "#515151" }}
+                    data-bs-parent="#sidebar"
+                    onClick={() => venueHandler()}
+                  >
+                    <p>Venue</p>
+                  </a>
+                )}
               </div>
             </div>
           </div>
-          <main class="col ps-md-2 pt-2 right_sidebar">
+          <main className="col ps-md-2 pt-2 right_sidebar main_fixed p-2   ">
             <a
               data-bs-target="#sidebar"
               data-bs-toggle="collapse"
-              class="p-1 text-decoration-none"
+              className="p-1 text-decoration-none"
               style={{ cursor: "pointer" }}
               onClick={sidebarHandler}
             >
               {open ? (
-                <i class="fa fa-chevron-right bi-lg py-2 p-1"></i>
+                <i className="fa fa-chevron-right bi-lg py-2 p-1"></i>
               ) : (
-                <i class="fa fa-chevron-left bi-lg py-2 p-1"></i>
+                <i className="fa fa-chevron-left bi-lg py-2 p-1"></i>
               )}
             </a>
-            <div class="page-header pt-3">
+            <div className="page-header pt-3  ">
               {show.basicDetail && <BasicDetail />}
               {show.videoLesson && <VideoLesson />}
               {show.earning && <Earning />}
               {show.training && <Training />}
               {show.password && <ChangePassword />}
+              {show.coachDocs && <CoachDocs />}
+              {show.venue && <Venue />}
             </div>
           </main>
         </div>
@@ -284,13 +310,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-
-
-
-
-
-
-
-
-

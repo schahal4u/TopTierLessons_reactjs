@@ -4,12 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { ChangePasswordAction } from "../../redux/actions/ChangePassword";
 const ChangePassword = () => {
-  const { passwordResponse } = useSelector(
-    (state) => state.changePassResponse
-  );
+  const { passwordResponse } = useSelector((state) => state.changePassResponse);
   const response = passwordResponse?.statusCode;
-
-  console.log("password response", passwordResponse);
 
   const dispatch = useDispatch();
   const defautFormData = {
