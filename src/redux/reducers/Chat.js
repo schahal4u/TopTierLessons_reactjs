@@ -37,8 +37,8 @@ export const getChatByIdReducer = (state = initialState, action) => {
       return { ...state, loading: false, chatGetById: action.payload };
     case GET_BY_CHAT_ID_FAIL:
       return { ...state, loading: false, chatGetById: action.payload };
-    // case GET_BY_CHAT_ID_RESET:
-    //   return { ...state, chatGetById: null };
+    case GET_BY_CHAT_ID_RESET:
+      return { ...state, chatGetById: null };
 
     default:
       return state;

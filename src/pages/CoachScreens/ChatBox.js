@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import { Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { ChatGetByIdAction } from "../../redux/actions/Chat";
+import { chatGetByIdAction } from "../../redux/actions/Chat";
 import ChatForm from "./ChatForm";
 
 const ChatBox = ({ user, time }) => {
@@ -26,7 +26,7 @@ const ChatBox = ({ user, time }) => {
 
   useEffect(() => {
     if (user.userId) {
-      dispatch(ChatGetByIdAction({ chatId: user.chatId }));
+      dispatch(chatGetByIdAction({ chatId: user.chatId }));
     }
   }, [user]);
 

@@ -32,7 +32,7 @@ export const GetBookingUserAction = (formData) => async (dispatch) => {
 //   type: GET_BOOKING_USER_RESET,
 // });
 
-export const ChatGetByIdAction = (formData) => async (dispatch) => {
+export const chatGetByIdAction = (formData) => async (dispatch) => {
   try {
     dispatch({
       type: GET_BY_CHAT_ID_REQUEST,
@@ -50,6 +50,8 @@ export const ChatGetByIdAction = (formData) => async (dispatch) => {
   }
 };
 
-// export const ChatGetByIdResponse = () => ({
-//   type: GET_BY_CHAT_ID_RESET,
-// });
+export const chatGetByIdResponse = () => ({
+  type: GET_BY_CHAT_ID_RESET,
+});
+
+// for get chat state

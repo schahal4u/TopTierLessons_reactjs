@@ -30,8 +30,8 @@ export const coachRoutes = [
   },
   {
     id: 6,
-    name: "Venue",
-    path: "/venue",
+    name: "Chats",
+    path: "/conversation",
     coachType: 2,
   },
 ];

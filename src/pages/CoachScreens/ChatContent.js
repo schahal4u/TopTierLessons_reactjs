@@ -6,14 +6,14 @@ import React, {
   useRef,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ChatGetByIdAction } from "../../redux/actions/Chat";
+import { chatGetByIdAction } from "../../redux/actions/Chat";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 
 import Avatar from "./Avatar";
 import ChatItem from "./ChatItem";
 // import ChatItem from "./ChatItem";
 
-const ChatContent = ({ user, time }) => {
+const ChatContent = ({ user, selectedUser, time }) => {
   let defData = {
     senderId: 0,
     reciverId: 0,
@@ -26,9 +26,10 @@ const ChatContent = ({ user, time }) => {
 
   const senderlogin = JSON.parse(localStorage.userData);
   const { chatGetById } = useSelector((state) => state.getChatById);
+
   const [connection, setConnection] = useState();
   const [msgList, setMsgList] = useState([]);
-  console.log(connection);
+
   const [toptierChat, setToptierChat] = useState(defData);
   const dispatch = useDispatch();
 
@@ -42,7 +43,8 @@ const ChatContent = ({ user, time }) => {
 
   useEffect(() => {
     if (user.userId) {
-      dispatch(ChatGetByIdAction({ chatId: user.chatId }));
+      setMsgList([]);
+      dispatch(chatGetByIdAction({ chatId: user.chatId }));
     }
   }, [user]);
 
@@ -92,7 +94,6 @@ const ChatContent = ({ user, time }) => {
         .start()
         .then(() => {
           connection.on("ReceiveMessage", (message) => {
-            console.log("message-----agya msg", message);
             if (message) {
               const updatedChat = [...latestChat.current];
               updatedChat.push(message);
@@ -117,7 +118,7 @@ const ChatContent = ({ user, time }) => {
 
   const listUpdate = () => {
     if (user.userId) {
-      dispatch(ChatGetByIdAction({ chatId: user.chatId }));
+      dispatch(chatGetByIdAction({ chatId: user.chatId }));
     }
   };
 
@@ -146,7 +147,7 @@ const ChatContent = ({ user, time }) => {
           <div className="current-chatting-user">
             <Avatar
               isOnline="active"
-              image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU"
+              image={user.profilePic && user.profilePic}
             />
             <p>{user.name}</p>
           </div>
@@ -162,19 +163,27 @@ const ChatContent = ({ user, time }) => {
       </div>
       <div className="content__body">
         <div className="chat__items">
-          {msgList?.map((itm, index) => {
-            return (
-              <ChatItem
-                // animationDelay={index + 2}
-                // key={itm.key}
-                // user={itm.type ? itm.type : "me"}
-                // msg={itm.msg}
-                // image={itm.image}
-                user={user}
-                userMsg={itm}
-              />
-            );
-          })}
+          {msgList.length > 0 ? (
+            msgList?.map((itm, index) => {
+              return (
+                <ChatItem
+                  // animationDelay={index + 2}
+                  // key={itm.key}
+                  // user={itm.type ? itm.type : "me"}
+                  // msg={itm.msg}
+                  // image={itm.image}
+                  user={user}
+                  userMsg={itm}
+                />
+              );
+            })
+          ) : (
+            <div class="d-flex justify-content-center  ">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          )}
           <div ref={messagesEndRef} />
         </div>
       </div>

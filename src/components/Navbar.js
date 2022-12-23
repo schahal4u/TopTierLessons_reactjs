@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import { navbarMenu1, navbarMenu2, navbarMenu3 } from "../routes";
 import logo from "../assets/images/logo.png";
 import "./Navbar.css";
@@ -16,6 +16,10 @@ import {
 import { emptyRegisterResponse } from "../redux/actions/LessonsRegisterAction";
 const Navbar = () => {
   const token = localStorage?.userData;
+
+  let parsing = token ? JSON.parse(localStorage?.userData) : null;
+  let usertype = parsing?.userType || null;
+
   const navigate = useNavigate();
   const { adminInfo, error } = useSelector((state) => state.adminLogin);
   const { socialLoginInfo, errors } = useSelector((state) => state.socialLogin);
@@ -43,8 +47,8 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    let parsing = token ? JSON.parse(localStorage?.userData) : null;
-    let usertype = parsing?.userType || null;
+    // let parsing = token ? JSON.parse(localStorage?.userData) : null;
+    // let usertype = parsing?.userType || null;
     dispatch(AdminGetProfileDetailAction());
     setRoutes(usertype === 2 ? navbarMenu2 : navbarMenu1);
   }, [token]);
@@ -67,6 +71,16 @@ const Navbar = () => {
     navigate("/coachsignup");
   };
 
+  const bookingHandler = () => {
+    navigate("/bookingList", { replace: true });
+  };
+  const slotsHandler = () => {
+    navigate("/bookingslot", { replace: true });
+  };
+  const chatsHandler = () => {
+    navigate("/conversation", { replace: true });
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg  bg-background">
@@ -83,9 +97,7 @@ const Navbar = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <i className="fa fa-bars" style={{ color: "#fff" }}>
-              {" "}
-            </i>
+            <i className="fa fa-bars" style={{ color: "#fff" }}></i>
           </button>
           <div
             className="collapse navbar-collapse justify-content-end"
@@ -124,7 +136,7 @@ const Navbar = () => {
                     <button
                       style={{ color: "#fff !important" }}
                       type="button"
-                      class="signup-btn nav-link dropdown-toggle  bg-clr"
+                      className="signup-btn nav-link dropdown-toggle  bg-clr"
                       id="navbar-primary_dropdown_1"
                       role="button"
                       data-toggle="dropdown"
@@ -134,11 +146,11 @@ const Navbar = () => {
                       Sign Up
                     </button>
                     <div
-                      class="dropdown-menu menu_colour dropdown-menu-right"
+                      className="dropdown-menu menu_colour dropdown-menu-right"
                       aria-labelledby="navbar-primary_dropdown_1"
                     >
                       <a
-                        class="dropdown-item disabled"
+                        className="dropdown-item disabled"
                         onClick={profileHandler}
                       >
                         I Am looking for
@@ -189,7 +201,7 @@ const Navbar = () => {
                 <>
                   <div
                     style={{ cursor: "pointer" }}
-                    class="nav-link dropdown-toggle"
+                    className="nav-link dropdown-toggle"
                     id="navbar-primary_dropdown_1"
                     role="button"
                     data-toggle="dropdown"
@@ -203,13 +215,27 @@ const Navbar = () => {
                     />
                   </div>
                   <div
-                    class="dropdown-menu menu_colour dropdown-menu-right"
+                    className="dropdown-menu menu_colour dropdown-menu-right text-start "
                     aria-labelledby="navbar-primary_dropdown_1"
                   >
-                    <a class="dropdown-item " onClick={profileHandler}>
+                    {usertype === 2 && (
+                      <>
+                        <a className="dropdown-item" onClick={bookingHandler}>
+                          Booking
+                        </a>
+                        <a className="dropdown-item" onClick={slotsHandler}>
+                          Slots
+                        </a>
+                      </>
+                    )}
+
+                    <a className="dropdown-item" onClick={chatsHandler}>
+                      Chats
+                    </a>
+                    <a className="dropdown-item" onClick={profileHandler}>
                       Profile
                     </a>
-                    <a class="dropdown-item" onClick={logoutHandler}>
+                    <a className="dropdown-item" onClick={logoutHandler}>
                       Logout
                     </a>
                   </div>
