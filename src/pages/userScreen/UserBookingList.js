@@ -25,8 +25,10 @@ import {
 import { emptyProfileImageResponse } from "../../redux/actions/UploadPhoto";
 import { GetAllSportsAction } from "../../redux/actions/GetAllSports";
 import Slider from "@mui/material/Slider";
+import AddReviewModal from "../../components/Modal/AddReviewModal";
+import { CreateReviewAction } from "../../redux/actions/ReviewAction";
 
-const BookingList = () => {
+const UserBookingList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -36,23 +38,43 @@ const BookingList = () => {
 
   const { getAllBooking } = useSelector((state) => state.getAllBookingResponse);
   const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
+  // const { createReviewReducer } = useSelector((state) => state.createReview);
 
   const data = getAllBooking?.data;
   const response = getAllBooking?.statusCode;
   const sportId = localStorage.sportsId;
+  const reciverId = getAllBooking?.data?.coachId;
+  // const rate = createReviewReducer?.data.rating
+  // console.log("rate=>>>>>>>>>", rate)
+  const [ratingValue, setRatingValue] = useState(0);
+  const handleRating = (rate) => {
+    setRatingValue(rate);
+  };
 
   const defautFormData = {
     page: 0,
     pageSize: 0,
+    reciverId: 0,
+    review: "string",
+    rating: 0,
+    coachId: 0,
   };
 
+  const defaultRating = {
+    reciverId: "",
+    review: "",
+    rating: "",
+  };
+
+  console.log("coachid=>>>>>>>>", reciverId);
   const [formData, setFormData] = useState(defautFormData);
   // const [validated, setValidated] = useState(false);
   const [list, setList] = useState([]);
 
   const [show, setShow] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [value, setValue] = useState([20, 200]);
-
+  const [rating, setRating] = useState(defaultRating);
   const handleChange = (event, newValue) => {
     setFormData({
       ...formData,
@@ -107,7 +129,7 @@ const BookingList = () => {
 
   const filterSerachhandler = (e) => {
     e.preventDefault();
-
+    console.log("data", formData);
     dispatch(GetAllBookingAction(formData));
     setShow(false);
   };
@@ -116,10 +138,21 @@ const BookingList = () => {
     navigate(`/appointmentList/${id}`);
   };
 
+  const reviewHandler = (id) => {
+    setRating({ ...rating, reciverId: id });
+    setShowModal(true);
+  };
+  const submitHandler = () => {
+    if (rating.reciverId != "" && (rating.review != "" || rating.rating != ""))
+      dispatch(CreateReviewAction(rating));
+    setShowModal(false);
+  };
+  const emailHandler = () => {
+    navigate("/emailTemplate");
+  };
+
   return (
     <div>
-      {/* <Navbar /> */}
-
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-12 search_container">
@@ -174,7 +207,7 @@ const BookingList = () => {
                             <h4>Name</h4>
                           </div>
                           <div className="coach_fullname">
-                            <h1>{user?.studentName}</h1>
+                            <h1>{user?.coachName}</h1>
                           </div>
                         </div>
                         <div
@@ -205,6 +238,27 @@ const BookingList = () => {
                             View Detail
                           </button>
                         </div>
+
+                        <div
+                          style={{
+                            borderLeft: "1px solid #575757",
+                            height: "90px",
+                          }}
+                        ></div>
+                        <div className="coach_btn">
+                          <button
+                            className="book_button"
+                            onClick={() => reviewHandler(user.coachId)}
+                          >
+                            review
+                          </button>
+                          <button
+                            className="book_button"
+                            onClick={emailHandler}
+                          >
+                            email
+                          </button>
+                        </div>
                       </div>
                     </div>
                   );
@@ -220,120 +274,17 @@ const BookingList = () => {
         </div>
       </div>
       {/* Modal */}
-      <div
-        className={"modal fade" + (show ? " show d-block" : " d-none")}
-        id="staticBackdrop"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content" style={{ marginTop: "14rem" }}>
-            {/* <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button> */}
-            <i
-              class="fa fa-times-circle"
-              aria-hidden="true"
-              onClick={closehandler}
-              style={{
-                fontSize: "22px",
-                color: "#fff !important",
-                padding: "7px",
-                textAlign: "right",
-                cursor: "pointer",
-              }}
-            ></i>
-            <div className="modal-body">
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Control
-                  required
-                  type="text"
-                  className="form-control signin_inpp mt-3"
-                  placeholder="Enter Location"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleFormData}
-                />
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Email is Required
-                </Form.Control.Feedback>
-              </Form.Group>
+      <AddReviewModal
+        show={showModal}
+        rating={rating}
+        setRating={setRating}
+        onHide={() => setShowModal(false)}
+        submitHandler={submitHandler}
+      />
 
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Select
-                  aria-label="Default select example"
-                  className="form-control form-select select_boxx mt-3"
-                  value={formData.sportId}
-                  onChange={handleFormData}
-                  name="sportId"
-                  required
-                >
-                  <option value="">Select Sport</option>
-                  {getAllSports &&
-                    getAllSports?.data.map((item, i) => {
-                      return (
-                        <option key={i} value={item.sportId}>
-                          {item.sportName}
-                        </option>
-                      );
-                    })}
-                </Form.Select>
-                <img className="set_arrowss" src={arrow} alt="arrow" />
-                {/* <span class="required-asterisk">*</span> */}
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Please Select any Option
-                </Form.Control.Feedback>
-              </Form.Group>
-
-              <p
-                style={{
-                  color: "#fff",
-                  paddingLeft: "36px",
-                  paddingTop: "10px",
-                }}
-              >
-                Price Range
-              </p>
-              <div style={{ width: "83%", margin: "10px auto" }}>
-                <Slider
-                  sx={{
-                    width: "100%",
-                    color: "orange",
-                    margin: "0px auto",
-                  }}
-                  getAriaLabel={() => "Temperature range"}
-                  value={value}
-                  onChange={handleChange}
-                  valueLabelDisplay="auto"
-                  getAriaValueText={valuetext}
-                  min={0}
-                  max={1000}
-                />
-              </div>
-
-              <button className="book_btnnn" onClick={filterSerachhandler}>
-                Filter
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
 
-export default BookingList;
+export default UserBookingList;

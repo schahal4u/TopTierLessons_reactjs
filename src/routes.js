@@ -19,7 +19,7 @@ export const coachRoutes = [
   {
     id: 4,
     name: "Booking",
-    path: "/bookingList",
+    path: "/appointmentList",
     coachType: 2,
   },
   {
@@ -36,6 +36,6 @@ export const coachRoutes = [
   },
 ];
 
-export const navbarMenu1 = [...routes];
-export const navbarMenu2 = [...navbarMenu1, ...coachRoutes];
-export const navbarMenu3 = [...navbarMenu1];
+// export const navbarMenu1 = [...routes];
+// export const navbarMenu2 = [...navbarMenu1, ...coachRoutes];
+// export const navbarMenu3 = [...navbarMenu1];

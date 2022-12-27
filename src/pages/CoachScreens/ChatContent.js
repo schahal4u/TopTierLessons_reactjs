@@ -25,8 +25,8 @@ const ChatContent = ({ user, selectedUser, time }) => {
   let messagesEndRef = createRef(null);
 
   const senderlogin = JSON.parse(localStorage.userData);
-  const { chatGetById } = useSelector((state) => state.getChatById);
-
+  const { chatGetById, loading } = useSelector((state) => state.getChatById);
+  console.log("loading", loading);
   const [connection, setConnection] = useState();
   const [msgList, setMsgList] = useState([]);
 
@@ -42,9 +42,9 @@ const ChatContent = ({ user, selectedUser, time }) => {
   };
 
   useEffect(() => {
-    if (user.userId) {
+    if (user?.userId) {
       setMsgList([]);
-      dispatch(chatGetByIdAction({ chatId: user.chatId }));
+      dispatch(chatGetByIdAction({ chatId: user?.chatId }));
     }
   }, [user]);
 
@@ -73,7 +73,7 @@ const ChatContent = ({ user, selectedUser, time }) => {
       setToptierChat({
         ...toptierChat,
         senderId: senderlogin.userId,
-        reciverId: user.userId,
+        reciverId: user?.userId,
       });
     }
   }, [toptierChat.message]);
@@ -117,8 +117,8 @@ const ChatContent = ({ user, selectedUser, time }) => {
   }, [connection]);
 
   const listUpdate = () => {
-    if (user.userId) {
-      dispatch(chatGetByIdAction({ chatId: user.chatId }));
+    if (user?.userId) {
+      dispatch(chatGetByIdAction({ chatId: user?.chatId }));
     }
   };
 
@@ -147,9 +147,9 @@ const ChatContent = ({ user, selectedUser, time }) => {
           <div className="current-chatting-user">
             <Avatar
               isOnline="active"
-              image={user.profilePic && user.profilePic}
+              image={user?.profilePic && user?.profilePic}
             />
-            <p>{user.name}</p>
+            <p>{user?.name}</p>
           </div>
         </div>
 
@@ -177,6 +177,10 @@ const ChatContent = ({ user, selectedUser, time }) => {
                 />
               );
             })
+          ) : !loading ? (
+            <div class="d-flex justify-content-center  ">
+              <h4 className="text-black">Data Not Found</h4>
+            </div>
           ) : (
             <div class="d-flex justify-content-center  ">
               <div class="spinner-border" role="status">

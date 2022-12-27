@@ -50,6 +50,25 @@ const ChangePassword = () => {
     }
   }, [passwordResponse]);
 
+  {
+    /*
+<Form.Group as={Col} md="10" controlId="validationCustom01">
+<Form.Control
+required
+type="text"
+className="input-control"
+placeholder="Name"
+name="name"
+value={formData.name}
+onChange={handleFormData}
+/>
+<span class="required">*</span>
+<Form.Control.Feedback className="error_text" type="invalid">
+Name is Required
+</Form.Control.Feedback>
+</Form.Group> */
+  }
+
   return (
     <>
       <div className="profile">
@@ -59,13 +78,13 @@ const ChangePassword = () => {
               <Form.Control
                 required
                 type="password"
-                className="form-control profile_inp "
+                className="input-control"
                 placeholder="Current Password"
                 name="oldPassword"
                 value={formData.oldPassword}
                 onChange={handleFormData}
               />
-              <span class="required-asterisk">*</span>
+              <span class="required">*</span>
               <Form.Control.Feedback className="error_text" type="invalid">
                 Password is Required
               </Form.Control.Feedback>
@@ -74,13 +93,13 @@ const ChangePassword = () => {
               <Form.Control
                 required
                 type="password"
-                className="form-control profile_inp mt-4"
+                className="input-control mt-4"
                 placeholder="Create New Password"
                 name="newPassword"
                 value={formData.newPassword}
                 onChange={handleFormData}
               />
-              <span class="required-asterisk">*</span>
+              <span class="required">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 New Password is Required
               </Form.Control.Feedback>
@@ -89,13 +108,13 @@ const ChangePassword = () => {
               <Form.Control
                 required
                 type="password"
-                className="form-control profile_inp mt-4"
+                className="input-control mt-4"
                 placeholder="Confirm New Password"
                 name="confirmpassword"
                 value={formData.confirmpassword}
                 onChange={handleFormData}
               />
-              <span class="required-asterisk">*</span>
+              <span class="required">*</span>
               <Form.Control.Feedback type="invalid" className="error_text">
                 Confirm Password is Required
               </Form.Control.Feedback>

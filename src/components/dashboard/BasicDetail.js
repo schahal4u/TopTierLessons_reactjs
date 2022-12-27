@@ -29,7 +29,7 @@ const BasicDetail = () => {
     address: "",
     role: "",
     bio: "",
-    radius: "",
+    radius: 0,
     sportId: "",
     price: "",
   };
@@ -175,7 +175,12 @@ const BasicDetail = () => {
                 Role is Required
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="10" controlId="validationCustom03">
+            <Form.Group
+              className="google-analytics"
+              as={Col}
+              md="10"
+              controlId="validationCustom03"
+            >
               <GooglePlacesAutocomplete
                 apiKey={API_KEY}
                 selectProps={{
@@ -204,22 +209,44 @@ const BasicDetail = () => {
             </Form.Group>
             <Form.Group as={Col} md="10" controlId="validationCustom02">
               {/* <Form.Label style={{ color: "white" }}>radius</Form.Label> */}
-              <Slider
-                name="radius"
-                sx={{ width: "100%", color: "orange" }}
-                aria-label="Temperature"
-                defaultValue={10}
-                getAriaValueText={valuetext}
-                // getAriaValueText={valuetext}
-                valueLabelFormat={valuetext}
-                valueLabelDisplay="auto"
-                step={5}
-                value={formData.radius}
-                onChange={handleFormData}
-                marks
-                min={0}
-                max={100}
-              />
+
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <label className="mt-2" style={{ color: "white" }}>
+                  Radius
+                </label>
+
+                <Slider
+                  name="radius"
+                  sx={{
+                    width: "100%",
+                    margin: "10px 0px 0px 20px",
+                    color: "orange",
+                  }}
+                  aria-label="Temperature"
+                  defaultValue={10}
+                  getAriaValueText={valuetext}
+                  // getAriaValueText={valuetext}
+                  valueLabelFormat={valuetext}
+                  valueLabelDisplay="auto"
+                  step={5}
+                  value={formData.radius}
+                  onChange={handleFormData}
+                  marks
+                  min={0}
+                  max={30}
+                />
+
+                <text className="px-3 text-white">{formData.radius}</text>
+              </div>
+
               <Form.Control.Feedback
                 type="invalid"
                 style={{ marginLeft: "65px" }}

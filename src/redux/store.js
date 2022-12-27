@@ -20,9 +20,17 @@ import {
   UploadDocumentReducer,
   UploadFileReducer,
 } from "./reducers/UploadPhoto";
-import { GetAllBookingReducer } from "./reducers/GetAllBookingReducer";
+import {
+  GetAllBookingDetailsByIdReducer,
+  GetAllBookingReducer,
+} from "./reducers/GetAllBookingReducer";
 import { GetAllSlotsReducer } from "./reducers/GetTimeSlotsReducer";
-import { GetALlCoachVenueReducer } from "./reducers/GetAllCoachVenueReducer";
+import {
+  GetALlCoachVenueReducer,
+  GetVenueByIdReducer,
+} from "./reducers/GetAllCoachVenueReducer";
+import { CreateReviewReducer, ReviewReducer } from "./reducers/ReviewReducer";
+import { EmailTemplateReducer } from "./reducers/EmailTemplateReducer";
 import { ChatModuleReducer, getChatByIdReducer } from "./reducers/Chat";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -40,12 +48,17 @@ const rootReducer = combineReducers({
   contactUsResponse: ContactUsReducer,
   createBookingResponse: CreateBookingReducer,
   getAllBookingResponse: GetAllBookingReducer,
+  getAllBookingDetailsById: GetAllBookingDetailsByIdReducer,
   createPaymentResponse: CreatePaymentReducer,
   capturePaymentResponse: CapturePaymentReducer,
   UploadDocument: UploadDocumentReducer,
   uploadFile: UploadFileReducer,
   getAllSlots: GetAllSlotsReducer,
   coachVenue: GetALlCoachVenueReducer,
+  venueById: GetVenueByIdReducer,
+  getReviewReducer: ReviewReducer,
+  createReview: CreateReviewReducer,
+  emailTemplateReducer: EmailTemplateReducer,
   chatModule: ChatModuleReducer,
   getChatById: getChatByIdReducer,
 });

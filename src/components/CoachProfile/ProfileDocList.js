@@ -36,7 +36,7 @@ const ProfileDocList = () => {
           </div>
         </div>
       </div>
-      {profileDetail?.data?.documentsList.map((item, i) => {
+      {profileDetail?.data?.documentsList?.map((item, i) => {
         return (
           <div>
             <div className="name_section w-100 ">

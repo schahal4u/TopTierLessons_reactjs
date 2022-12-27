@@ -12,8 +12,10 @@ import ChatListItems from "./ChatListItems";
 
 const Venue = () => {
   const { getAllBooking } = useSelector((state) => state.getAllBookingResponse);
-  const { getChatBookingUser } = useSelector((state) => state.chatModule);
-  console.log("getChatBookingUser", getChatBookingUser);
+  const { getChatBookingUser, loading } = useSelector(
+    (state) => state.chatModule
+  );
+  console.log("getChatBookingUser", loading);
   const [userDetails, setUserDetails] = useState({});
   const [selectUser, setSelectUser] = useState();
   let dispatch = useDispatch();
@@ -31,14 +33,14 @@ const Venue = () => {
   useEffect(() => {
     if (getChatBookingUser?.data) {
       setUserDetails(getChatBookingUser?.data[0]);
-      setSelectUser(getChatBookingUser?.data[0].userId);
+      setSelectUser(getChatBookingUser?.data[0]?.userId);
     }
   }, [getChatBookingUser]);
 
   const sidebarHandler = (item) => {
     dispatch(chatGetByIdResponse());
     setUserDetails(item);
-    setSelectUser(item.userId);
+    setSelectUser(item?.userId);
   };
 
   return (
@@ -64,7 +66,7 @@ const Venue = () => {
               </div>
             </div> */}
             <div className="chatlist__items">
-              {getChatBookingUser?.data ? (
+              {getChatBookingUser?.data?.length ? (
                 getChatBookingUser?.data?.map((item, index) => {
                   return (
                     <ChatListItems
@@ -81,6 +83,10 @@ const Venue = () => {
                     />
                   );
                 })
+              ) : !loading ? (
+                <div class="d-flex justify-content-center  ">
+                  <h4 className="text-black">Data Not Found</h4>
+                </div>
               ) : (
                 <div class="d-flex justify-content-center  ">
                   <div class="spinner-border" role="status">

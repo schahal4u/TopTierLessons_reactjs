@@ -103,7 +103,7 @@ export const GetCoachSlotsAction = (formData) => async (dispatch) => {
       type: GET_COACH_SLOTS_REQUEST,
     });
     const { data } = await axiosInstance.post(
-      "Booking/CheckAvailability",
+      "TimeSlots/CheckAvailability",
       formData
     );
     dispatch({

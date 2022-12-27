@@ -25,6 +25,10 @@ import ReactGA from "react-ga";
 import BookingList from "./pages/CoachScreens/BookingList";
 import BookingDetails from "./pages/CoachScreens/BookingDetails";
 import BookingSlot from "./pages/CoachScreens/BookingSlot";
+import Venue from "./pages/CoachScreens/Venu";
+import UserBookingList from "./pages/userScreen/UserBookingList";
+import CoachProfileDetail from "./pages/userScreen/CoachProfileDetail";
+import EmailTemplate from "./pages/EmailTemplate";
 import Chats from "./pages/CoachScreens/chats";
 import Scroller from "./components/feature/Scroller";
 
@@ -36,6 +40,8 @@ function App() {
     setUrl(location.pathname);
     ReactGA.pageview(location.pathname);
   }, [location]);
+
+  // When the user scrolls down 20px from the top of the document, show the button
 
   return (
     <>
@@ -49,7 +55,12 @@ function App() {
         url.includes("booking") ||
         url.includes("basicinfokids") ||
         url.includes("signupuploadphoto") ? null : (
-          <Navbar />
+          <>
+            <Navbar />
+            <div id="scrollerHeader" style={{ display: "none", zIndex: "999" }}>
+              <Navbar />
+            </div>
+          </>
         )}
         <Routes>
           <Route path="/" element={<Home />} />
@@ -62,15 +73,23 @@ function App() {
           <Route path="/coachSearch" element={<CoachSearch />} />
           <Route path="/coachProfile" element={<CoachDashboard />} />
           <Route path="/booking" element={<Bookings />} />
+          <Route
+            path="/coachProfileDetail/:id"
+            element={<CoachProfileDetail />}
+          />
           <Route path="/coachsignup" element={<LessonsSignUp />} />
           <Route path="/athletesignup" element={<PersonalDetail />} />
           <Route path="/basicinfo" element={<BasicInfo />} />
           <Route path="/basicinfokids" element={<BasicInfoKids />} />
+          <Route path="/basicinfokids" element={<BasicInfoKids />} />
           <Route path="/signupuploadphoto" element={<UploadPhoto />} />
           <Route path="/transaction" element={<Transaction />} />
-          <Route path="/bookingList" element={<BookingList />} />
-          <Route path="/bookingList/:id" element={<BookingDetails />} />
+          <Route path="/appointmentList" element={<BookingList />} />
+          <Route path="/appointmentList/:id" element={<BookingDetails />} />
           <Route path="/bookingslot" element={<BookingSlot />} />
+          <Route path="/venue" element={<Venue />} />
+          <Route path="/userBookingList" element={<UserBookingList />} />
+          <Route path="/emailTemplate" element={<EmailTemplate />} />
           <Route path="/conversation" element={<Chats />} />
         </Routes>
       </div>

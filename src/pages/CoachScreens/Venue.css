@@ -1,0 +1,10 @@
+.venuecard {
+    display: flex;
+    height: 100% !important;
+    width: 100% !important;
+  
+    margin-top: 40px !important;
+    background-color: #424141 !important;
+    color: #e38226 !important;
+  }
+  

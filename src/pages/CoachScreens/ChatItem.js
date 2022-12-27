@@ -47,7 +47,7 @@ const ChatItem = ({ user, userMsg }) => {
     <div
       style={{ animationDelay: `0.8s` }}
       className={`chat__item ${
-        userMsg.senderId === user.userId ? "other" : "me"
+        userMsg.senderId === user?.userId ? "other" : "me"
       }`}
       //   className={`chat__item  `}
     >

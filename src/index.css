@@ -432,3 +432,41 @@ code {
   background-color: #e38226;
   color: #fff;
 }
+
+
+.google-analytics > .css-2b097c-container > .css-yk16xz-control , .css-1pahdxg-control{
+  background: #313131 !important;
+  color: #fff !important;
+  border-radius: 0 !important;
+  margin: 10px auto !important;
+  border: 1px solid #e9e9e9 !important;
+  height: 50px !important;
+}
+.css-1uccc91-singleValue{
+  color: #fff !important;
+}
+#react-select-2-input{
+color: #fff !important;
+}
+.css-1wa3eu0-placeholder{
+  color: #fff !important;
+}
+.dropdown-container{
+  background: #313131 !important;
+    color: #000 !important;
+    border-radius: 0 !important;
+    margin: 10px auto !important;
+    border: 1px solid #e9e9e9 !important;
+    height: 50px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dropdown-heading-value{
+  color: #fff !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

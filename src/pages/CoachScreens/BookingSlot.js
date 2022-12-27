@@ -21,7 +21,7 @@ import {
 import { toast } from "react-toastify";
 
 const BookingSlot = ({ handleFormData }) => {
-  let { getAllSlots } = useSelector((state) => state.getAllSlots);
+  let { getAllSlots, loading } = useSelector((state) => state.getAllSlots);
   let {
     createBookingSlot,
     deleteBookingSlot,
@@ -468,8 +468,12 @@ const BookingSlot = ({ handleFormData }) => {
                             </>
                           );
                         })
+                      ) : !loading ? (
+                        <div className="d-flex justify-content-center align-items-center">
+                          <h4 className="text-white">Data Not Found</h4>
+                        </div>
                       ) : (
-                        <div className="  d-flex justify-content-center align-items-center">
+                        <div className="d-flex justify-content-center align-items-center">
                           <div
                             className="spinner-border text-light"
                             role="status"

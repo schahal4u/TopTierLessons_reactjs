@@ -15,14 +15,10 @@ let price = 0;
 let defautFormData = {
   lessonsDuration: 0,
   addFriend: 0,
-  locationType: 0,
-  location: "",
-  firstName: "",
-  lastName: "",
-  phone: "",
-  email: "",
+  bookingId: 0,
   continueLessons: false,
   sourceType: 0,
+  venueId: 0,
 };
 const Bookings = () => {
   const dispatch = useDispatch();
@@ -76,21 +72,22 @@ const Bookings = () => {
     } else if (step === 3) {
       e.preventDefault();
       setValidated(true);
-      if (
-        !defautFormData.firstName ||
-        !defautFormData.lastName ||
-        !defautFormData.phone ||
-        !defautFormData.email
-      ) {
-        toast.warn("Please Fill All the fields");
-        setStep(3);
-      } else {
-        const coachID = localStorage.coachId;
-        setFormData(defautFormData);
-        dispatch(CreateBookingAction({ ...defautFormData, coachID: coachID }));
-      }
+      // if (
+      //   !defautFormData.firstName ||
+      //   !defautFormData.lastName ||
+      //   !defautFormData.phone ||
+      //   !defautFormData.email
+      // ) {
+      //   toast.warn("Please Fill All the fields");
+      //   setStep(3);
+      // } else {
+      const coachID = localStorage.coachId;
+      setFormData(defautFormData);
+      dispatch(CreateBookingAction({ ...defautFormData, coachID: coachID }));
+      // }
     }
   };
+  // console.log("idididdd", coachId)
 
   // let paymentObj = {
   //   bookingId: createBooking?.data.bookingId,
@@ -104,6 +101,7 @@ const Bookings = () => {
   let paymentObj = {
     amount: createBooking?.data.totalPrice,
     currency: "USD",
+    bookingId: createBooking?.data.bookingId,
   };
 
   const isloader = () => {

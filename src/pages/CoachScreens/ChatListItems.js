@@ -19,7 +19,7 @@ const ChatListItems = ({ user, animationDelay, active, sidebarHandler }) => {
       onClick={() => sidebarHandler(user)}
       className={`chatlist__item ${active ? active : ""} `}
     >
-      <Avatar isOnline="active" image={user.profilePic && user.profilePic} />
+      <Avatar isOnline="active" image={user?.profilePic && user?.profilePic} />
 
       <div className="userMeta">
         <p>{user.name}</p>

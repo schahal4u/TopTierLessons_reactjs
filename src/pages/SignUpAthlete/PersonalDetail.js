@@ -63,13 +63,13 @@ const PersonalDetail = () => {
 
   const responseHandler = () => {
     if (response == 200 && formData.userType == "3") {
-      dispatch(emptyProfileImageResponse())
+      dispatch(emptyProfileImageResponse());
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/basicinfo");
     }
     if (response == 200 && formData.userType == "4") {
-      dispatch(emptyProfileImageResponse())
+      dispatch(emptyProfileImageResponse());
       setLoading(false);
       toast.success("Registered Successfully");
       navigate("/basicinfokids");
@@ -104,7 +104,7 @@ const PersonalDetail = () => {
                   onChange={handleFormData}
                   required
                 />
-              <span class="required-asterisk">*</span>
+                <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -123,7 +123,7 @@ const PersonalDetail = () => {
                   required
                   pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
                 />
-              <span class="required-asterisk">*</span>
+                <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -144,7 +144,7 @@ const PersonalDetail = () => {
                   pattern="^([0|\+[0-9]{1,5})?([0-9][0-9]{9})$"
                   inputMode="numeric"
                 />
-              <span class="required-asterisk">*</span>
+                <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}
@@ -163,7 +163,7 @@ const PersonalDetail = () => {
                     onChange={handleFormData}
                     required
                   />
-              <span class="required-asterisk">*</span>
+                  <span class="required-asterisk">*</span>
                   <Form.Control.Feedback
                     type="invalid"
                     style={{ marginLeft: "65px" }}
@@ -172,8 +172,7 @@ const PersonalDetail = () => {
                   </Form.Control.Feedback>
                 </Form.Group>
                 {show ? (
-                
-                   <img
+                  <img
                     src={eye}
                     alt="eye"
                     className="eye"
@@ -200,10 +199,10 @@ const PersonalDetail = () => {
                 >
                   <option>I am creating account for</option>
                   <option value="3">Myself</option>
-                  <option value="4">Kids</option>
+                  <option value="4">My Child</option>
                 </Form.Select>
                 <img className="set_arrows" src={arrow} alt="arrow" />
-              <span class="required-asterisk">*</span>
+                <span class="required-asterisk">*</span>
                 <Form.Control.Feedback
                   type="invalid"
                   style={{ marginLeft: "65px" }}

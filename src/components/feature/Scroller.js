@@ -2,10 +2,12 @@ import React from "react";
 
 const Scroller = () => {
   let mybutton = document.getElementById("scrollToTop");
+  let myheader = document.getElementById("scrollerHeader");
 
   // When the user scrolls down 20px from the top of the document, show the button
   window.onscroll = function () {
     scrollFunction();
+    scrollheader();
   };
 
   function scrollFunction() {
@@ -16,6 +18,23 @@ const Scroller = () => {
       mybutton.style.display = "block";
     } else {
       mybutton.style.display = "none";
+    }
+  }
+
+  function scrollheader() {
+    if (
+      document.body.scrollTop > 200 ||
+      document.documentElement.scrollTop > 200
+    ) {
+      // let selectList = myheader.classList;
+      // console.log(selectList);
+      // selectList.remove("d-none");
+      // selectList.add("sticky-top");
+      myheader.style.display = "block";
+      myheader.style.position = "sticky";
+      myheader.style.top = 0;
+    } else {
+      myheader.style.display = "none";
     }
   }
 

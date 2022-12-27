@@ -129,7 +129,7 @@ const CoachDashboard = () => {
             <div
               id="sidebar"
               class="collapse collapse-horizontal show border-end"
-              style={{ height: "756px" }}
+              style={{ minHeight: "756px" }}
             >
               <div
                 id="sidebar-nav"

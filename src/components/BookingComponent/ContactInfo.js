@@ -4,10 +4,6 @@ import arrow from "../../assets/images/down.png";
 
 const ContactInfo = ({ validated, handleFormData }) => {
   const defautFormData = {
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
     continueLessons: null,
     sourceType: 0,
   };
@@ -22,81 +18,6 @@ const ContactInfo = ({ validated, handleFormData }) => {
       <Form noValidate validated={validated}>
         <div className="detail_form_container">
           <div className="row">
-            <Form.Group as={Col} md="6" controlId="validationCustom01">
-              <Form.Control
-                type="text"
-                className="form-control booking_inp mt-3"
-                placeholder="First Name"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleOnChange}
-                required
-              />
-              {/* <span class="required-asterisk">*</span> */}
-              <Form.Control.Feedback
-                type="invalid"
-                style={{ marginLeft: "65px" }}
-              >
-                First Name is Required
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="6" controlId="validationCustom01">
-              <Form.Control
-                type="text"
-                className="form-control booking_inp mt-3"
-                placeholder="Last Name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleOnChange}
-                required
-              />
-              {/* <span class="required-asterisk">*</span> */}
-              <Form.Control.Feedback
-                type="invalid"
-                style={{ marginLeft: "65px" }}
-              >
-                Last Name is Required
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="6" controlId="validationCustom01">
-              <Form.Control
-                type="number"
-                className="form-control booking_inp mt-3"
-                placeholder="Phone Number"
-                name="phone"
-                value={formData.phone}
-                onChange={handleOnChange}
-                required
-                maxLength={10}
-                pattern="^([0|\+[0-9]{1,5})?([0-9][0-9]{9})$"
-              />
-              {/* <span class="required-asterisk">*</span> */}
-              <Form.Control.Feedback
-                type="invalid"
-                style={{ marginLeft: "65px" }}
-              >
-                Phone Number is Required
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="6" controlId="validationCustom01">
-              <Form.Control
-                type="text"
-                className="form-control booking_inp mt-3"
-                placeholder="Email ID"
-                name="email"
-                value={formData.email}
-                onChange={handleOnChange}
-                required
-                pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
-              />
-              {/* <span class="required-asterisk">*</span> */}
-              <Form.Control.Feedback
-                type="invalid"
-                style={{ marginLeft: "65px" }}
-              >
-                Email is Required
-              </Form.Control.Feedback>
-            </Form.Group>
             <Form.Group as={Col} md="12" controlId="validationCustom01">
               <Form.Select
                 aria-label="Default select example"

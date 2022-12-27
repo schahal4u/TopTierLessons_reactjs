@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
-import { navbarMenu1, navbarMenu2, navbarMenu3 } from "../routes";
+import { routes } from "../routes";
+// import { navbarMenu1, navbarMenu2, navbarMenu3 } from "../routes";
 import logo from "../assets/images/logo.png";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,7 +33,7 @@ const Navbar = () => {
     logo: profileLogo,
   };
   const [formData, setFormData] = useState(defautFormData);
-  const [routes, setRoutes] = useState([]);
+  // const [routes, setRoutes] = useState([]);
 
   const profileHandler = () => {
     dispatch(emptyProfileImageResponse());
@@ -50,7 +51,7 @@ const Navbar = () => {
     // let parsing = token ? JSON.parse(localStorage?.userData) : null;
     // let usertype = parsing?.userType || null;
     dispatch(AdminGetProfileDetailAction());
-    setRoutes(usertype === 2 ? navbarMenu2 : navbarMenu1);
+    // setRoutes(usertype === 2 ? navbarMenu2 : navbarMenu1);
   }, [token]);
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const Navbar = () => {
   };
 
   const bookingHandler = () => {
-    navigate("/bookingList", { replace: true });
+    navigate("/userBookingList", { replace: true });
   };
   const slotsHandler = () => {
     navigate("/bookingslot", { replace: true });
@@ -81,9 +82,10 @@ const Navbar = () => {
     navigate("/conversation", { replace: true });
   };
 
+  // fixed-top
   return (
     <>
-      <nav className="navbar navbar-expand-lg  bg-background">
+      <nav className="navbar navbar-expand-lg bg-background">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand">
             <img src={logo} alt="logo" />
@@ -220,15 +222,14 @@ const Navbar = () => {
                   >
                     {usertype === 2 && (
                       <>
-                        <a className="dropdown-item" onClick={bookingHandler}>
-                          Booking
-                        </a>
                         <a className="dropdown-item" onClick={slotsHandler}>
                           Slots
                         </a>
                       </>
                     )}
-
+                    <a className="dropdown-item" onClick={bookingHandler}>
+                      Booking
+                    </a>
                     <a className="dropdown-item" onClick={chatsHandler}>
                       Chats
                     </a>

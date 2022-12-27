@@ -56,7 +56,7 @@ const UploadPhoto = () => {
     latitude: null,
     longitude: null,
     price: null,
-    radius: null,
+    radius: null || 0,
   };
   let defautVenue = {
     venueId: 0,
@@ -280,6 +280,7 @@ const UploadPhoto = () => {
                 as={Col}
                 md="12"
                 style={{ width: "72%" }}
+                className="google-analytics"
                 controlId="validationCustom01"
               >
                 <GooglePlacesAutocomplete
@@ -287,6 +288,7 @@ const UploadPhoto = () => {
                   selectProps={{
                     place,
                     onChange: setPlace,
+                    placeholder: "Address",
                   }}
                 />
               </div>
@@ -301,7 +303,7 @@ const UploadPhoto = () => {
                 }}
               >
                 <label className="mt-2" style={{ color: "white" }}>
-                  radius
+                  Radius
                 </label>
                 <div style={{ width: "100%", margin: "10px 0px 0px 20px" }}>
                   <Slider
@@ -316,9 +318,11 @@ const UploadPhoto = () => {
                     onChange={handleFormData}
                     marks
                     min={0}
-                    max={100}
+                    max={25}
                   />
                 </div>
+
+                <text className="px-3 text-white">{formData.radius}</text>
               </div>
 
               {/* select sports */}
@@ -326,7 +330,7 @@ const UploadPhoto = () => {
               <Form.Group as={Col} md="12" controlId="validationCustom01">
                 <Form.Select
                   aria-label="Default select example"
-                  className="form-control form-select select_box mt-3"
+                  className=" input-control select_box mt-3"
                   value={formData.sportId}
                   onChange={handleFormData}
                   name="sportId"
@@ -362,6 +366,7 @@ const UploadPhoto = () => {
               {/* multi selected area  */}
 
               <div
+                className="multiSelector"
                 style={{ width: "72%" }}
                 // hidden={getNearbyVenue?.data?.length >= 0 ? "" : ""}
               >
@@ -378,6 +383,7 @@ const UploadPhoto = () => {
               <Form.Group as={Col} md="12" controlId="validationCustom01">
                 <Form.Control
                   type="number"
+                  id="pricing"
                   className="form-control signin_inp mt-3"
                   placeholder="Price"
                   name="price"

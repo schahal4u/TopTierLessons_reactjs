@@ -16,8 +16,13 @@ import { emptyUpdateProfileResponse } from "../../redux/actions/AdminProfileUpda
 import CoachDocs from "../CoachProfile/CoachDocs";
 import Venue from "./Venue";
 import { MultiSelect } from "react-multi-select-component";
+import Review from "./Review";
 
 const Dashboard = () => {
+  const token = localStorage?.userData;
+  let parsing = token ? JSON.parse(localStorage?.userData) : null;
+  let usertype = parsing?.userType || null;
+
   const { imgResponse } = useSelector((state) => state.profilePicResponse);
   const responseCode = imgResponse?.statusCode;
 
@@ -25,7 +30,7 @@ const Dashboard = () => {
     (state) => state.getProfileDetail
   );
   const getResponse = profileDetail?.statusCode;
-  console.log(profileDetail);
+
   const imageType = [
     "image/tif",
     "image/tiff",
@@ -42,6 +47,7 @@ const Dashboard = () => {
     videoLesson: false,
     earning: false,
     password: false,
+    review: false,
   };
   const defautFormData = {
     logo: logo,
@@ -138,6 +144,10 @@ const Dashboard = () => {
     setShow({ ...defaultShow, venue: true });
   };
 
+  const reviewHandler = () => {
+    setShow({ ...defaultShow, review: true });
+  };
+
   const sidebarHandler = () => {
     setOpen(!open);
   };
@@ -156,6 +166,7 @@ const Dashboard = () => {
             <div
               id="sidebar"
               className="collapse collapse-horizontal show border-end"
+              style={{ minHeight: "756px" }}
             >
               <div
                 id="sidebar-nav"
@@ -238,14 +249,16 @@ const Dashboard = () => {
                 >
                   <span>Joined Trainings</span>
                 </a>
-                <a
-                  className="list-group-item border-end-0 d-inline-block text-truncate"
-                  data-bs-parent="#sidebar"
-                  onClick={() => setShow({ ...defaultShow, earning: true })}
-                  style={{ color: show.earning ? "#e38226" : "#515151" }}
-                >
-                  <span>Earning</span>
-                </a>
+                {usertype === 2 && (
+                  <a
+                    className="list-group-item border-end-0 d-inline-block text-truncate"
+                    data-bs-parent="#sidebar"
+                    onClick={() => setShow({ ...defaultShow, earning: true })}
+                    style={{ color: show.earning ? "#e38226" : "#515151" }}
+                  >
+                    <span>Earning</span>
+                  </a>
+                )}
                 <a
                   className="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
@@ -256,14 +269,18 @@ const Dashboard = () => {
                 >
                   <span>Change Password</span>
                 </a>
-                <a
-                  className="list-group-item border-end-0 d-inline-block text-truncate"
-                  style={{ color: show.coachDocs ? "#e38226" : "#515151" }}
-                  data-bs-parent="#sidebar"
-                  onClick={documentsHandler}
-                >
-                  <p>Documents</p>
-                </a>
+
+                {usertype === 2 && (
+                  <a
+                    className="list-group-item border-end-0 d-inline-block text-truncate"
+                    style={{ color: show.coachDocs ? "#e38226" : "#515151" }}
+                    data-bs-parent="#sidebar"
+                    onClick={documentsHandler}
+                  >
+                    <p>Documents</p>
+                  </a>
+                )}
+
                 {(profileDetail?.data?.address !== null ||
                   profileDetail?.data?.latitude !== null ||
                   profileDetail?.data?.longitude !== null) && (
@@ -276,6 +293,15 @@ const Dashboard = () => {
                     <p>Venue</p>
                   </a>
                 )}
+
+                <a
+                  className="list-group-item"
+                  style={{ color: show.review ? "#e38226" : "#515151" }}
+                  data-bs-parent="#sidebar"
+                  onClick={reviewHandler}
+                >
+                  <p>Review And Rating</p>
+                </a>
               </div>
             </div>
           </div>
@@ -299,8 +325,9 @@ const Dashboard = () => {
               {show.earning && <Earning />}
               {show.training && <Training />}
               {show.password && <ChangePassword />}
-              {show.coachDocs && <CoachDocs />}
+              {show.coachDocs && usertype === 2 ? <CoachDocs /> : null}
               {show.venue && <Venue />}
+              {show.review && <Review />}
             </div>
           </main>
         </div>

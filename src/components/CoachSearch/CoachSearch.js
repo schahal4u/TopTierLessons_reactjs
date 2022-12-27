@@ -63,7 +63,7 @@ const CoachSearch = () => {
 
   useEffect(() => {
     let obj = {
-      sportId: sportId,
+      // sportId: sportId,
       page: 1,
       pageSize: 10,
     };
@@ -80,18 +80,22 @@ const CoachSearch = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const bookingHandler = (data) => {
-    localStorage.setItem("coachId", data.coachId);
-    let obj = {
-      coachId: data.coachId,
-    };
-    dispatch(emptyProfileImageResponse());
-    dispatch(GetCoachProfileAction(obj));
-    navigate("/booking");
+  // const bookingHandler = (data) => {
+  //   localStorage.setItem("coachId", data.coachId);
+  //   let obj = {
+  //     coachId: data.coachId,
+  //   };
+  //   dispatch(emptyProfileImageResponse());
+  //   dispatch(GetCoachProfileAction(obj));
+  //   navigate("/booking");
+  // };
+  const CoachProfileHandler = (id) => {
+    console.warn("ata.coachId", id);
+    localStorage.setItem("coachId", id);
+    navigate(`/coachProfileDetail/${id}`);
   };
 
   const profileHandler = (data) => {
-    localStorage.setItem("coachId", data.coachId);
     let obj = {
       coachId: data.coachId,
     };
@@ -220,11 +224,17 @@ const CoachSearch = () => {
                           <div className="col-md-10 col-sm-12">
                             <h6 className="dot_text">{user?.about}</h6>
                           </div>
-                          <button
+                          {/* <button
                             className="book_btn"
                             onClick={() => bookingHandler(user)}
                           >
                             Book Lesson
+                          </button> */}
+                          <button
+                            className="book_btn"
+                            onClick={() => CoachProfileHandler(user.coachId)}
+                          >
+                            View Profile
                           </button>
                         </div>
                       </div>
