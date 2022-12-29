@@ -13,7 +13,8 @@ const Header = () => {
       <div className="header">
         <div className="header_content">
           <h1 className="header_main_text">
-            TOP TIER COACHES FOR TOP TIER <br /> ATHLETES
+            SPORTS LESSONS FROM UNIVERSITY OF ILLINOIS 101 STUDENT ATHLETES{" "}
+            <br />
           </h1>
         </div>
         <div className="header_btn">
@@ -22,11 +23,45 @@ const Header = () => {
               to="/coachSearch"
               style={{ textDecorationL: "none", color: "#fff" }}
             >
-              Find Lessons
+              Book Swimming Lesson
             </Link>
           </button>
-          <button className="header_front_btn">I'm a Student Athlete</button>
+          <br />
+          <h3>All Sports Comming Soon</h3>
         </div>
+        {/* <div className="card">
+          <div style={{ display: "block", justifyContent: "space-between" }}>
+            <button>Get Updates </button>
+            <button>Name</button>
+            <button>Email</button>
+          </div>
+        </div> */}
+
+        <div
+          className="container newsletter_form"
+          style={{ marginTop: "200px" }}
+        >
+          <div className="row main_box ">
+            <div className="col-md-3 form_box">
+              <button className="newsletter_btn">Get Updates</button>
+            </div>
+            <div className="col-md-3 form_box">
+              <input
+                type="text"
+                className="form-control newsletter_inp"
+                placeholder="Name"
+              />
+            </div>
+            <div className="col-md-3 form_box">
+              <input
+                type="text"
+                className="form-control newsletter_inp"
+                placeholder="Email"
+              />
+            </div>
+          </div>
+        </div>
+
         {/* <div className="container counter">
           <div className="row">
             <div className="col-md-3 col-sm-6 col-xs-6 counter_box mt-4">

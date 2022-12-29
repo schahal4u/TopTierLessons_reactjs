@@ -236,15 +236,15 @@ const BasicDetail = () => {
                   // getAriaValueText={valuetext}
                   valueLabelFormat={valuetext}
                   valueLabelDisplay="auto"
-                  step={5}
+                  step={1}
                   value={formData.radius}
                   onChange={handleFormData}
                   marks
                   min={0}
-                  max={30}
+                  max={25}
                 />
 
-                <text className="px-3 text-white">{formData.radius}</text>
+                <span className="px-3 text-white">{formData.radius} </span>
               </div>
 
               <Form.Control.Feedback

@@ -462,9 +462,10 @@ color: #fff !important;
     justify-content: center;
     align-items: center;
 }
-.dropdown-heading-value{
+.dropdown-heading-value .gray{
   color: #fff !important;
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

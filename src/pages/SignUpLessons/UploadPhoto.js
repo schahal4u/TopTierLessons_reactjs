@@ -313,7 +313,7 @@ const UploadPhoto = () => {
                     defaultValue={10}
                     getAriaValueText={valuetext}
                     valueLabelDisplay="auto"
-                    step={5}
+                    step={1}
                     value={formData.radius}
                     onChange={handleFormData}
                     marks
