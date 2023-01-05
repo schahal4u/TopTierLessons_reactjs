@@ -50,7 +50,10 @@ const Navbar = () => {
   useEffect(() => {
     // let parsing = token ? JSON.parse(localStorage?.userData) : null;
     // let usertype = parsing?.userType || null;
-    dispatch(AdminGetProfileDetailAction());
+    if (token) {
+      dispatch(AdminGetProfileDetailAction());
+    }
+
     // setRoutes(usertype === 2 ? navbarMenu2 : navbarMenu1);
   }, [token]);
 

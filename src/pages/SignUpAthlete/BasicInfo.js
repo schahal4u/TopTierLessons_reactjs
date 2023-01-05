@@ -2,13 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
+import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 import { toast } from "react-toastify";
 import arrow from "../../assets/images/down.png";
 import avtar from "../../assets/images/profileIcon.png";
 import { AdminProfileUpdateAction } from "../../redux/actions/AdminProfileUpdateAction";
 import { GetAllSportsAction } from "../../redux/actions/GetAllSports";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
-
+import moment from "moment";
+import { API_KEY } from "../../utils";
 const BasicInfo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,19 +38,46 @@ const BasicInfo = () => {
 
   const defautFormData = {
     address: "",
-    age: "",
-    sportId: "",
+    dateOfBirth: "",
+    latitude: "",
+    longitude: "",
     skillLevel: "",
     profileImage: avtar,
+    bio: "",
   };
 
   const [formData, setFormData] = useState(defautFormData);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
+  const [place, setPlace] = useState("");
+
+  const onChangeDateHandler = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: moment.utc(moment(e.target.value).utc()).format(),
+    });
+  };
+
+  // for normal onchange handler
+  const onChangeHandler = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]:
+        e.target.type === "select-one" ? +e.target.value : e.target.value,
+    });
+  };
+
+  // const handleFormData = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
   const handleFormData = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (e.target.type === "date") {
+      onChangeDateHandler(e);
+    } else {
+      onChangeHandler(e);
+    }
   };
 
   const signUpHandler = (e) => {
@@ -121,6 +151,21 @@ const BasicInfo = () => {
     }
   }, [updateProfileDetail]);
 
+  const setplaceHandler = (e) => {
+    let newFormValues = { ...formData };
+    if (e.label) {
+      geocodeByAddress(e?.label)
+        .then((results) => getLatLng(results[0]))
+        .then(({ lat, lng }) => {
+          newFormValues.address = e.label;
+          newFormValues.latitude = lat;
+          newFormValues.longitude = lng;
+          console.log("newFormValues", newFormValues);
+          setFormData(newFormValues);
+        });
+    }
+  };
+
   return (
     <>
       <div className="signIn">
@@ -147,10 +192,10 @@ const BasicInfo = () => {
                 style={{ display: "none" }}
                 onChange={photoUpload}
               />
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
+              {/* <Form.Group as={Col} md="10" controlId="validationCustom01">
                 <Form.Control
                   type="text"
-                  className="form-control signin_inp mt-3"
+                  className="input-control mt-3"
                   placeholder="Address"
                   name="address"
                   value={formData.address}
@@ -164,79 +209,85 @@ const BasicInfo = () => {
                 >
                   Name is Required
                 </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Control
-                  type="number"
-                  className="form-control signin_inp mt-3"
-                  placeholder="Age"
-                  name="age"
-                  value={formData.age}
-                  onChange={handleFormData}
-                  required
-                  pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
+              </Form.Group> */}
+              <Form.Group
+                as={Col}
+                md="10"
+                className="google-analytics"
+                controlId="validationCustom03"
+              >
+                <GooglePlacesAutocomplete
+                  apiKey={API_KEY}
+                  selectProps={{
+                    place,
+                    onChange: (e) => setplaceHandler(e),
+                    placeholder: `${
+                      formData.address ? formData.address : "Address"
+                    }`,
+                  }}
                 />
-                <span class="required-asterisk">*</span>
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Age is Required
+
+                <Form.Control.Feedback type="invalid" className="error_text">
+                  Address is Required
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
-                <Form.Select
-                  aria-label="Default select example"
-                  className="form-control form-select select_box mt-3"
-                  value={formData.sportId}
-                  onChange={handleFormData}
-                  name="sportId"
+              <Form.Group as={Col} md="10" controlId="validationCustom01">
+                <Form.Control
+                  type="date"
+                  className="input-control mt-3"
+                  placeholder="dateOfBirth"
+                  name="dateOfBirth"
+                  value={moment(formData.dateOfBirth).format("YYYY-MM-DD")}
+                  onChange={(e) => handleFormData(e)}
                   required
-                >
-                  <option value="null">Select Sport</option>
-                  {getAllSports &&
-                    getAllSports?.data.map((item, i) => {
-                      return (
-                        <option key={i} value={item.sportId}>
-                          {item.sportName}
-                        </option>
-                      );
-                    })}
-                </Form.Select>
-                <img className="set_arrows" src={arrow} alt="arrow" />
-                <span class="required-asterisk">*</span>
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
-                  Please Select any Option
+                  // pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
+                />
+                <span class="required">*</span>
+                <Form.Control.Feedback type="invalid">
+                  Dob is Required
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group as={Col} md="12" controlId="validationCustom01">
+              <Form.Group as={Col} md="10" controlId="validationCustom01">
                 <Form.Select
                   aria-label="Default select example"
-                  className="form-control form-select select_box mt-3"
+                  className="input-control mt-3"
                   value={formData.skillLevel}
                   onChange={handleFormData}
                   name="skillLevel"
                   required
                 >
-                  <option>Skill Level</option>
+                  <option value="">Skill Level</option>
                   <option value="1">Begginer</option>
                   <option value="2">Intermidate</option>
                   <option value="3">Expert</option>
                 </Form.Select>
-                <img className="set_arrows" src={arrow} alt="arrow" />
-                <span class="required-asterisk">*</span>
-                <Form.Control.Feedback
-                  type="invalid"
-                  style={{ marginLeft: "65px" }}
-                >
+                <img className="select_arrow" src={arrow} alt="arrow" />
+                <span class="required ">*</span>
+                <Form.Control.Feedback type="invalid">
                   Please Select any Option
                 </Form.Control.Feedback>
               </Form.Group>
+
+              <Form.Group as={Col} md="10" controlId="validationCustom05">
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  required
+                  type="text"
+                  className="form-control profile_inp mt-3"
+                  placeholder="Sell Yourself! Tell parents who you are, your major and athletic experiences and accomplishments. If you have taught lessons before or have any other cool Skills add it in! "
+                  name="bio"
+                  value={formData.bio}
+                  onChange={handleFormData}
+                />
+                <span class="required">*</span>
+                <Form.Control.Feedback type="invalid" className="">
+                  Bio is Required
+                </Form.Control.Feedback>
+              </Form.Group>
+
               <button
                 type="submit"
                 className="btn btn-primary signin_btn mt-4 mb-4"

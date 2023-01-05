@@ -149,7 +149,6 @@ const BookingList = () => {
             <div className="col-md-12">
               {list?.length &&
                 list?.map((user) => {
-                  console.log("user =>>>>>", user);
                   let dateupdate = new Date(
                     user.bookingDate
                   ).toLocaleDateString();

@@ -12,7 +12,12 @@ import GooglePlacesAutocomplete, {
 } from "react-google-places-autocomplete";
 import { Slider } from "@mui/material";
 import { GetAllSportsAction } from "../../redux/actions/GetAllSports";
+
 const BasicDetail = () => {
+  const token = localStorage?.userData;
+  let parsing = token ? JSON.parse(localStorage?.userData) : null;
+  let usertype = parsing?.userType || null;
+
   const API_KEY = "AIzaSyDx_6SY-xRPDGlQoPt8PTRbCtTHKCbiCXQ";
   const { profileDetail, profileError } = useSelector(
     (state) => state.getProfileDetail
@@ -34,13 +39,13 @@ const BasicDetail = () => {
     price: "",
   };
   const [formData, setFormData] = useState(defautFormData);
-  console.log("formData", formData);
+
   const [loading, setLoading] = useState(false);
   const [validated, setValidated] = useState(false);
   const [place, setPlace] = useState("");
-  console.log("place=====>", place);
+
   useEffect(() => {
-    dispatch(AdminGetProfileDetailAction());
+    // dispatch(AdminGetProfileDetailAction());
     let obj = {
       page: 1,
       pageSize: 100,
@@ -175,24 +180,27 @@ const BasicDetail = () => {
                 Role is Required
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group
-              className="google-analytics"
-              as={Col}
-              md="10"
-              controlId="validationCustom03"
-            >
-              <GooglePlacesAutocomplete
-                apiKey={API_KEY}
-                selectProps={{
-                  place,
-                  onChange: setPlace,
-                  placeholder: `${
-                    formData.address ? formData.address : "Address"
-                  }`,
-                }}
-              />
 
-              {/* <Form.Control
+            {usertype === 2 && (
+              <>
+                <Form.Group
+                  className="google-analytics"
+                  as={Col}
+                  md="10"
+                  controlId="validationCustom03"
+                >
+                  <GooglePlacesAutocomplete
+                    apiKey={API_KEY}
+                    selectProps={{
+                      place,
+                      onChange: setPlace,
+                      placeholder: `${
+                        formData.address ? formData.address : "Address"
+                      }`,
+                    }}
+                  />
+
+                  {/* <Form.Control
                 required
                 type="text"
                 className="form-control profile_inp mt-4"
@@ -202,127 +210,133 @@ const BasicDetail = () => {
                 onChange={handleFormData}
               /> */}
 
-              {/* <span class="required">*</span> */}
-              <Form.Control.Feedback type="invalid" className="error_text">
-                Address is Required
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="10" controlId="validationCustom02">
-              {/* <Form.Label style={{ color: "white" }}>radius</Form.Label> */}
+                  {/* <span class="required">*</span> */}
+                  <Form.Control.Feedback type="invalid" className="error_text">
+                    Address is Required
+                  </Form.Control.Feedback>
+                </Form.Group>
 
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <label className="mt-2" style={{ color: "white" }}>
-                  Radius
-                </label>
+                <Form.Group as={Col} md="10" controlId="validationCustom02">
+                  {/* <Form.Label style={{ color: "white" }}>radius</Form.Label> */}
 
-                <Slider
-                  name="radius"
-                  sx={{
-                    width: "100%",
-                    margin: "10px 0px 0px 20px",
-                    color: "orange",
-                  }}
-                  aria-label="Temperature"
-                  defaultValue={10}
-                  getAriaValueText={valuetext}
-                  // getAriaValueText={valuetext}
-                  valueLabelFormat={valuetext}
-                  valueLabelDisplay="auto"
-                  step={1}
-                  value={formData.radius}
-                  onChange={handleFormData}
-                  marks
-                  min={0}
-                  max={25}
-                />
+                  <div
+                    style={{
+                      width: "100%",
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label className="mt-2" style={{ color: "white" }}>
+                      Radius
+                    </label>
 
-                <span className="px-3 text-white">{formData.radius} </span>
-              </div>
+                    <Slider
+                      name="radius"
+                      sx={{
+                        width: "100%",
+                        margin: "10px 0px 0px 20px",
+                        color: "orange",
+                      }}
+                      aria-label="Temperature"
+                      defaultValue={10}
+                      getAriaValueText={valuetext}
+                      // getAriaValueText={valuetext}
+                      valueLabelFormat={valuetext}
+                      valueLabelDisplay="auto"
+                      step={1}
+                      value={formData.radius}
+                      onChange={handleFormData}
+                      marks
+                      min={0}
+                      max={25}
+                    />
 
-              <Form.Control.Feedback
-                type="invalid"
-                style={{ marginLeft: "65px" }}
-              >
-                radius
-              </Form.Control.Feedback>
-            </Form.Group>
+                    <span className="px-3 text-white">{formData.radius} </span>
+                  </div>
 
-            <Form.Group as={Col} md="10" controlId="validationCustom06">
-              <Form.Select
-                aria-label="Default select example"
-                className="input-control"
-                value={formData.sportId}
-                onChange={handleFormData}
-                name="sportId"
-                disabled={
-                  formData.latitude !== null &&
-                  formData.longitude !== null &&
-                  formData.radius !== null
-                    ? ""
-                    : "true"
-                }
-                required
-              >
-                <option value="null">Select Sport</option>
-                {getAllSports &&
-                  getAllSports?.data.map((item, i) => {
-                    return (
-                      <option key={i} value={item.sportId}>
-                        {item.sportName}
-                      </option>
-                    );
-                  })}
-              </Form.Select>
-              {/* <img className="set_arrows" src={arrow} alt="arrow" /> */}
-              {/* <span class="required-asterisk">*</span> */}
-              <Form.Control.Feedback
-                type="invalid"
-                style={{ marginLeft: "65px" }}
-              >
-                Please Select any Option
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="10" controlId="validationCustom04">
-              <Form.Control
-                required
-                type="number"
-                className="input-control"
-                placeholder="Price"
-                name="price"
-                min="0"
-                value={formData.price}
-                onChange={handleFormData}
-              />
-              <span class="required">*</span>
-              <Form.Control.Feedback type="invalid" className="error_text">
-                price is Required
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="10" controlId="validationCustom05">
-              <Form.Control
-                as="textarea"
-                rows={3}
-                required
-                type="text"
-                className="form-control profile_inp mt-4"
-                placeholder="Sell Yourself! Tell parents who you are, your major and athletic experiences and accomplishments. If you have taught lessons before or have any other cool Skills add it in! "
-                name="bio"
-                value={formData.bio}
-                onChange={handleFormData}
-              />
-              <span class="required">*</span>
-              <Form.Control.Feedback type="invalid" className="error_text">
-                Bio is Required
-              </Form.Control.Feedback>
-            </Form.Group>
+                  <Form.Control.Feedback
+                    type="invalid"
+                    style={{ marginLeft: "65px" }}
+                  >
+                    radius
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group as={Col} md="10" controlId="validationCustom06">
+                  <Form.Select
+                    aria-label="Default select example"
+                    className="input-control"
+                    value={formData.sportId}
+                    onChange={handleFormData}
+                    name="sportId"
+                    disabled={
+                      formData.latitude !== null &&
+                      formData.longitude !== null &&
+                      formData.radius !== null
+                        ? ""
+                        : "true"
+                    }
+                    required
+                  >
+                    <option value="null">Select Sport</option>
+                    {getAllSports &&
+                      getAllSports?.data.map((item, i) => {
+                        return (
+                          <option key={i} value={item.sportId}>
+                            {item.sportName}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
+                  {/* <img className="set_arrows" src={arrow} alt="arrow" /> */}
+                  {/* <span class="required-asterisk">*</span> */}
+                  <Form.Control.Feedback
+                    type="invalid"
+                    style={{ marginLeft: "65px" }}
+                  >
+                    Please Select any Option
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group as={Col} md="10" controlId="validationCustom04">
+                  <Form.Control
+                    required
+                    type="number"
+                    className="input-control"
+                    placeholder="Price"
+                    name="price"
+                    min="0"
+                    value={formData.price}
+                    onChange={handleFormData}
+                  />
+                  <span class="required">*</span>
+                  <Form.Control.Feedback type="invalid" className="error_text">
+                    price is Required
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group as={Col} md="10" controlId="validationCustom05">
+                  <Form.Control
+                    as="textarea"
+                    rows={3}
+                    required
+                    type="text"
+                    className="form-control profile_inp mt-4"
+                    placeholder="Sell Yourself! Tell parents who you are, your major and athletic experiences and accomplishments. If you have taught lessons before or have any other cool Skills add it in! "
+                    name="bio"
+                    value={formData.bio}
+                    onChange={handleFormData}
+                  />
+                  <span class="required">*</span>
+                  <Form.Control.Feedback type="invalid" className="error_text">
+                    Bio is Required
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </>
+            )}
+
             <button
               type="submit"
               className="btn btn-primary profile_btn mt-4 mb-4"

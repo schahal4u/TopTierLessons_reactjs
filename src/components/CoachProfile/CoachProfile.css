@@ -71,12 +71,12 @@ h1 {
 
 .book_button {
     width: 45% !important;
-    margin: 20px auto;
-    background: #e38226;
-    border: none;
-    padding: 14px;
-    color: #fff;
-    font-size: 18px;
+    margin: 20px auto !important;
+    background: #e38226 !important;
+    border: none !important;
+    padding: 14px !important;
+    color: #fff !important;
+    font-size: 18px !important;
 }
 
 .bio_about_section {

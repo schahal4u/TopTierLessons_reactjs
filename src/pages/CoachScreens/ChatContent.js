@@ -80,7 +80,7 @@ const ChatContent = ({ user, selectedUser, time }) => {
 
   useEffect(() => {
     const connect = new HubConnectionBuilder()
-      .withUrl("http://192.168.0.168:8080/chatHub")
+      .withUrl("http://192.168.1.29:8080/chatHub")
       .withAutomaticReconnect()
       .build();
     // console.log("connect==>>>>>>>>>>>>", connect);
