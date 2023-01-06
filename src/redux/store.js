@@ -21,8 +21,11 @@ import {
   UploadFileReducer,
 } from "./reducers/UploadPhoto";
 import {
+  DeleteBookingReducer,
   GetAllBookingDetailsByIdReducer,
   GetAllBookingReducer,
+  PreviousBookingReducer,
+  upcomingBookingsReducer,
 } from "./reducers/GetAllBookingReducer";
 import { GetAllSlotsReducer } from "./reducers/GetTimeSlotsReducer";
 import {
@@ -47,6 +50,9 @@ const rootReducer = combineReducers({
   getAllCoachResponse: GetAllCoachReducer,
   contactUsResponse: ContactUsReducer,
   createBookingResponse: CreateBookingReducer,
+  previousBooking:PreviousBookingReducer,
+  upcomingBooking:upcomingBookingsReducer,
+  deleteBooking:DeleteBookingReducer,
   getAllBookingResponse: GetAllBookingReducer,
   getAllBookingDetailsById: GetAllBookingDetailsByIdReducer,
   createPaymentResponse: CreatePaymentReducer,

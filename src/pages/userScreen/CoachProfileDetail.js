@@ -19,6 +19,7 @@ import {
 } from "../../redux/actions/coach";
 import BasicDetail from "../../components/BookingComponent/BasicDetail";
 import Bookings from "../../components/BookingComponent/Bookings";
+import Location from "../../components/CoachProfile/Location";
 // import CoachDocs from "../CoachProfile/CoachDocs";
 // import Review from "./Review";
 
@@ -90,7 +91,7 @@ const CoachProfileDetail = () => {
             <div
               id="sidebar"
               className="collapse collapse-horizontal show border-end"
-              style={{ minHeight: "756px" }}
+              style={{ height: "100%" }}
             >
               <div
                 id="sidebar-nav"
@@ -172,7 +173,10 @@ const CoachProfileDetail = () => {
                   {/* <p>{data?.address}</p> */}
                 </div>
               </div>
-              <div>Maps</div>
+              <div>
+                <Location />
+
+              </div>
               <div
                 className="card col-sm- 12"
                 style={{

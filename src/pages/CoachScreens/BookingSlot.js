@@ -35,6 +35,8 @@ const BookingSlot = ({ handleFormData }) => {
     toTime: "",
     weekDays: [],
     ageGroup: "",
+    isRecurring: true,
+    slotDate: "",
   };
   const defautWeek = {
     Mon: false,

@@ -1,23 +1,26 @@
-import React, { Fragment } from "react";
+
+import React, { Fragment, useState } from "react";
 import {
   GoogleMap,
   Marker,
   Polygon,
   Circle,
   useJsApiLoader,
+  CircleF,
 } from "@react-google-maps/api";
 
 import { useSelector } from "react-redux";
 
 const Location = () => {
-  const { profileDetail } = useSelector((state) => state.getProfileDetail);
-  console.log("profileDetail", profileDetail);
-
+  // const { profileDetail } = useSelector((state) => state.getProfileDetail);
+  // console.log("profileDetail", profileDetail);
+  const { getCoachProfile } = useSelector((state) => state.getAllCoachResponse);
+  console.log("getCoachProfile", getCoachProfile);
   const { isLoaded } = useJsApiLoader({
     // id: "google-map-script",
     googleMapsApiKey: "AIzaSyDx_6SY-xRPDGlQoPt8PTRbCtTHKCbiCXQ",
   });
-
+  // const [place, setPlace] = useState()
   const paths = [
     //getCirclePoints(myLatLng, 100, 1, true),
     //getCirclePoints(myLatLng, 50, -1, false)
@@ -31,46 +34,47 @@ const Location = () => {
     //   -1
     // ),
   ];
-
-  const optionsPolygon = {
-    fillColor: "#c6d0fc",
-    fillOpacity: 0.7,
-    strokeColor: "#3852CA",
-    strokeOpacity: 0.3,
-    strokeWeight: 1,
+  const radius = getCoachProfile?.data?.radius
+  console.log("radius", radius)
+  const id = getCoachProfile?.data?.venueList?.venueId;
+  const options = {
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35,
     clickable: false,
     draggable: false,
     editable: false,
-    geodesic: false,
-    zIndex: 1,
-  };
+    visible: true,
+    radius: radius * 1000,
+    zIndex: 1
+  }
 
   const [map, setMap] = React.useState(null);
 
   const containerStyle = {
-    width: "1365px",
+    width: "1065px",
     height: "500px",
   };
 
   const center = {
-    lat: profileDetail?.data?.latitude,
-    lng: profileDetail?.data?.longitude,
+    lat: getCoachProfile?.data?.latitude || 0,
+    lng: getCoachProfile?.data?.longitude || 0,
+    // lat: 30.7137636,
+    // lng: 76.6895554
   };
+  // const cityCircle = new google.maps.Circle({
+  //   strokeColor: "#FF0000",
+  //   strokeOpacity: 0.8,
+  //   strokeWeight: 2,
+  //   fillColor: "#FF0000",
+  //   fillOpacity: 0.35,
+  //   map,
+  //   center: center,
+  //   radius: 3000
+  // });
 
-  const places = [
-    {
-      id: 1,
-      name: "Park Slope",
-      latitude: "30.7046486",
-      longitude: "76.71787259999999",
-      circle: {
-        radius: 3000,
-        options: {
-          strokeColor: "#ff0000",
-        },
-      },
-    },
-  ];
 
   const onLoad = React.useCallback(function callback(map) {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -89,49 +93,54 @@ const Location = () => {
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={containerStyle}
+
             center={center}
-            zoom={12}
-            MarkerPosition={{ lat: -34.397, lng: 150.644 }}
+            zoom={-1}
+            // cityCircle={cityCircle}
+            // MarkerPosition={{ lat: -34.397, lng: 150.644 }}
             onLoad={onLoad}
             onUnmount={onUnmount}
-            // onGoogleApiLoaded={({ map, maps }) =>
-            //   new google.maps.Circle({
-            //     strokeColor: "#FF0000",
-            //     strokeOpacity: 0.8,
-            //     strokeWeight: 2,
-            //     fillColor: "#FF0000",
-            //     fillOpacity: 0.3,
-            //     map,
-            //     // center: latlng,
-            //     radius: 275,
-            //   })
-            // }
+          // onGoogleApiLoaded={({ map, maps }) =>
+          //   new google.maps.Circle({
+          //     strokeColor: "#FF0000",
+          //     strokeOpacity: 0.8,
+          //     strokeWeight: 2,
+          //     fillColor: "#FF0000",
+          //     fillOpacity: 0.3,
+          //     map,
+          //     // center: latlng,
+          //     radius: 275,
+          //   })
+          // }
           >
             <>
-              {places.map((place) => {
+              <CircleF
+
+                center={center}
+                // radius={radius || 0}
+                options={options}
+              />
+              <Marker
+                position={{
+                  lat: getCoachProfile?.data?.latitude || 0,
+                  lng: getCoachProfile?.data?.longitude || 0,
+                }}
+              />
+            </>
+
+            <>
+              {getCoachProfile?.data?.venueList?.map((venue) => {
                 return (
-                  <Fragment key={place.id}>
+                  <Fragment >
                     <Marker
                       position={{
-                        lat: parseFloat(place.latitude),
-                        lng: parseFloat(place.longitude),
+                        lat: parseFloat(venue?.latitude || 0),
+                        lng: parseFloat(venue?.longitude || 0),
                       }}
+
                     />
-                    {place.circle && (
-                      <Polygon
-                        //onLoad={onLoad}
-                        // paths={paths}
-                        options={optionsPolygon}
-                      />
-                      // <Circle
-                      //   defaultCenter={{
-                      //     lat: parseFloat(place.latitude),
-                      //     lng: parseFloat(place.longitude),
-                      //   }}
-                      //   radius={place.circle.radius}
-                      //   options={place.circle.options}
-                      // />
-                    )}
+
+
                   </Fragment>
                 );
               })}

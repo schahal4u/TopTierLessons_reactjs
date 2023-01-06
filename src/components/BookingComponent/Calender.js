@@ -31,6 +31,7 @@ const Calender = ({ slotsBook, setSlotsBook }) => {
     let obj = {
       coachId: coachID,
       date: date,
+      isRecurring: true,
     };
     dispatch(GetCoachSlotsAction(obj));
   };
@@ -45,7 +46,7 @@ const Calender = ({ slotsBook, setSlotsBook }) => {
     let index = slotsBook.findIndex(
       (item) =>
         new Date(item.date).toDateString() ===
-          new Date(newObj.date).toDateString() && item.slotId === user.slotId
+        new Date(newObj.date).toDateString() && item.slotId === user.slotId
     );
     if (index === -1) {
       setSlotsBook([...slotsBook, newObj]);

@@ -18,6 +18,7 @@ const Availability = () => {
     let obj = {
       coachId: coachID,
       date: value,
+      // isRecurring: true,
     };
     dispatch(GetCoachSlotsAction(obj));
   }, [value]);

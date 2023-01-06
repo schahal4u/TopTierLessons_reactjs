@@ -73,7 +73,7 @@ const Navbar = () => {
   };
 
   const bookingHandler = () => {
-    navigate("/userBookingList", { replace: true });
+    navigate("/appointmentList", { replace: true });
   };
   const slotsHandler = () => {
     navigate("/bookingslot", { replace: true });
@@ -209,7 +209,7 @@ const Navbar = () => {
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
-                    // onClick={profileHandler}
+                  // onClick={profileHandler}
                   >
                     <img
                       src={formData.logo || profileLogo}

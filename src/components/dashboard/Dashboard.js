@@ -57,7 +57,7 @@ const Dashboard = () => {
   const inputFile = useRef(null);
   const [formData, setFormData] = useState(defautFormData);
   const [inp, setInp] = useState("");
-  const [show, setShow] = useState({ ...defaultShow, basicDetail: true });
+  const [show, setShow] = useState({ ...defaultShow, BasicDetail: true });
   console.log("show======>", show.coachDocs);
   const [modalShow, setModalShow] = useState(false);
   const [preview, setPreview] = useState();
@@ -133,7 +133,7 @@ const Dashboard = () => {
     dispatch(emptyPasswordResponse());
   };
   const basicDetailHandler = () => {
-    setShow({ ...defaultShow, basicDetail: true });
+    setShow({ ...defaultShow, BasicDetail: true });
     dispatch(emptyUpdateProfileResponse());
   };
   const documentsHandler = () => {
@@ -223,7 +223,7 @@ const Dashboard = () => {
                   className="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={basicDetailHandler}
-                  style={{ color: show.basicDetail ? "#e38226" : "#515151" }}
+                  style={{ color: show.BasicDetail ? "#e38226" : "#515151" }}
                 >
                   <span>Basic Details</span>
                 </a>
@@ -284,15 +284,15 @@ const Dashboard = () => {
                 {(profileDetail?.data?.address !== null ||
                   profileDetail?.data?.latitude !== null ||
                   profileDetail?.data?.longitude !== null) && (
-                  <a
-                    className="list-group-item border-end-0 d-inline-block text-truncate "
-                    style={{ color: show.venue ? "#e38226" : "#515151" }}
-                    data-bs-parent="#sidebar"
-                    onClick={() => venueHandler()}
-                  >
-                    <p>Venue</p>
-                  </a>
-                )}
+                    <a
+                      className="list-group-item border-end-0 d-inline-block text-truncate "
+                      style={{ color: show.venue ? "#e38226" : "#515151" }}
+                      data-bs-parent="#sidebar"
+                      onClick={() => venueHandler()}
+                    >
+                      <p>Venue</p>
+                    </a>
+                  )}
 
                 <a
                   className="list-group-item"
@@ -320,7 +320,7 @@ const Dashboard = () => {
               )}
             </a>
             <div className="page-header pt-3  ">
-              {show.basicDetail && <BasicDetail />}
+              {show.BasicDetail && <BasicDetail />}
               {show.videoLesson && <VideoLesson />}
               {show.earning && <Earning />}
               {show.training && <Training />}

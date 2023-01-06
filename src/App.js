@@ -88,7 +88,7 @@ function App() {
           <Route path="/appointmentList/:id" element={<BookingDetails />} />
           <Route path="/bookingslot" element={<BookingSlot />} />
           <Route path="/venue" element={<Venue />} />
-          <Route path="/userBookingList" element={<UserBookingList />} />
+          {/* <Route path="/userBookingList" element={<UserBookingList />} /> */}
           <Route path="/emailTemplate" element={<EmailTemplate />} />
           <Route path="/conversation" element={<Chats />} />
         </Routes>

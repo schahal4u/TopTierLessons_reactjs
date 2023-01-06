@@ -19,6 +19,8 @@ import {
   DELETE_BOOKING_SLOT_SUCCESS,
   DELETE_BOOKING_SLOT_FAIL,
   DELETE_BOOKING_SLOT_RESPONSE,
+
+ 
 } from "../types.js";
 
 const initialState = {
@@ -74,7 +76,7 @@ export const CreateBookingReducer = (state = initialState, action) => {
     case DELETE_BOOKING_SLOT_RESPONSE:
       return { ...state, loading: false, deleteBookingSlot: "" };
 
-    default:
-      return state;
-  }
+      default:
+        return state;
+    }
 };
