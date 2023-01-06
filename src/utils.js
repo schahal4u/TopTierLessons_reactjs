@@ -1,3 +1,17 @@
+export const API_KEY = "AIzaSyDx_6SY-xRPDGlQoPt8PTRbCtTHKCbiCXQ";
+
+export const isSignIn = () => {
+  if (localStorage.getItem("token")) {
+    return true;
+  }
+  return false;
+};
+
+export const dateFormat = (val) => {
+  let isoDateTimeString = new Date(+val).toISOString();
+  return isoDateTimeString;
+};
+// new Date(item.dateOfBirth).toLocaleDateString().replaceAll("/", "-");
 export const getFormatedStringFromDays = (value) => {
   let res = "";
   let y = Math.floor(value / 31536000);

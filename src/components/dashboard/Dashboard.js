@@ -17,6 +17,7 @@ import CoachDocs from "../CoachProfile/CoachDocs";
 import Venue from "./Venue";
 import { MultiSelect } from "react-multi-select-component";
 import Review from "./Review";
+import Children from "../CoachProfile/Children";
 
 const Dashboard = () => {
   const token = localStorage?.userData;
@@ -48,6 +49,7 @@ const Dashboard = () => {
     earning: false,
     password: false,
     review: false,
+    child: false,
   };
   const defautFormData = {
     logo: logo,
@@ -57,7 +59,7 @@ const Dashboard = () => {
   const inputFile = useRef(null);
   const [formData, setFormData] = useState(defautFormData);
   const [inp, setInp] = useState("");
-  const [show, setShow] = useState({ ...defaultShow, BasicDetail: true });
+  const [show, setShow] = useState({ ...defaultShow, basicDetail: true });
   console.log("show======>", show.coachDocs);
   const [modalShow, setModalShow] = useState(false);
   const [preview, setPreview] = useState();
@@ -146,6 +148,10 @@ const Dashboard = () => {
 
   const reviewHandler = () => {
     setShow({ ...defaultShow, review: true });
+  };
+
+  const childHandler = () => {
+    setShow({ ...defaultShow, child: true });
   };
 
   const sidebarHandler = () => {
@@ -281,9 +287,10 @@ const Dashboard = () => {
                   </a>
                 )}
 
-                {(profileDetail?.data?.address !== null ||
-                  profileDetail?.data?.latitude !== null ||
-                  profileDetail?.data?.longitude !== null) && (
+                {usertype === 2 &&
+                  (profileDetail?.data?.address !== null ||
+                    profileDetail?.data?.latitude !== null ||
+                    profileDetail?.data?.longitude !== null) && (
                     <a
                       className="list-group-item border-end-0 d-inline-block text-truncate "
                       style={{ color: show.venue ? "#e38226" : "#515151" }}
@@ -328,6 +335,7 @@ const Dashboard = () => {
               {show.coachDocs && usertype === 2 ? <CoachDocs /> : null}
               {show.venue && <Venue />}
               {show.review && <Review />}
+              {show.child && <Children />}
             </div>
           </main>
         </div>
