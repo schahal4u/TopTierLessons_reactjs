@@ -231,11 +231,11 @@ const ChatBox = ({ user, time }) => {
                   </div>
                 ))}
               </div>
-              <ChatForm
+              {/* <ChatForm
                 toptierChat={toptierChat}
                 onChangeHandler={onChangeHandler}
                 submitHandler={submitHandler}
-              />
+              /> */}
             </div>
           </div>
         </div>

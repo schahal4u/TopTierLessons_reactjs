@@ -7,7 +7,10 @@ import {
   GET_BOOKING_USER_REQUEST,
   GET_BOOKING_USER_SUCCESS,
   GET_BOOKING_USER_FAIL,
-  GET_BOOKING_USER_RESET,
+  USER_UPLOADFILE_REQUEST,
+  USER_UPLOADFILE_SUCCESS,
+  USER_UPLOADFILE_FAIL,
+  USER_UPLOADFILE_RESET,
 } from "../types.js";
 
 export const GetBookingUserAction = (formData) => async (dispatch) => {
@@ -54,4 +57,25 @@ export const chatGetByIdResponse = () => ({
   type: GET_BY_CHAT_ID_RESET,
 });
 
-// for get chat state
+// for upload chat media
+export const userUploadFileAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_UPLOADFILE_REQUEST,
+    });
+    const { data } = await axiosInstance.post("User/UploadFile", formData);
+    dispatch({
+      type: USER_UPLOADFILE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPLOADFILE_FAIL,
+      payload: error?.response?.data,
+    });
+  }
+};
+
+export const userUploadFileResponse = () => ({
+  type: USER_UPLOADFILE_RESET,
+});

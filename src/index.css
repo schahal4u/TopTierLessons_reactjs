@@ -43,7 +43,27 @@ code {
   background: #e38226;
 }
 
- 
+/* input[id^="chatbox-input"]::-webkit-input-placeholder { 
+  color: #e38226;
+} */
+
+
+input[id^="chatbox-input"]::-webkit-input-placeholder { 
+  color: #000  !important ;
+}
+/* input[id^="chatbox-input"]::-moz-placeholder { 
+  color: #e38226 !important ;
+}
+input[id^="chatbox-input"]:-ms-input-placeholder { 
+  color: #e38226 !important ;
+}
+input[id^="chatbox-input"]:-moz-placeholder { 
+  color: #e38226 !important ;
+} */
+
+
+
+
 .input-control{
   position: relative !important;
   background: #313131 !important;
@@ -56,6 +76,7 @@ code {
   /* position: relative; */
  
 }
+ 
 
 .was-validated{
   padding-right: 0px !important
@@ -412,6 +433,18 @@ code {
   padding: 10px;
   border-radius: 8px;
 }
+
+.sendNewMessage_outer {
+  background-color: #fff;
+  /* max-height: 300px; */
+  height: 200px;  
+  
+  /* justify-content: space-between; */
+ 
+  border-radius: 8px 8px 0px 0px;
+}
+
+
 .sendNewMessage button {
   width: 36px;
   height: 36px;
@@ -508,6 +541,12 @@ background: #313131 !important;
   top: 40px;
   right: 25px;
 }
+.select-caret {
+  position: absolute;
+  top: 25px;
+  right: 28px;
+}
+
 
 .ttlButton{
     width: auto !important;
@@ -518,3 +557,23 @@ background: #313131 !important;
     color: #fff !important;
     font-size: 16px !important;
 }  
+
+#toggleCard{
+    display: none;
+}
+
+
+.ellipse {
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+@media screen and (max-width: 1200px) {
+  #toggleList{
+    display: none
+  }
+  #toggleCard{
+    display: block
+  }
+
+}

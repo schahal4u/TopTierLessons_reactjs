@@ -60,13 +60,13 @@ const Dashboard = () => {
   const [formData, setFormData] = useState(defautFormData);
   const [inp, setInp] = useState("");
   const [show, setShow] = useState({ ...defaultShow, basicDetail: true });
-  console.log("show======>", show.coachDocs);
+
   const [modalShow, setModalShow] = useState(false);
   const [preview, setPreview] = useState();
   const [selectedFile, setSelectedFile] = useState();
   const [photo, setPhoto] = useState();
   const [open, setOpen] = useState(false);
-
+  console.log("hello", open);
   const photoUpload = (e) => {
     setSelectedFile(e.target.files[0]);
     const incomingFile = e.target.files[0];
@@ -135,7 +135,7 @@ const Dashboard = () => {
     dispatch(emptyPasswordResponse());
   };
   const basicDetailHandler = () => {
-    setShow({ ...defaultShow, BasicDetail: true });
+    setShow({ ...defaultShow, basicDetail: true });
     dispatch(emptyUpdateProfileResponse());
   };
   const documentsHandler = () => {
@@ -229,7 +229,7 @@ const Dashboard = () => {
                   className="list-group-item border-end-0 d-inline-block text-truncate"
                   data-bs-parent="#sidebar"
                   onClick={basicDetailHandler}
-                  style={{ color: show.BasicDetail ? "#e38226" : "#515151" }}
+                  style={{ color: show.basicDetail ? "#e38226" : "#515151" }}
                 >
                   <span>Basic Details</span>
                 </a>
@@ -327,7 +327,7 @@ const Dashboard = () => {
               )}
             </a>
             <div className="page-header pt-3  ">
-              {show.BasicDetail && <BasicDetail />}
+              {show.basicDetail && <BasicDetail />}
               {show.videoLesson && <VideoLesson />}
               {show.earning && <Earning />}
               {show.training && <Training />}

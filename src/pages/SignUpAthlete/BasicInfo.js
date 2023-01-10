@@ -86,7 +86,7 @@ const BasicInfo = () => {
     setValidated(true);
     if (
       formData.address === "" ||
-      formData.age === "" ||
+      formData.dateOfBirth === "" ||
       formData.sportId === "" ||
       formData.skillLevel === "" ||
       formData.profileImage === ""
@@ -216,6 +216,16 @@ const BasicInfo = () => {
                 className="google-analytics"
                 controlId="validationCustom03"
               >
+                <Form.Control
+                  type="text"
+                  className="input-control mt-3"
+                  placeholder="Address"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleFormData}
+                  required
+                  hidden
+                />
                 <GooglePlacesAutocomplete
                   apiKey={API_KEY}
                   selectProps={{
@@ -226,8 +236,8 @@ const BasicInfo = () => {
                     }`,
                   }}
                 />
-
-                <Form.Control.Feedback type="invalid" className="error_text">
+                <span class="required">*</span>
+                <Form.Control.Feedback type="invalid">
                   Address is Required
                 </Form.Control.Feedback>
               </Form.Group>

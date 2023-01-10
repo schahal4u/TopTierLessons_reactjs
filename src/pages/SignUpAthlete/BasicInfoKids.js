@@ -256,6 +256,16 @@ const BasicInfoKids = () => {
                       className="google-analytics"
                       controlId="validationCustom03"
                     >
+                      <Form.Control
+                        type="text"
+                        className=" input-control mt-3"
+                        placeholder="Child Name"
+                        name="name"
+                        value={item.address}
+                        onChange={(e) => handleFormData(e, i)}
+                        required
+                        hidden
+                      />
                       <GooglePlacesAutocomplete
                         apiKey={API_KEY}
                         selectProps={{
@@ -266,11 +276,8 @@ const BasicInfoKids = () => {
                           }`,
                         }}
                       />
-
-                      <Form.Control.Feedback
-                        type="invalid"
-                        className="error_text"
-                      >
+                      <span class="required">*</span>
+                      <Form.Control.Feedback type="invalid">
                         Address is Required
                       </Form.Control.Feedback>
                     </Form.Group>

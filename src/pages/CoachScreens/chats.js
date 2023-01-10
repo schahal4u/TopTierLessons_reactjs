@@ -6,7 +6,7 @@ import {
   chatGetByIdResponse,
   GetBookingUserAction,
 } from "../../redux/actions/Chat";
-import ChatBox from "./ChatBox";
+
 import ChatContent from "./ChatContent";
 import ChatListItems from "./ChatListItems";
 

@@ -19,7 +19,7 @@ const AddChildModal = (props) => {
   let {
     headerText,
     onHide,
-    validation,
+    validated,
     setModalShow,
     getAllSports,
     formData,
@@ -64,155 +64,111 @@ const AddChildModal = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="booking_slot">
-          <div className="row">
-            <Form noValidate validated={validation}>
-              <Row className="mx-auto">
-                <Col as={Col} sm="12">
-                  <Form.Group controlId="validationCustom01">
-                    <Form.Control
-                      required
-                      type="text"
-                      className="input-control"
-                      placeholder="Name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleFormData}
-                    />
-                    {/* <span class="required">*</span> */}
-                    <Form.Control.Feedback
-                      className="error_text"
-                      type="invalid"
-                    >
-                      Name is Required
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col as={Col} sm="12">
-                  <Form.Group
-                    className="google-analytics"
-                    controlId="validationCustom03"
-                  >
-                    <GooglePlacesAutocomplete
-                      apiKey={API_KEY}
-                      selectProps={{
-                        place,
-                        onChange: setPlace,
-                        placeholder: `${
-                          formData.address ? formData.address : "Address"
-                        }`,
-                      }}
-                    />
+        <Form
+          noValidate
+          validated={validated}
+          onSubmit={
+            headerText === "Edit"
+              ? (e) => editChildSubmitHandler(e, formData.childId)
+              : (e) => childSubmitHandler(e)
+          }
+        >
+          <Form.Group as={Col} sm="12" controlId="validationCustom01">
+            <Form.Control
+              required
+              type="text"
+              className="input-control"
+              placeholder="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleFormData}
+            />
+            <span class="required">*</span>
+            <Form.Control.Feedback type="invalid">
+              Name is Required
+            </Form.Control.Feedback>
+          </Form.Group>
 
-                    <Form.Control.Feedback
-                      type="invalid"
-                      className="error_text"
-                    >
-                      Address is Required
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-                <Col as={Col} sm="12">
-                  <Form.Group controlId="validationCustom01">
-                    <Form.Control
-                      type="date"
-                      className="input-control mt-3"
-                      placeholder="dateOfBirth"
-                      name="dateOfBirth"
-                      value={moment(formData.dateOfBirth).format("YYYY-MM-DD")}
-                      onChange={(e) => handleFormData(e)}
-                      required
-                      // pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
-                    />
-                    {/* <span class="required">*</span> */}
-                    <Form.Control.Feedback type="invalid">
-                      Dob is Required
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
+          <Form.Group
+            as={Col}
+            sm="12"
+            className="google-analytics"
+            controlId="validationCustom03"
+          >
+            <Form.Control
+              required
+              type="text"
+              className="input-control"
+              placeholder="Name"
+              name="name"
+              value={formData.address}
+              onChange={handleFormData}
+              hidden
+            />
+            <GooglePlacesAutocomplete
+              apiKey={API_KEY}
+              selectProps={{
+                place,
+                onChange: setPlace,
+                placeholder: `${
+                  formData.address ? formData.address : "Address"
+                }`,
+              }}
+            />
+            <span class="required">*</span>
+            <Form.Control.Feedback type="invalid">
+              Address is Required
+            </Form.Control.Feedback>
+          </Form.Group>
 
-                {/* <Col as={Col} md="12">
-                  <Form.Group controlId="validationCustom01">
-                    <Form.Select
-                      aria-label="Default select example"
-                      className=" form-control form-select input-control mt-3"
-                      value={formData?.sportId}
-                      onChange={(e) => handleFormData(e)}
-                      name="sportId"
-                      required
-                    >
-                      <option value="null">Select Sport</option>
-                      {getAllSports?.data?.length > 0 &&
-                        getAllSports?.data.map((item, i) => {
-                          return (
-                            <option key={i} value={item.sportId}>
-                              {item.sportName}
-                            </option>
-                          );
-                        })}
-                    </Form.Select>
-                    <img className="select_arrow" src={arrow} alt="arrow" />
-                  
-                    <Form.Control.Feedback
-                      type="invalid"
-                      style={{ marginLeft: "65px" }}
-                    >
-                      Please Select any Option
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col> */}
+          <Form.Group as={Col} sm="12" controlId="validationCustom01">
+            <Form.Control
+              type="date"
+              className="input-control mt-3"
+              placeholder="dateOfBirth"
+              name="dateOfBirth"
+              value={moment(formData.dateOfBirth).format("YYYY-MM-DD")}
+              onChange={(e) => handleFormData(e)}
+              required
+              // pattern="^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$"
+            />
+            <span class="required">*</span>
+            <Form.Control.Feedback type="invalid">
+              Dob is Required
+            </Form.Control.Feedback>
+          </Form.Group>
 
-                <Col as={Col} sm="12">
-                  <Form.Group controlId="validationCustom01">
-                    <Form.Select
-                      aria-label="Default select example"
-                      className="form-control form-select input-control mt-3"
-                      value={formData.skillLevel}
-                      onChange={(e) => handleFormData(e)}
-                      name="skillLevel"
-                      required
-                    >
-                      <option value="">Skill Level</option>
-                      <option value="1">Begginer</option>
-                      <option value="2">Intermidate</option>
-                      <option value="3">Expert</option>
-                    </Form.Select>
-                    <img className="select_arrow" src={arrow} alt="arrow" />
-                    {/* <span class="required-asterisk">*</span> */}
-                    <Form.Control.Feedback type="invalid">
-                      Please Select any Option
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </Col>
-              </Row>
+          <Form.Group as={Col} sm="12" controlId="validationCustom01">
+            <Form.Select
+              aria-label="Default select example"
+              className="form-control form-select input-control mt-3"
+              value={formData.skillLevel}
+              onChange={(e) => handleFormData(e)}
+              name="skillLevel"
+              required
+            >
+              <option value="">Skill Level</option>
+              <option value="1">Begginer</option>
+              <option value="2">Intermidate</option>
+              <option value="3">Expert</option>
+            </Form.Select>
+            <img className="select-caret" src={arrow} alt="arrow" />
+            <span class="required">*</span>
 
-              <Row>
-                <Col as={Col} md="6">
-                  <div className="d-flex justify-content-center">
-                    <Button
-                      type="submit"
-                      className="ttlButton"
-                      onClick={
-                        headerText === "Edit"
-                          ? (e) => editChildSubmitHandler(e, formData.childId)
-                          : (e) => childSubmitHandler(e)
-                      }
-                    >
-                      Submit
-                    </Button>
-                  </div>
-                </Col>
-                <Col as={Col} md="6">
-                  <div className="d-flex justify-content-center">
-                    <Button className="ttlButton" onClick={onHide}>
-                      Cancel
-                    </Button>
-                  </div>
-                </Col>
-              </Row>
-            </Form>
+            <Form.Control.Feedback type="invalid">
+              Please Select any Option
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <div className="d-flex flex-row-reverse d-flex justify-content-end ">
+            <Button type="submit" className="ttlButton">
+              Submit
+            </Button>
+            <Button className="ttlButton" onClick={onHide}>
+              Cancel
+            </Button>
           </div>
-        </div>
+        </Form>
       </Modal.Body>
     </Modal>
   );

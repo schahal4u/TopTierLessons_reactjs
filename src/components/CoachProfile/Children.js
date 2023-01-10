@@ -15,6 +15,7 @@ import { deleteChildResponse } from "../../redux/actions/AdminProfileUpdateActio
 import { formatMuiErrorMessage } from "@mui/utils";
 import { Alert } from "bootstrap";
 import moment from "moment";
+import Cards from "../common/cards";
 const Children = () => {
   const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
   let childId = "";
@@ -44,6 +45,7 @@ const Children = () => {
   const [formData, setFormData] = useState(defautFormData);
   const [modalShow, setModalShow] = useState(false);
   const [header, setHeader] = useState("");
+  const [validated, setValidated] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -132,7 +134,7 @@ const Children = () => {
   // add child
   const childSubmitHandler = (e) => {
     e.preventDefault();
-
+    setValidated(true);
     const users = [
       {
         ...formData,
@@ -142,7 +144,7 @@ const Children = () => {
     if (
       formData.name !== "" &&
       formData.address !== "" &&
-      formData.age !== "" &&
+      formData.dateOfBirth !== "" &&
       formData.skillLevel !== ""
       // formData.sportId !== ""
     ) {
@@ -237,22 +239,22 @@ const Children = () => {
             </button>
           </div>
         </div>
-
-        {profileDetail?.data?.children?.length
-          ? profileDetail?.data?.children?.map((item) => {
-              return (
-                <div className="card col-sm-12 w-100 venuecard ">
-                  <div className="card-body">
-                    <div className="row">
-                      <div
-                        className="h-100"
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          textAlign: "center",
-                        }}
-                      >
-                        {/* <div className="col-sm-1">
+        <div id="toggleList">
+          {profileDetail?.data?.children?.length
+            ? profileDetail?.data?.children?.map((item) => {
+                return (
+                  <div className="card col-sm-12 w-100 venuecard ">
+                    <div className="card-body">
+                      <div className="row">
+                        <div
+                          className="h-100"
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            textAlign: "center",
+                          }}
+                        >
+                          {/* <div className="col-sm-1">
                           <div className=" h-100 d-flex justify-content-center align-items-center">
                             <img
                               className="card-img-bottom"
@@ -263,74 +265,78 @@ const Children = () => {
                             />
                           </div>
                         </div> */}
-                        <div className="col-sm-2">
-                          <p> Name</p>
+                          <div className="col-sm-2 ">
+                            <p> Name</p>
 
-                          <h4>{item?.childName}</h4>
-                        </div>
-                        <div
-                          className="col-sm-2"
-                          style={{ borderLeft: "1px solid #575757" }}
-                        >
-                          <p className="card-text">Address</p>
-                          <h4>{item?.address}</h4>
-                        </div>
-                        <div
-                          className="col-sm-2"
-                          style={{ borderLeft: "1px solid #575757" }}
-                        >
-                          <p className="card-text">Sports</p>
-                          <h4>
-                            {item?.skillLevel === 1
-                              ? "Begginer"
-                              : item?.skillLevel === 2
-                              ? "Intermidate"
-                              : "Expert"}
-                          </h4>
-                        </div>
-                        <div
-                          className="col-sm-2"
-                          style={{ borderLeft: "1px solid #575757" }}
-                        >
-                          <p className="card-text">DOB</p>
-                          <h4>
-                            {moment(item.dateOfBirth).format("YYYY-MM-DD")}{" "}
-                          </h4>
-                        </div>
+                            <h4>{item?.childName}</h4>
+                          </div>
+                          <div
+                            className="col-sm-2  "
+                            style={{ borderLeft: "1px solid #575757" }}
+                          >
+                            <p className="card-text">Address</p>
+                            <h6 className="ellipse">{item?.address}</h6>
+                          </div>
+                          <div
+                            className="col-sm-2"
+                            style={{ borderLeft: "1px solid #575757" }}
+                          >
+                            <p className="card-text">Sports</p>
+                            <h4>
+                              {item?.skillLevel === 1
+                                ? "Begginer"
+                                : item?.skillLevel === 2
+                                ? "Intermidate"
+                                : "Expert"}
+                            </h4>
+                          </div>
+                          <div
+                            className="col-sm-2"
+                            style={{ borderLeft: "1px solid #575757" }}
+                          >
+                            <p className="card-text">DOB</p>
+                            <h4>
+                              {moment(item.dateOfBirth).format("YYYY-MM-DD")}{" "}
+                            </h4>
+                          </div>
 
-                        <div
-                          className="col-sm-1"
-                          style={{ borderLeft: "1px solid #575757" }}
-                        >
-                          <p className="card-text">Action</p>
-                          <div className="d-flex justify-content-between align-items-center p-1">
-                            <i
-                              onClick={() =>
-                                childEditHandler(item.childId, "Edit")
-                              }
-                              className="fa fa-edit fs-4 cursor_pointer"
-                              aria-hidden="true"
-                            />
-                            <i
-                              onClick={() => childDeleteHandler(item.childId)}
-                              className="fa fa-trash fs-4 cursor_pointer"
-                              aria-hidden="true"
-                            />
+                          <div
+                            className="col-sm-1"
+                            style={{ borderLeft: "1px solid #575757" }}
+                          >
+                            <p className="card-text">Action</p>
+                            <div className="d-flex justify-content-between align-items-center p-1">
+                              <i
+                                onClick={() =>
+                                  childEditHandler(item.childId, "Edit")
+                                }
+                                className="fa fa-edit fs-4 cursor_pointer"
+                                aria-hidden="true"
+                              />
+                              <i
+                                onClick={() => childDeleteHandler(item.childId)}
+                                className="fa fa-trash fs-4 cursor_pointer"
+                                aria-hidden="true"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                );
+              })
+            : loading && (
+                <div className="w-100 d-flex justify-content-center align-items-center">
+                  <div class="spinner-border  text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </div>
-              );
-            })
-          : loading && (
-              <div className="w-100 d-flex justify-content-center align-items-center">
-                <div class="spinner-border  text-light" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </div>
-            )}
+              )}
+        </div>
+        <div id="toggleCard" className="my-5">
+          <Cards profileDetail={profileDetail} />
+        </div>
       </div>
       {/* Modal  */}
 
@@ -338,6 +344,7 @@ const Children = () => {
         headerText={header}
         show={modalShow}
         onHide={() => setModalShow(false)}
+        validated={validated}
         setModalShow={setModalShow}
         formData={formData}
         handleFormData={handleFormData}

@@ -11,6 +11,7 @@ import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 
 import Avatar from "./Avatar";
 import ChatItem from "./ChatItem";
+import ChatForm from "./ChatForm";
 // import ChatItem from "./ChatItem";
 
 const ChatContent = ({ user, selectedUser, time }) => {
@@ -191,9 +192,17 @@ const ChatContent = ({ user, selectedUser, time }) => {
           <div ref={messagesEndRef} />
         </div>
       </div>
-      <div className="content__footer">
+
+      <ChatForm
+        toptierChat={toptierChat}
+        msgHandler={msgHandler}
+        submitHandler={submitHandler}
+        // addMediaHandler={addMediaHandler}
+      />
+
+      {/* <div className="content__footer">
         <div className="sendNewMessage">
-          <button className="addFiles">
+          <button className="addFiles" onClick={() => addMediaHandler()}>
             <i className="fa fa-plus"></i>
           </button>
           <input
@@ -212,7 +221,7 @@ const ChatContent = ({ user, selectedUser, time }) => {
             <i className="fa fa-paper-plane"></i>
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
