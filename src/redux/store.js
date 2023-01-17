@@ -35,6 +35,8 @@ import {
 import { CreateReviewReducer, ReviewReducer } from "./reducers/ReviewReducer";
 import { EmailTemplateReducer } from "./reducers/EmailTemplateReducer";
 import { ChatModuleReducer, getChatByIdReducer } from "./reducers/Chat";
+import { getAllSkillsReducer } from "./reducers/getAllSkillsReducer";
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
@@ -50,9 +52,9 @@ const rootReducer = combineReducers({
   getAllCoachResponse: GetAllCoachReducer,
   contactUsResponse: ContactUsReducer,
   createBookingResponse: CreateBookingReducer,
-  previousBooking:PreviousBookingReducer,
-  upcomingBooking:upcomingBookingsReducer,
-  deleteBooking:DeleteBookingReducer,
+  previousBooking: PreviousBookingReducer,
+  upcomingBooking: upcomingBookingsReducer,
+  deleteBooking: DeleteBookingReducer,
   getAllBookingResponse: GetAllBookingReducer,
   getAllBookingDetailsById: GetAllBookingDetailsByIdReducer,
   createPaymentResponse: CreatePaymentReducer,
@@ -67,6 +69,7 @@ const rootReducer = combineReducers({
   emailTemplateReducer: EmailTemplateReducer,
   chatModule: ChatModuleReducer,
   getChatById: getChatByIdReducer,
+  getAllSkills: getAllSkillsReducer,
 });
 
 const store = createStore(

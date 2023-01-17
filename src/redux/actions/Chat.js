@@ -68,6 +68,7 @@ export const userUploadFileAction = (formData) => async (dispatch) => {
       type: USER_UPLOADFILE_SUCCESS,
       payload: data,
     });
+    return data;
   } catch (error) {
     dispatch({
       type: USER_UPLOADFILE_FAIL,

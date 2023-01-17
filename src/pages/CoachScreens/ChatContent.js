@@ -6,12 +6,17 @@ import React, {
   useRef,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { chatGetByIdAction } from "../../redux/actions/Chat";
+import {
+  chatGetByIdAction,
+  userUploadFileAction,
+} from "../../redux/actions/Chat";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 
 import Avatar from "./Avatar";
 import ChatItem from "./ChatItem";
 import ChatForm from "./ChatForm";
+import { toast } from "react-toastify";
+import { axiosInstance } from "../../redux/ApiInterceptor/Axios_Interceptors";
 // import ChatItem from "./ChatItem";
 
 const ChatContent = ({ user, selectedUser, time }) => {
@@ -23,15 +28,25 @@ const ChatContent = ({ user, selectedUser, time }) => {
     file: "",
     audioDuration: "",
   };
+  let defaultTypes = {
+    message: 1,
+    emoji: 2,
+    image: 3,
+    video: 4,
+    audio: 5,
+  };
+
   let messagesEndRef = createRef(null);
 
   const senderlogin = JSON.parse(localStorage.userData);
   const { chatGetById, loading } = useSelector((state) => state.getChatById);
-  console.log("loading", loading);
+
   const [connection, setConnection] = useState();
   const [msgList, setMsgList] = useState([]);
-
+  const [mediaTypes, setMediaTypes] = useState(defaultTypes);
+  const [file, setFile] = useState([]);
   const [toptierChat, setToptierChat] = useState(defData);
+
   const dispatch = useDispatch();
 
   const latestChat = useRef(null);
@@ -70,14 +85,14 @@ const ChatContent = ({ user, selectedUser, time }) => {
   };
 
   useEffect(() => {
-    if (toptierChat.message !== "") {
+    if (toptierChat.message !== "" || file.length > 0) {
       setToptierChat({
         ...toptierChat,
         senderId: senderlogin.userId,
         reciverId: user?.userId,
       });
     }
-  }, [toptierChat.message]);
+  }, [toptierChat.message, file]);
 
   useEffect(() => {
     const connect = new HubConnectionBuilder()
@@ -123,24 +138,257 @@ const ChatContent = ({ user, selectedUser, time }) => {
     }
   };
 
+  const apiCall = (fileData) =>
+    new Promise(async (resolve, reject) => {
+      let formData = new FormData();
+      formData.append("file", fileData);
+      const { data } = await axiosInstance.post("User/UploadFile", formData);
+      resolve(data.data.url);
+    });
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (connection) {
-      await connection
-        .invoke("SendMessageSpecificClient", toptierChat)
-        .then((response) => listUpdate())
-        .catch((err) => console.error("submit error==>", err.toString()));
-      setToptierChat({
-        senderId: 0,
-        reciverId: 0,
-        type: 1,
-        message: "",
-        file: "",
-        audioDuration: "",
-      });
+      let toptierChatPayload = { ...toptierChat };
+
+      if (file.length > 0) {
+        let handlerdm = {
+          file: file || [],
+          message: toptierChatPayload.message,
+        };
+        for (const [key, value] of Object.entries(handlerdm)) {
+          if (key === "file") {
+            let videoExe = ["mp4", "mov", "mkv", "avi", "avchd", "webm", "wmv"];
+            let imgExe = [
+              "jpg",
+              "jpeg",
+              "png",
+              "gif",
+              "tiff",
+              "psd",
+              "pdf",
+              "ai",
+              "indd",
+              "raw",
+            ];
+            let audioExe = [
+              "mp3",
+              "wav",
+              "aac",
+              "flac",
+              "alac",
+              "dsd",
+              "aiff",
+              "m3u8",
+            ];
+            value.map((item) => {
+              // promiseArr.push(apiCall(item.file));
+              apiCall(item.file).then((response) => {
+                console.log("response=", response);
+                let res = response.split(".");
+                let resIndex = res.length - 1;
+                let exten = res[resIndex];
+
+                if (imgExe.includes(exten)) {
+                  toptierChatPayload = {
+                    ...toptierChatPayload,
+                    file: response,
+                    type: 3,
+                    message: "",
+                  };
+                  callSocket(toptierChatPayload);
+                } else if (audioExe.includes(exten)) {
+                  toptierChatPayload = {
+                    ...toptierChatPayload,
+                    file: response,
+                    type: 5,
+                    message: "",
+                  };
+                  callSocket(toptierChatPayload);
+                } else if (videoExe.includes(exten)) {
+                  toptierChatPayload = {
+                    ...toptierChatPayload,
+                    file: response,
+                    type: 4,
+                    message: "",
+                  };
+                  callSocket(toptierChatPayload);
+                }
+                //  else {
+                //   if (toptierChat.file !== "") {
+                //     callSocket(toptierChat);
+                //   }
+                // }
+              });
+            });
+            setFile([]);
+            // handlerdm = { ...handlerdm, file: [] };
+          }
+          if (key === "message") {
+            callSocket({ ...toptierChat, [key]: value });
+          }
+        }
+        ///// new code start
+        // file.map((item) => {
+        //   // promiseArr.push(apiCall(item.file));
+        //   apiCall(item.file).then((response) => {
+        //     console.log("response=", response);
+        //     let res = response.split(".");
+        //     let resIndex = res.length - 1;
+        //     let exten = res[resIndex];
+        //     if (
+        //       exten === "jpg" ||
+        //       exten === "jpeg" ||
+        //       exten === "png" ||
+        //       exten === "gif"
+        //     ) {
+        //       toptierChatPayload = {
+        //         ...toptierChatPayload,
+        //         file: response,
+        //         type: 3,
+        //         message: "",
+        //       };
+        //       callSocket(toptierChatPayload);
+        //     } else if (exten === "mp3" || exten === "wav" || exten === "aac") {
+        //       toptierChatPayload = {
+        //         ...toptierChatPayload,
+        //         file: response,
+        //         type: 5,
+        //         message: "",
+        //       };
+        //       callSocket(toptierChatPayload);
+        //     } else if (
+        //       exten === "mp4" ||
+        //       exten === "mov" ||
+        //       exten === "mkv" ||
+        //       exten === "wmv"
+        //     ) {
+        //       toptierChatPayload = {
+        //         ...toptierChatPayload,
+        //         file: response,
+        //         type: 4,
+        //         message: "",
+        //       };
+        //       callSocket(toptierChatPayload);
+        //     } else {
+        //       if (toptierChat.file !== "") {
+        //         callSocket(toptierChat);
+        //       }
+        //     }
+        //     setFile([]);
+        //   });
+        // });
+        //// new code end
+
+        // Promise.allSettled(promiseArr).then(async (response) => {
+        //   let urlArr = response.map((urlresponse) => {
+        //     return urlresponse.value;
+        //   });
+        //   const urlArrString = urlArr.toString();
+
+        //   let handlerdm = {
+        //     file: urlArrString,
+        //     message: toptierChatPayload.message,
+        //   };
+
+        // const typeReturn = (type) => {
+        //   debugger;
+        //   for (const [item, value] of Object.entries(handlerdm)) {
+        //     if (item === type) {
+        //       return item;
+        //     }
+        //   }
+        // };
+
+        // for (const [key, value] of Object.entries(handlerdm)) {
+        //   if (key in toptierChatPayload) {
+        //     debugger;
+        //     toptierChatPayload = {
+        //       ...toptierChatPayload,
+        //       [key]: handlerdm[key],
+        //       // type: key === typeReturn(key) && mediaTypes[key],
+        //       type: key === "file" ? 1 : key === "file",
+        //       //   Object.keys(mediaTypes).filter((item) =>
+        //       //     item.includes(handlerdm[key])
+        //       //   ) && mediaTypes[key],
+        //     };
+
+        //     console.log("toptierChatPayload=====>", toptierChatPayload);
+        //     alert(toptierChatPayload.type);
+        //   }
+        // }
+        // toptierChatPayload = {
+        //   ...toptierChatPayload,
+        //   file: urlArrString,
+        //   type: 3,
+        // };
+
+        // await connection
+        //   .invoke("SendMessageSpecificClient", toptierChatPayload)
+        //   .then((response) => listUpdate())
+        //   .catch((err) => console.error("submit error==>", err.toString()));
+        // setToptierChat({
+        //   senderId: 0,
+        //   reciverId: 0,
+        //   type: 0,
+        //   message: "",
+        //   file: "",
+        //   audioDuration: "",
+        // });
+        // });
+        // apiCall().then(async (url) => {
+        //   console.log("url==>", url);
+        //   toptierChatPayload = { ...toptierChatPayload, file: url };
+        //   alert("for calling");
+        //   await connection
+        //     .invoke("SendMessageSpecificClient", toptierChatPayload)
+        //     .then((response) => listUpdate())
+        //     .catch((err) => console.error("submit error==>", err.toString()));
+        //   setToptierChat({
+        //     senderId: 0,
+        //     reciverId: 0,
+        //     type: 1,
+        //     message: "",
+        //     file: "",
+        //     audioDuration: "",
+        //   });
+        // });
+        // file.map((item, i) => {
+        //   let data = new FormData();
+        //   data.append("file", item.file);
+        //   dispatch(userUploadFileAction(data))
+        //     .then((response) => {
+        //       if (response.statusCode === 200) {
+        //         alert("heloo");
+        //         mediaUrl.push(response.data.url);
+        //       }
+        //     })
+        //     .catch((error) => {
+        //       toast.warning("something went wrong");
+        //     });
+
+        //   url = mediaUrl.toString();
+        // });
+      } else {
+        callSocket(toptierChat);
+      }
     }
   };
 
+  const callSocket = async (payload) => {
+    await connection
+      .invoke("SendMessageSpecificClient", payload)
+      .then((response) => listUpdate())
+      .catch((err) => console.error("submit error==>", err.toString()));
+    setToptierChat({
+      senderId: 0,
+      reciverId: 0,
+      type: 1,
+      message: "",
+      file: "",
+      audioDuration: "",
+    });
+  };
   return (
     <div className="main__chatcontent">
       <div className="content__header">
@@ -172,7 +420,7 @@ const ChatContent = ({ user, selectedUser, time }) => {
                   // key={itm.key}
                   // user={itm.type ? itm.type : "me"}
                   // msg={itm.msg}
-                  // image={itm.image}
+                  image={itm.image}
                   user={user}
                   userMsg={itm}
                 />
@@ -194,6 +442,8 @@ const ChatContent = ({ user, selectedUser, time }) => {
       </div>
 
       <ChatForm
+        file={file}
+        setFile={setFile}
         toptierChat={toptierChat}
         msgHandler={msgHandler}
         submitHandler={submitHandler}

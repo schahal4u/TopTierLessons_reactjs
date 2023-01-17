@@ -2,7 +2,7 @@ import React from "react";
 import Cards from "../Cards";
 import Header from "../Header";
 import "./Home.css";
-import headerbg from "../../assets/images/header-bg.png";
+import headerbg from "../../assets/images/players.jpeg";
 import logo1 from "../../assets/images/logo1.png";
 import logo3 from "../../assets/images/logo3.png";
 import logo4 from "../../assets/images/logo4.png";
@@ -16,6 +16,7 @@ import { useUID } from "react-uid";
 
 const Home = () => {
   const uid = useUID();
+
   console.log("uid==>", uid);
   return (
     <>
@@ -24,7 +25,8 @@ const Home = () => {
           display: "flex",
           minWidth: "50vw",
           minHeight: "90vh",
-          backgroundImage: `url(${headerbg})`,
+
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.227),rgba(0, 0, 0, 0.2)) , url(${headerbg})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",

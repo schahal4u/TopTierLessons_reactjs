@@ -85,6 +85,13 @@ const Navbar = () => {
     navigate("/conversation", { replace: true });
   };
 
+  // const dropdownHandler = () => {
+  //   alert();
+  //   const targetBody = document.getElementsByClassName("mainRoutes");
+  //   console.log("targetBody", targetBody);
+  //   // let selectList = targetBody.classList;
+  //   // selectList.add(" ");
+  // };
   // fixed-top
   return (
     <>
@@ -212,9 +219,10 @@ const Navbar = () => {
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
-                  // onClick={profileHandler}
+                    // onClick={profileHandler}
                   >
                     <img
+                      // onClick={dropdownHandler}
                       src={formData.logo || profileLogo}
                       className="logohandler"
                     />

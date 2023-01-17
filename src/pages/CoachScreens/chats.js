@@ -15,7 +15,7 @@ const Venue = () => {
   const { getChatBookingUser, loading } = useSelector(
     (state) => state.chatModule
   );
-  console.log("getChatBookingUser", loading);
+
   const [userDetails, setUserDetails] = useState({});
   const [selectUser, setSelectUser] = useState();
   let dispatch = useDispatch();

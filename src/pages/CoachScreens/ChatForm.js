@@ -1,11 +1,20 @@
-import React, { useRef, useState } from "react";
+import zIndex from "@mui/material/styles/zIndex";
+import React, { useEffect, useRef, useState } from "react";
 import { Form } from "react-bootstrap";
+import FilesSelectionAlertModal from "../../components/Modal/FilesSelectionAlertModal";
+import SelectFiles from "./SelectFiles";
 
-const ChatForm = ({ toptierChat, msgHandler, submitHandler }) => {
+const ChatForm = ({
+  toptierChat,
+  msgHandler,
+  submitHandler,
+  file,
+  setFile,
+}) => {
   let targetMediaInput = useRef(null);
-
-  const [file, setFile] = useState([]);
-  console.log("file", file);
+  const [modalShow, setModalShow] = useState(false);
+  // const media = file;
+  // console.log("file", file);
   const addMediaHandler = () => {
     targetMediaInput.current.click();
   };
@@ -28,82 +37,83 @@ const ChatForm = ({ toptierChat, msgHandler, submitHandler }) => {
       setFile(mediafiles);
     }
   };
+
+  useEffect(() => {
+    if (file.length > 10) {
+      setModalShow(true);
+    }
+  }, [file]);
+  useEffect(() => {
+    if (!modalShow) {
+      setFile([]);
+    }
+  }, [modalShow]);
+
   return (
     <>
       <div className="content__footer">
-        {/* {file.length > 0 && (
-          <div className="sendNewMessage_outer">
-            <div
-              className=""
-              style={{
-                overflowY: "scroll",
-              }}
-            >
-              {file.length >= 0 &&
-                file.map((item, i) => {
-                  return (
-                    <div
-                      key={i}
-                      className="bg-success"
-                      style={{ height: "100px", width: "100px" }}
-                    >
-                      <h6>{item.imagePreviewUrl}</h6>
-                      <image
-                        src={item.imagePreviewUrl}
-                        style={{ height: "100px", width: "100px" }}
-                      />
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        )} */}
+        {file.length > 10 ? (
+          <FilesSelectionAlertModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+          />
+        ) : (
+          <SelectFiles
+            file={file}
+            setFile={setFile}
+            addMediaHandler={addMediaHandler}
+            targetMediaInput={targetMediaInput}
+            handleChange={handleChange}
+          />
+        )}
 
         <div className="sendNewMessage">
-          {/* {file.length !== 0 ||
+          {file.length !== 0 ||
             (file.length <= 0 && (
               <button className="addFiles" onClick={addMediaHandler}>
                 <i className="fa fa-plus"></i>
                 <input
                   type="file"
                   ref={targetMediaInput}
-                  // accept="image/*"
+                  accept="video/*, image/*, audio/*"
                   onChange={(e) => handleChange(e)}
                   className=""
                   multiple
                   hidden
                 />
               </button>
-            ))} */}
+            ))}
 
-          <button className="addFiles" onClick={addMediaHandler}>
-            <i className="fa fa-plus"></i>
-            <input
-              type="file"
-              ref={targetMediaInput}
-              // accept="image/*"
-              onChange={(e) => handleChange(e)}
-              className=""
-              multiple
-              hidden
-            />
-          </button>
-
-          <input
-            id="chatbox-input"
-            type="text"
-            placeholder="Type a message"
-            // toptierChat={toptierChat}
-            onChange={(e) => msgHandler(e)}
-            value={toptierChat.message}
-          />
-          <button
-            className="btnSendMsg"
-            id="sendMsgBtn"
-            onClick={(e) => submitHandler(e)}
+          {/* {file.length > 0 && (
+            <button className="addFiles" onClick={addMediaHandler}>
+              <i className="fa fa-plus"></i>
+              <input
+                type="file"
+                ref={targetMediaInput}
+                // accept="image/*"
+                onChange={(e) => handleChange(e)}
+                className=""
+                multiple
+                hidden
+              />
+            </button>
+          )} */}
+          <form
+            style={{ flexGrow: 1, display: "flex" }}
+            onSubmit={(e) => submitHandler(e)}
           >
-            <i className="fa fa-paper-plane"></i>
-          </button>
+            <input
+              id="chatbox-input"
+              type="text"
+              placeholder="Type a message"
+              // toptierChat={toptierChat}
+              onChange={(e) => msgHandler(e)}
+              value={toptierChat.message}
+            />
+            <button type="submit" className="btnSendMsg" id="sendMsgBtn">
+              <i className="fa fa-paper-plane"></i>
+            </button>
+          </form>
         </div>
       </div>
     </>

@@ -138,6 +138,17 @@ input[id^="chatbox-input"]:-moz-placeholder {
   
   font-size: 18px !important;
 }
+.main_ttButton {
+    padding: 10px 35px !important;
+    border: none !important;
+    background-color: #e38226 !important;
+    color: #fff !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    width: 100% !important;
+    border-radius: 0px !important;
+  
+}
 
 
 /* for chat  */
@@ -384,7 +395,7 @@ input[id^="chatbox-input"]:-moz-placeholder {
 .chat__item__content {
   background-color: #e38226;
   color: #fff;
-  padding: 15px;
+  padding: 5px 5px;
   border-radius: 10px 10px 0 10px;
   max-width: 90%;
   min-width: 215px;
@@ -437,13 +448,58 @@ input[id^="chatbox-input"]:-moz-placeholder {
 .sendNewMessage_outer {
   background-color: #fff;
   /* max-height: 300px; */
-  height: 200px;  
-  
+  height: auto;  
+  padding: 10px;
   /* justify-content: space-between; */
- 
-  border-radius: 8px 8px 0px 0px;
+ margin: 10px 0px;
+  border-radius: 8px;
+}
+.sendMessagePreview {
+  overflow-y: scroll;
+  max-height: 200px;
+  box-sizing: border-box;
+}
+#main_button{
+  background-color: #fae1c9;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #e38226;
+  padding: 16px;
+  border-radius: 5px;
+  line-height: 36px;
+  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
 }
 
+.preview_image{
+  background-color: #fae1c9;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #e38226;
+  padding: 0;
+  border-radius: 5px;
+  line-height: 36px;
+  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
+}
+.preview_video{
+   width: 100%;
+  background-color: #fae1c9;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #e38226;
+  padding: 0;
+  border-radius: 5px;
+  line-height: 36px;
+  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
+}
 
 .sendNewMessage button {
   width: 36px;
@@ -477,7 +533,6 @@ input[id^="chatbox-input"]:-moz-placeholder {
   background-color: #e38226;
   color: #fff;
 }
-
 
 .google-analytics > .css-2b097c-container > .css-yk16xz-control , .css-1pahdxg-control{
   background: #313131 !important;
@@ -568,6 +623,46 @@ background: #313131 !important;
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
+
+#center_div{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.main_basic_detail_form{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-direction: column !important;
+}
+.basic_detail_form{
+ 
+  background-color: #313131 !important;
+  
+  padding: 80px 0px !important;
+}
+
+.rti--container{
+  background: #313131 !important;
+    border-radius: 0px  !important;
+}
+.rti--input{
+  color: white !important;
+  /* cursor: white !important; */
+  background: #313131 !important;
+  width: 50% !important;
+  padding: 5px 0px !important;
+}
+
+.input-arrow{
+  position: absolute;
+  top: 60px;
+  right: 27px;
+}
+
 @media screen and (max-width: 1200px) {
   #toggleList{
     display: none
@@ -577,3 +672,4 @@ background: #313131 !important;
   }
 
 }
+

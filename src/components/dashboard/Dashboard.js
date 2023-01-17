@@ -286,6 +286,16 @@ const Dashboard = () => {
                     <p>Documents</p>
                   </a>
                 )}
+                {usertype === 4 && (
+                  <a
+                    className="list-group-item border-end-0 d-inline-block text-truncate"
+                    style={{ color: show.child ? "#e38226" : "#515151" }}
+                    data-bs-parent="#sidebar"
+                    onClick={childHandler}
+                  >
+                    <p>Children</p>
+                  </a>
+                )}
 
                 {usertype === 2 &&
                   (profileDetail?.data?.address !== null ||

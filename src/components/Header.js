@@ -1,30 +1,97 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import headerbg from "../assets/images/header-bg.png";
 import "./Header.css";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
+import { Modal } from "bootstrap";
+import { Slider } from "@mui/material";
+import FilterModal from "./Modal/FilterModal";
+import { useDispatch, useSelector } from "react-redux";
+import { GetAllSportsAction } from "../redux/actions/GetAllSports";
 
 const Header = () => {
+  let defaultForm = {
+    venueId: "",
+    sportId: "",
+  };
+
+  const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
+
+  const [text, setText] = useState("");
+  const [formData, setFormData] = useState(defaultForm);
+  const [show, setShow] = useState(false);
+  const [fullText, setFullText] = useState(
+    "Sports lessons from university of illinois 101 student athletes"
+  );
+  const [index, setIndex] = useState(0);
+
+  const handleFormData = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    if (index < fullText.length) {
+      setTimeout(() => {
+        setText(text + fullText[index]);
+        setIndex(index + 1);
+      }, 40);
+    }
+  }, [index]);
+
+  const bookLessonHandler = () => {
+    setShow(true);
+  };
+  const closehandler = () => {
+    setShow(false);
+  };
+
+  const submitHandler = () => {
+    alert("submit");
+  };
+  const onHide = () => {
+    setShow(false);
+  };
+
   return (
     <>
+      {show && (
+        <FilterModal
+          show={show}
+          onHide={onHide}
+          // validated={validated}
+          setShow={setShow}
+          formData={formData}
+          getAllSports={getAllSports}
+          handleFormData={handleFormData}
+          submitHandler={submitHandler}
+        />
+      )}
+
       <div className="header">
         <div className="header_content">
-          <h1 className="header_main_text">
-            SPORTS LESSONS FROM UNIVERSITY OF ILLINOIS 101 STUDENT ATHLETES{" "}
+          <h5 className="header_main_text">
+            {text}
             <br />
-          </h1>
+          </h5>
         </div>
         <div className="header_btn">
-          <button className="header_front_btn">
-            <Link
+          <button
+            className="header_front_btn"
+            onClick={() => bookLessonHandler()}
+          >
+            Book Swimming Lesson
+            {/* <Link
               to="/coachSearch"
               style={{ textDecorationL: "none", color: "#fff" }}
             >
               Book Swimming Lesson
-            </Link>
+            </Link> */}
           </button>
           <br />
           <h3>All Sports Comming Soon</h3>

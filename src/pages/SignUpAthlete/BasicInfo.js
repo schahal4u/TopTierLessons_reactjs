@@ -172,7 +172,7 @@ const BasicInfo = () => {
         <div className="container form_sign">
           <Form noValidate validated={validated} onSubmit={signUpHandler}>
             {/* <form onSubmit={signUpHandler}> */}
-            <div className="basic_form">
+            <div className="basic_upload_form">
               <h1>Basic Detail</h1>
               <img
                 src={formData.profileImage || avtar}

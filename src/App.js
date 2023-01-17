@@ -69,62 +69,64 @@ function App() {
             </div>
           </>
         )}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/contactUs"
-            element={<ContactUs />}
-            // element={<ContactUs />}
-          />
-          <Route path="/about" element={<About />} />
+        <div className="mainRoutes">
+          <Routes className="mainRoutes">
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/contactUs"
+              element={<ContactUs />}
+              // element={<ContactUs />}
+            />
+            <Route path="/about" element={<About />} />
 
-          <Route path="/privacy" element={<PrivacyPolicy />} />
-          <Route path="/terms" element={<Terms />} />
-          <Route path="/signIn" element={<SignIn />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRouting>
-                <Dashboard />
-              </PrivateRouting>
-            }
-          />
-          <Route path="/coachSearch" element={<CoachSearch />} />
-          <Route path="/coachProfile" element={<CoachDashboard />} />
-          <Route path="/booking" element={<Bookings />} />
-          <Route
-            path="/coachProfileDetail/:id"
-            element={<CoachProfileDetail />}
-          />
-          <Route path="/coachsignup" element={<LessonsSignUp />} />
-          <Route path="/athletesignup" element={<PersonalDetail />} />
-          <Route path="/basicinfo" element={<BasicInfo />} />
-          <Route path="/basicinfokids" element={<BasicInfoKids />} />
-          <Route path="/basicinfokids" element={<BasicInfoKids />} />
-          <Route path="/signupuploadphoto" element={<UploadPhoto />} />
-          <Route path="/transaction" element={<Transaction />} />
-          <Route path="/appointmentList" element={<BookingList />} />
-          <Route path="/appointmentList/:id" element={<BookingDetails />} />
-          <Route
-            path="/bookingslot"
-            element={
-              <PrivateRouting>
-                <BookingSlot />
-              </PrivateRouting>
-            }
-          />
-          <Route path="/venue" element={<Venue />} />
-          <Route path="/userBookingList" element={<UserBookingList />} />
-          <Route path="/emailTemplate" element={<EmailTemplate />} />
-          <Route
-            path="/conversation"
-            element={
-              <PrivateRouting>
-                <Chats />{" "}
-              </PrivateRouting>
-            }
-          />
-        </Routes>
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/signIn" element={<SignIn />} />
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRouting>
+                  <Dashboard />
+                </PrivateRouting>
+              }
+            />
+            <Route path="/coachSearch" element={<CoachSearch />} />
+            <Route path="/coachProfile" element={<CoachDashboard />} />
+            <Route path="/booking" element={<Bookings />} />
+            <Route
+              path="/coachProfileDetail/:id"
+              element={<CoachProfileDetail />}
+            />
+            <Route path="/coachsignup" element={<LessonsSignUp />} />
+            <Route path="/athletesignup" element={<PersonalDetail />} />
+            <Route path="/basicinfo" element={<BasicInfo />} />
+            <Route path="/basicinfokids" element={<BasicInfoKids />} />
+            <Route path="/basicinfokids" element={<BasicInfoKids />} />
+            <Route path="/signupuploadphoto" element={<UploadPhoto />} />
+            <Route path="/transaction" element={<Transaction />} />
+            <Route path="/appointmentList" element={<BookingList />} />
+            <Route path="/appointmentList/:id" element={<BookingDetails />} />
+            <Route
+              path="/bookingslot"
+              element={
+                <PrivateRouting>
+                  <BookingSlot />
+                </PrivateRouting>
+              }
+            />
+            <Route path="/venue" element={<Venue />} />
+            <Route path="/userBookingList" element={<UserBookingList />} />
+            <Route path="/emailTemplate" element={<EmailTemplate />} />
+            <Route
+              path="/conversation"
+              element={
+                <PrivateRouting>
+                  <Chats />{" "}
+                </PrivateRouting>
+              }
+            />
+          </Routes>
+        </div>
       </div>
       {url.includes("signIn") ||
       url.includes("coachsignup") ||
