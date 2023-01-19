@@ -38,11 +38,11 @@ const Location = () => {
   console.log("radius", radius)
   const id = getCoachProfile?.data?.venueList?.venueId;
   const options = {
-    strokeColor: '#FF0000',
+    strokeColor: 'green',
     strokeOpacity: 0.8,
     strokeWeight: 2,
-    fillColor: '#FF0000',
-    fillOpacity: 0.35,
+    fillColor: 'green',
+    fillOpacity: 0.4,
     clickable: false,
     draggable: false,
     editable: false,
@@ -95,7 +95,7 @@ const Location = () => {
             mapContainerStyle={containerStyle}
 
             center={center}
-            zoom={-1}
+            // zoom={2}
             // cityCircle={cityCircle}
             // MarkerPosition={{ lat: -34.397, lng: 150.644 }}
             onLoad={onLoad}

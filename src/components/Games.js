@@ -6,6 +6,8 @@ import { GetCoachByIdAction } from "../redux/actions/coach";
 import { useNavigate } from "react-router-dom";
 import "./Games.css";
 import ReactGA from "react-ga";
+let startpoint = 0;
+let endpoint = 3;
 
 const Games = () => {
   const dispatch = useDispatch();
@@ -15,15 +17,19 @@ const Games = () => {
   const data = getAllSports?.data;
   const response = getAllSports?.statusCode;
 
+  const [sportsList, setSportsList] = useState([]);
+
   const [list, setList] = useState([]);
+
   const [Page, setPage] = useState({
     page: 1,
-    pageSize: 3,
+    pageSize: 99,
   });
 
   useEffect(() => {
     if (response == 200) {
-      setList(data);
+      // setList(data);
+      setSportsList(data);
     }
   }, [getAllSports]);
 
@@ -31,9 +37,9 @@ const Games = () => {
     dispatch(GetAllSportsAction(Page));
   }, []);
 
-  useEffect(() => {
-    dispatch(GetAllSportsAction(Page));
-  }, [Page]);
+  // useEffect(() => {
+  //   dispatch(GetAllSportsAction(Page));
+  // }, [Page]);
 
   const coachHandler = (data) => {
     localStorage.setItem("sportsId", data.sportId);
@@ -50,17 +56,40 @@ const Games = () => {
     });
   };
 
-  const rightSlideHandler = () => {
-    if (Page.page >= 1) {
-      setPage({ ...Page, page: Page.page + 1 });
+  const rightSlideHandler = (countPlus) => {
+    if (sportsList.length > endpoint) {
+      startpoint = startpoint + endpoint;
+      endpoint = endpoint + countPlus;
+      if (endpoint > startpoint && endpoint <= sportsList.length) {
+        const list = sportsList.slice(startpoint, endpoint);
+        setList(list);
+      }
+      // if (Page.page >= 1) {
+      //   setPage({ ...Page, page: Page.page + 1 });
+      // }
     }
   };
 
-  const leftSlideHandler = () => {
-    if (Page.page != 1) {
-      setPage({ ...Page, page: Page.page - 1 });
+  const leftSlideHandler = (countMinus) => {
+    if (startpoint > 0) {
+      startpoint = countMinus - 3;
+      endpoint = countMinus;
+      if (startpoint >= 0 && sportsList.length > 0) {
+        const list = sportsList.slice(startpoint, endpoint);
+        setList(list);
+      }
     }
+    // if (Page.page != 1) {
+    //   setPage({ ...Page, page: Page.page - 1 });
+    // }
   };
+
+  useEffect(() => {
+    if (sportsList.length > 0) {
+      const list = sportsList.slice(startpoint, endpoint);
+      setList(list);
+    }
+  }, [sportsList]);
 
   return (
     <>
@@ -121,7 +150,10 @@ const Games = () => {
                 href="#myCarousel"
                 data-slide="prev"
               >
-                <i className="fa fa-angle-left" onClick={leftSlideHandler}></i>
+                <i
+                  className="fa fa-angle-left"
+                  onClick={() => leftSlideHandler(startpoint)}
+                ></i>
               </a>
               <a
                 className="carousel-control-next"
@@ -130,10 +162,9 @@ const Games = () => {
               >
                 <i
                   className="fa fa-angle-right"
-                  onClick={rightSlideHandler}
+                  onClick={() => rightSlideHandler(endpoint)}
                 ></i>
               </a>
-              
             </div>
           </div>
         </div>

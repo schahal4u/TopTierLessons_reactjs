@@ -23,6 +23,14 @@ import {
   DELETE_VENUE_SUCCESS,
   DELETE_VENUE_FAIL,
   DELETE_VENUE_RESET,
+  GET_COACH_BY_VENUE_ID_REQUEST,
+  GET_COACH_BY_VENUE_ID_SUCCESS,
+  GET_COACH_BY_VENUE_ID_FAIL,
+  GET_COACH_BY_VENUE_ID_RESET,
+  GET_COACH_BY_RADIUS_REQUEST,
+  GET_COACH_BY_RADIUS_SUCCESS,
+  GET_COACH_BY_RADIUS_FAIL,
+  GET_COACH_BY_RADIUS_RESET,
 } from "../types.js";
 
 export const GetAllCoachAction = (formData) => async (dispatch) => {
@@ -163,4 +171,56 @@ export const deleteCoachVenueAction = (formData) => async (dispatch) => {
 
 export const deleteCoachVenueResponse = () => ({
   type: DELETE_VENUE_RESET,
+});
+
+// get Coach by VenueId
+export const getCoachByVenueIdAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_COACH_BY_VENUE_ID_REQUEST,
+    });
+    const { data } = await axiosInstance.post(
+      "Sport/GetCoachesByVenueId",
+      formData
+    );
+    dispatch({
+      type: GET_COACH_BY_VENUE_ID_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_COACH_BY_VENUE_ID_FAIL,
+      payload: error?.response?.data,
+    });
+  }
+};
+
+export const getCoachByVenueIdResponse = () => ({
+  type: GET_COACH_BY_VENUE_ID_RESET,
+});
+
+// get Coach by user radius
+export const getCoachesByUserRadiusAction = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_COACH_BY_RADIUS_REQUEST,
+    });
+    const { data } = await axiosInstance.post(
+      "Sport/GetCoachesByUserRadius",
+      formData
+    );
+    dispatch({
+      type: GET_COACH_BY_RADIUS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_COACH_BY_RADIUS_FAIL,
+      payload: error?.response?.data,
+    });
+  }
+};
+
+export const getCoachesByUserRadiusResponse = () => ({
+  type: GET_COACH_BY_RADIUS_RESET,
 });

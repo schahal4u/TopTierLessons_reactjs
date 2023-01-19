@@ -46,7 +46,7 @@ const AddReviewModal = (props) => {
             >
               <img
                 src={profileDetail?.data?.profileImage}
-                style={{ borderRadius: "800px" }}
+                style={{ borderRadius: "80px", height: "100px", width: "100px" }}
                 alt="logo"
               />
 

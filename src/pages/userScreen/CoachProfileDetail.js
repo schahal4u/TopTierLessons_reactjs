@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 // import "./Dashboard.css";
 import logo from "../../assets/images/profileIcon.png";
 import { useNavigate, useParams } from "react-router-dom";
+
 // import Earning from "./Earning";
 // import Training from "./Training";
 // import VideoLesson from "./VideoLesson";
 // import ChangePassword from "./ChangePassword";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Carousel, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { PhotoUploadAction } from "../../redux/actions/UploadPhoto";
@@ -41,6 +42,8 @@ const CoachProfileDetail = () => {
 
   const [list, setList] = useState();
   const [open, setOpen] = useState(false);
+  const [venueSlidder, setVenueSlidder] = useState();
+  const [index, setIndex] = useState(0);
   useEffect(() => {
     if (response == 200) {
       setList(data);
@@ -76,9 +79,13 @@ const CoachProfileDetail = () => {
     navigate("/booking");
   };
 
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
   return (
     <>
-      <div className="dashboard">
+      <div id="dashboard">
         <div className="dashboard_desc">
           <h1>Your Account Details</h1>
           {/* <p>{getCoachById?.address}</p> */}
@@ -143,21 +150,17 @@ const CoachProfileDetail = () => {
                   }}
                 >
                   <div>
-                    {" "}
                     <p>coach name</p>
                     <h2>{data?.name}</h2>
                   </div>
                   <div>
-                    {" "}
                     <p>Price</p>
                     <h2>{data?.price}</h2>
                   </div>
 
-                  <div>
-                    {" "}
+                  <div style={{ width: "200px" }}>
                     <button
                       className="book_btn"
-                      style={{ width: "300px" }}
                       onClick={() => bookingHandler(data.coachId)}
                     >
                       Book Lesson
@@ -175,39 +178,91 @@ const CoachProfileDetail = () => {
               </div>
               <div>
                 <Location />
-
               </div>
               <div
                 className="card col-sm- 12"
                 style={{
                   background: "black",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
+                  height: "550px",
                 }}
               >
-                {getCoachProfile?.data?.venueList?.length &&
-                  getCoachProfile?.data?.venueList?.map((venue) => {
-                    return (
-                      <div
-                        className="card col-sm-6"
-                        style={{ background: "#313131" }}
-                      >
-                        <div className="card-body" style={{ display: "flex" }}>
+                <Carousel
+                  activeIndex={index}
+                  onSelect={handleSelect}
+                  style={{ height: "100%", width: "100%" }}
+                >
+                  {getCoachProfile?.data?.venueList?.length &&
+                    getCoachProfile?.data?.venueList?.map((venue) => {
+                      return (
+                        <Carousel.Item
+                          key={venue.id}
+                          style={{ height: "500px", width: "100%" }}
+                        >
+                          {/* <div style={{ height: "500px", width: "100%" }}> */}
                           <img
+                            style={{
+                              position: "absolute",
+                              display: "block",
+                              height: "100%",
+                              width: "100%",
+                            }}
                             src={venue?.image}
-                            height="50px"
-                            width="50px"
-                            alt="Card image cap"
                           />
-                          <p>{venue?.name}</p>
+                          {/* </div> */}
+                          <Carousel.Caption>
+                            <h3>{venue.name}</h3>
+                          </Carousel.Caption>
+                        </Carousel.Item>
+                      );
+                    })}
+                </Carousel>
 
-                          {/* <p>{data?.address}</p> */}
-                        </div>
-                      </div>
-                    );
-                  })}
+                {/* <div
+                  id="carouselExampleControls"
+                  class="carousel slide"
+                  data-bs-ride="carousel"
+                >
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      {getCoachProfile?.data?.venueList?.length &&
+                        getCoachProfile?.data?.venueList?.map((venue) => {
+                          return (
+                            <>
+                              <img
+                                src={venue?.image}
+                                class="d-block w-100"
+                                alt="..."
+                              ></img>
+                            </>
+                          );
+                        })}
+                    </div>
+                  </div>
+                  <button
+                    class="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev"
+                  >
+                    <span
+                      class="carousel-control-prev-icon"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button
+                    class="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next"
+                  >
+                    <span
+                      class="carousel-control-next-icon"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div> */}
               </div>
               <div className="card" style={{ background: "black" }}>
                 {getCoachProfile?.data?.reviewList?.length &&

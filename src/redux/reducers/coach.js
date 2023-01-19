@@ -22,6 +22,14 @@ import {
   DELETE_VENUE_SUCCESS,
   DELETE_VENUE_FAIL,
   DELETE_VENUE_RESET,
+  GET_COACH_BY_VENUE_ID_REQUEST,
+  GET_COACH_BY_VENUE_ID_SUCCESS,
+  GET_COACH_BY_VENUE_ID_FAIL,
+  GET_COACH_BY_VENUE_ID_RESET,
+  GET_COACH_BY_RADIUS_REQUEST,
+  GET_COACH_BY_RADIUS_SUCCESS,
+  GET_COACH_BY_RADIUS_FAIL,
+  GET_COACH_BY_RADIUS_RESET,
 } from "../types.js";
 
 const initialState = {
@@ -30,6 +38,8 @@ const initialState = {
   getCoachProfile: undefined,
   getCoachSlots: [],
   getNearbyVenue: [],
+  getCoachByRadius: undefined,
+  getCoachByVenueId: undefined,
 };
 
 export const GetAllCoachReducer = (state = initialState, action) => {
@@ -160,6 +170,51 @@ export const GetAllCoachReducer = (state = initialState, action) => {
         deleteVenue: null,
       };
 
+    case GET_COACH_BY_VENUE_ID_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_COACH_BY_VENUE_ID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        getCoachByVenueId: action.payload,
+      };
+    case GET_COACH_BY_VENUE_ID_FAIL:
+      return {
+        ...state,
+        loading: false,
+        getCoachByVenueId: action.payload,
+      };
+    case GET_COACH_BY_VENUE_ID_RESET:
+      return {
+        ...state,
+        loading: false,
+        getCoachByVenueId: undefined,
+      };
+
+    case GET_COACH_BY_RADIUS_REQUEST:
+      return {
+        loading: true,
+      };
+    case GET_COACH_BY_RADIUS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        getCoachByRadius: action.payload,
+      };
+    case GET_COACH_BY_RADIUS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        getCoachByRadius: action.payload,
+      };
+    case GET_COACH_BY_RADIUS_RESET:
+      return {
+        ...state,
+        loading: false,
+        getCoachByRadius: undefined,
+      };
     default:
       return state;
   }

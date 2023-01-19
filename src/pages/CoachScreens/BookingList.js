@@ -17,12 +17,7 @@ import arrow from "../../assets/images/down.png";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  DeleteBookingAction,
-  GetAllBookingAction,
-  PreviousBookingAction,
-  UpcomingBookingsAction,
-} from "../../redux/actions/GetAllBookingAction";
+import { DeleteBookingAction, GetAllBookingAction, PreviousBookingAction, UpcomingBookingsAction } from "../../redux/actions/GetAllBookingAction";
 import {
   GetCoachByIdAction,
   GetCoachProfileAction,
@@ -34,10 +29,17 @@ import { CreateReviewAction } from "../../redux/actions/ReviewAction";
 import AddReviewModal from "../../components/Modal/AddReviewModal";
 import PreviousBooking from "./previousBooking";
 import UpcomingBooking from "./UpcomingBooking";
+import { style } from "@mui/system";
+import { notInitialized } from "react-redux/es/utils/useSyncExternalStore";
 
 const BookingList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const token = localStorage?.userData;
+  let parsing = token ? JSON.parse(localStorage?.userData) : null;
+  let usertype = parsing?.userType || null;
+
 
   function valuetext(value) {
     return `${value}°C`;
@@ -54,6 +56,7 @@ const BookingList = () => {
   const sportId = localStorage.sportsId;
   const data1 = upcomingBooking?.data;
 
+
   const defautFormData = {
     page: 0,
     pageSize: 0,
@@ -67,20 +70,20 @@ const BookingList = () => {
   const defaultShowBooking = {
     previousBooking: false,
     upcomingBooking: false,
-  };
+  }
 
   const [formData, setFormData] = useState(defautFormData);
   // const [validated, setValidated] = useState(false);
   const [list, setList] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [showBooking, setShowBooking] = useState({
-    ...defaultShowBooking,
-    previousBooking: true,
-  });
+  const [showBooking, setShowBooking] = useState({ ...defaultShowBooking, previousBooking: true });
   const [show, setShow] = useState(false);
   const [value, setValue] = useState([20, 200]);
   const [rating, setRating] = useState(defaultRating);
+  const [activePrevious, setActivePrevious] = useState(true);
+  const [activeUpcoming, setActiveUpcoming] = useState(false)
   const handleChange = (event, newValue) => {
+
     setFormData({
       ...formData,
       data,
@@ -131,12 +134,17 @@ const BookingList = () => {
   };
   const previousBookingHandler = () => {
     setShowBooking({ ...defaultShowBooking, previousBooking: true });
-    dispatch(PreviousBookingAction(obj));
+    dispatch(PreviousBookingAction(obj))
+    setActivePrevious(true);
+    setActiveUpcoming(false);
+
   };
 
   const upcomingBookingHandler = () => {
     setShowBooking({ ...defaultShowBooking, upcomingBooking: true });
-    dispatch(UpcomingBookingsAction(obj));
+    dispatch(UpcomingBookingsAction(obj))
+    setActiveUpcoming(true);
+    setActivePrevious(false);
   };
   // const searchFilter = () => {
   //   console.log("hiiii");
@@ -169,17 +177,17 @@ const BookingList = () => {
     let object = {
       bookingId: ids,
       bookingStatus: 2,
-    };
-    dispatch(DeleteBookingAction(object));
-  };
+    }
+    dispatch(DeleteBookingAction(object))
+  }
 
   const approveBookingHandler = (ids) => {
     let object = {
       bookingId: ids,
       bookingStatus: 3,
-    };
-    dispatch(DeleteBookingAction(object));
-  };
+    }
+    dispatch(DeleteBookingAction(object))
+  }
 
   const submitHandler = () => {
     if (rating.reciverId != "" && (rating.review != "" || rating.rating != ""))
@@ -217,9 +225,32 @@ const BookingList = () => {
                 onClick={filterHandler}
               />
             </div>
-            <div>
-              <button onClick={previousBookingHandler}>previousBooking</button>
-              <button onClick={upcomingBookingHandler}>upcomingBooking</button>
+            <div style={{ display: "flex", justifyContent: "center", margin: "20px" }}>
+              <button onClick={previousBookingHandler}
+                style={{
+                  backgroundColor: activePrevious ? "#E38226" : "black",
+                  color: "white",
+                  border: "none",
+                  height: "40px",
+                  size: "20px",
+                  // padding: "20px"
+                }}
+              >
+                PreviousBooking
+              </button>
+              <button onClick={upcomingBookingHandler}
+                style={{
+                  backgroundColor: activeUpcoming ? "#E38226" : "black",
+                  border: "none",
+                  color: "white",
+                  height: "40px",
+                  size: "20px",
+                  marginLeft: "40px",
+                }}
+              // className="btn btn-primary profile_btn mt-4 mb-4"
+              >
+                UpcomingBooking
+              </button>
             </div>
 
             {/* <div className="col-md-12">
@@ -421,21 +452,19 @@ const BookingList = () => {
         </div>
       </div>
       <div>
-        {showBooking.previousBooking && (
-          <PreviousBooking
-            list={list}
-            viewDetailHandler={viewDetailHandler}
-            reviewHandler={reviewHandler}
-          />
-        )}
-        {showBooking.upcomingBooking && (
-          <UpcomingBooking
-            list={list}
-            viewDetailHandler={viewDetailHandler}
-            approveBookingHandler={approveBookingHandler}
-            deleteBookingHandler={deleteBookingHandler}
-          />
-        )}
+        {showBooking.previousBooking && <PreviousBooking
+          list={list}
+          viewDetailHandler={viewDetailHandler}
+          reviewHandler={reviewHandler}
+          usertype={usertype}
+        />}
+        {showBooking.upcomingBooking && <UpcomingBooking
+          list={list}
+          viewDetailHandler={viewDetailHandler}
+          approveBookingHandler={approveBookingHandler}
+          deleteBookingHandler={deleteBookingHandler}
+          usertype={usertype}
+        />}
       </div>
       <AddReviewModal
         show={showModal}
@@ -446,7 +475,7 @@ const BookingList = () => {
       />
 
       {/* <Footer /> */}
-    </div>
+    </div >
   );
 };
 

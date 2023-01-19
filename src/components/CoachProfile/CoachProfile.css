@@ -1,114 +1,117 @@
 .bio_container {
-    width: 100%;
+  width: 100%;
 }
 
 .name_section {
-    width: 85%;
-    display: flex;
-    padding: 15px 0;
-    margin: 10px auto;
-    background: linear-gradient(354.9deg,
-            rgba(113, 113, 113, 0.1) 4.41%,
-            rgba(255, 255, 255, 0.1) 91.68%);
+  width: 85%;
+  display: flex;
+  padding: 15px 0;
+  margin: 10px auto;
+  background: linear-gradient(
+    180deg,
+    rgba(64, 64, 64, 0.9) 0%,
+    rgba(64, 64, 64, 0) 100%
+  );
 }
 
 .coach_name {
-    width: 33%;
-    display: flex;
-    flex-direction: column;
-    /* border: 1px solid red; */
-    padding-left: 40px;
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid red; */
+  padding-left: 40px;
 }
 
 .coach_name h4 {
-    font-size: 18px;
-    color: #fff;
-    font-weight: 500;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 500;
 }
 
 .coach_name h1 {
-    font-size: 44px;
-    color: #fff;
-    font-weight: 600;
+  font-size: 44px;
+  color: #fff;
+  font-weight: 600;
 }
 
 .coach_price {
-    width: 33%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid red; */
-    /* padding-left: 65px; */
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  /* padding-left: 65px; */
 }
 
 .coach_price h4 {
-    font-size: 18px;
-    color: #fff;
-    font-weight: 500;
+  font-size: 18px;
+  color: #e38226;
+  font-weight: 500;
 }
 
 .coach_name h1 {
-    font-size: 44px;
-    color: #fff;
-    font-weight: 600;
+  font-size: 44px;
+  color: #fff;
+  font-weight: 600;
 }
 
 h1 {
-    font-size: 44px;
-    color: #fff;
-    font-weight: 600;
+  font-size: 44px;
+  color: #fff;
+  font-weight: 600;
 }
 
-
 .coach_btn {
-    width: 33%;
-    /* border: 1px solid red; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 40%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .book_button {
-    width: 45% !important;
-    margin: 20px auto !important;
-    background: #e38226 !important;
-    border: none !important;
-    padding: 14px !important;
-    color: #fff !important;
-    font-size: 18px !important;
+  width: 45% !important;
+  margin: 10px auto !important;
+  background: #e38226 !important;
+  border: none !important;
+  padding: 10px !important;
+  color: #fff !important;
+  font-size: 18px !important;
 }
 
 .bio_about_section {
-    width: 85%;
-    margin: 40px auto;
+  width: 85%;
+  margin: 40px auto;
 }
 
 .bio_about_box {
-    margin-top: 28px;
-    padding: 25px 20px;
-    background: linear-gradient(354.9deg,
-            rgba(113, 113, 113, 0.1) 4.41%,
-            rgba(255, 255, 255, 0.1) 91.68%)
+  margin-top: 28px;
+  padding: 25px 20px;
+  background: linear-gradient(
+    354.9deg,
+    rgba(113, 113, 113, 0.1) 4.41%,
+    rgba(255, 255, 255, 0.1) 91.68%
+  );
 }
 
 .about_list_content {
-    font-size: 21px;
-    font-weight: 400;
-    padding: 6px 0;
+  font-size: 21px;
+  font-weight: 400;
+  padding: 6px 0;
 }
 
 .loc_container {
-    width: 85%;
-    margin: 40px auto;
+  width: 85%;
+  margin: 40px auto;
 }
 
 .avialability_container {
-    width: 35%;
-    margin: 40px auto;
+  width: 35%;
+  margin: 40px auto;
 }
 
 .reviews_container {
-    width: 85%;
-    margin: 40px auto;
+  width: 85%;
+  margin: 40px auto;
 }

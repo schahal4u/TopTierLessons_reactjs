@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetAllBookingDetailsByIdAction } from "../../redux/actions/GetAllBookingAction";
 
 const BookingDetails = () => {
+  const token = localStorage?.userData;
+  let parsing = token ? JSON.parse(localStorage?.userData) : null;
+  let usertype = parsing?.userType || null;
 
   const { getAllBookingDetailsById } = useSelector((state) => state.getAllBookingDetailsById);
   const dispatch = useDispatch();
@@ -35,13 +38,50 @@ const BookingDetails = () => {
   // let dateupdate = new Date(
   //     Details.bookingDate
   // ).toLocaleDateString();
-  console.log("weeekkkkkdaysssss ", userData?.slotsList?.data?.slotId)
+  console.log("weeekkkkkdaysssss ", userData?.coachImage)
 
   // console.warn('bookingDetails=========', bookingDetails);
   return (
-    <div style={{ background: "#333232", height: "100vh" }} className="pt-5">
+    <div
+      style={{ background: "#333232", }}
+      className="pt-5">
 
-      <div className="fluid Container ">
+
+      <div className="card" style={{ width: "50%", display: "flex", justifyContent: "center" }}>
+        <div className="col-sm-1">
+          {usertype === 2 ? (<img
+            className="card-img-top img-fluid"
+            src={userData?.studentImage}
+            alt="Card image cap"
+          />) : (<img
+            className="card-img-top img-fluid"
+            src={userData?.coachImage}
+            alt="Card image cap"
+          />)}
+
+
+        </div>
+        <div className="card-body">
+          <h5 className="card-title">Card title</h5>
+          <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+        <ul className="list-group list-group-flush">
+          <li className="list-group-item">Cras justo odio</li>
+          <li className="list-group-item">Dapibus ac facilisis in</li>
+          <li className="list-group-item">Vestibulum at eros</li>
+        </ul>
+        <div className="card-body">
+          <a href="#" className="card-link">Card link</a>
+          <a href="#" className="card-link">Another link</a>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div className="container-fluid ">
         <div className="card col-sm-12 bookingcard ">
           <div className="card-body">
             <div className="row ">
@@ -53,19 +93,25 @@ const BookingDetails = () => {
                 }}
               >
                 <div className="col-sm-1">
-                  <img
+                  {usertype === 2 ? (<img
                     className="card-img-top img-fluid"
-                    src="..."
+                    src={userData?.studentImage}
                     alt="Card image cap"
-                  />
+                  />) : (<img
+                    className="card-img-top img-fluid"
+                    src={userData?.coachImage}
+                    alt="Card image cap"
+                  />)}
+
+
                 </div>
                 <div
                   className="col-sm-2 "
                   style={{ borderLeft: "1px solid #575757" }}
                 >
                   <h3> Name</h3>
+                  {usertype === 2 ? (<h4>{userData?.studentName}</h4>) : (<h4>{userData?.coachName}</h4>)}
 
-                  <h4>{userData?.studentName}</h4>
                 </div>
                 <div
                   className="col-sm-2"

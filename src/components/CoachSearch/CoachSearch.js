@@ -9,15 +9,20 @@ import star from "../../assets/images/Star 1.png";
 import map from "../../assets/images/map-pin.png";
 import dot from "../../assets/images/dot.png";
 import arrow from "../../assets/images/down.png";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   GetCoachByIdAction,
+  getCoachByVenueIdAction,
+  getCoachByVenueIdResponse,
+  getCoachesByUserRadiusAction,
+  getCoachesByUserRadiusResponse,
   GetCoachProfileAction,
 } from "../../redux/actions/coach";
 import { emptyProfileImageResponse } from "../../redux/actions/UploadPhoto";
 import { GetAllSportsAction } from "../../redux/actions/GetAllSports";
 import Slider from "@mui/material/Slider";
+import { toast } from "react-toastify";
 
 function valuetext(value) {
   return `${value}°C`;
@@ -26,17 +31,25 @@ function valuetext(value) {
 const CoachSearch = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const searched = useLocation();
+  const venueId = new URLSearchParams(searched.search).get("venueId");
+  const sportId = new URLSearchParams(searched.search).get("sportId");
+  const radius = new URLSearchParams(searched.search).get("radius");
 
-  const { getCoachById } = useSelector((state) => state.getAllCoachResponse);
-  const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
+  const { getCoachByRadius, getCoachByVenueId, loading } = useSelector(
+    (state) => state.getAllCoachResponse
+  );
 
-  const data = getCoachById?.data;
-  const response = getCoachById?.statusCode;
-  const sportId = localStorage.sportsId;
+  console.log("loading====>", loading);
+  // const { getAllSports } = useSelector((state) => state.getAllSportsResponse);
+
+  // const data = getCoachById?.data;
+  // const response = getCoachById?.statusCode;
+  // const sportId = localStorage.sportsId;
 
   const defautFormData = {
     address: "",
-    sportId: sportId,
+    sportId: "",
     minPrice: "",
     maxPrice: "",
     page: 1,
@@ -47,11 +60,13 @@ const CoachSearch = () => {
   const [formData, setFormData] = useState(defautFormData);
   const [validated, setValidated] = useState(false);
   const [list, setList] = useState([]);
-
+  const [msg, setMsg] = useState([]);
+  console.log("msg", msg);
   const [show, setShow] = useState(false);
   const [value, setValue] = useState([20, 200]);
 
   console.log("value", list);
+
   const handleChange = (event, newValue) => {
     setFormData({ ...formData, minPrice: newValue[0], maxPrice: newValue[1] });
     setValue(newValue);
@@ -61,20 +76,26 @@ const CoachSearch = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    let obj = {
-      // sportId: sportId,
-      page: 1,
-      pageSize: 10,
-    };
-    dispatch(GetCoachByIdAction(obj));
-  }, []);
+  // useEffect(() => {
+  //   let obj = {
+  //     // sportId: sportId,
+  //     page: 1,
+  //     pageSize: 10,
+  //   };
+  //   dispatch(GetCoachByIdAction(obj));
+  // }, []);
 
   useEffect(() => {
-    if (response == 200) {
-      setList(data);
+    if (getCoachByRadius?.statusCode === 200) {
+      setList(getCoachByRadius?.data);
+      setMsg(getCoachByVenueId?.returnMessage[0] || []);
     }
-  }, [getCoachById]);
+
+    if (getCoachByVenueId?.statusCode === 200) {
+      setList(getCoachByVenueId?.data?.coachList);
+      setMsg(getCoachByVenueId?.returnMessage[0] || []);
+    }
+  }, [getCoachByRadius, getCoachByVenueId]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -95,14 +116,14 @@ const CoachSearch = () => {
     navigate(`/coachProfileDetail/${id}`);
   };
 
-  const profileHandler = (data) => {
-    let obj = {
-      coachId: data.coachId,
-    };
-    dispatch(emptyProfileImageResponse());
-    dispatch(GetCoachProfileAction(obj));
-    navigate("/coachProfile");
-  };
+  // const profileHandler = (data) => {
+  //   let obj = {
+  //     coachId: data.coachId,
+  //   };
+  //   dispatch(emptyProfileImageResponse());
+  //   dispatch(GetCoachProfileAction(obj));
+  //   navigate("/coachProfile");
+  // };
 
   const closehandler = () => {
     setShow(false);
@@ -117,16 +138,36 @@ const CoachSearch = () => {
   // };
 
   useEffect(() => {
-    let obj = {
-      page: 1,
-      pageSize: 100,
-    };
-    dispatch(GetAllSportsAction(obj));
+    // let obj = {
+    //   page: 1,
+    //   pageSize: 100,
+    // };
+    // dispatch(GetAllSportsAction(obj));
+
+    if (venueId === "" || sportId === "") {
+      navigate("/");
+    } else {
+      let obj = {
+        venueId: venueId,
+        sportId: sportId,
+      };
+      dispatch(getCoachByVenueIdAction(obj));
+    }
+
+    if (radius === "" || sportId === "") {
+      navigate("/");
+    } else {
+      let obj = {
+        radius: radius,
+        sportId: sportId,
+      };
+      dispatch(getCoachesByUserRadiusAction(obj));
+    }
   }, []);
 
-  const handleRangeData = () => {
-    console.log("data", data);
-  };
+  // const handleRangeData = () => {
+  //   console.log("data", data);
+  // };
   const filterSerachhandler = (e) => {
     e.preventDefault();
     console.log("data", formData);
@@ -145,7 +186,7 @@ const CoachSearch = () => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-12 search_container">
-              <div style={{ position: "relative" }} className="mt-5 ">
+              {/* <div style={{ position: "relative" }} className="mt-5 ">
                 <input
                   type="text"
                   className="form-control search_inp mt-3"
@@ -167,90 +208,123 @@ const CoachSearch = () => {
                   alt="filter"
                   onClick={filterHandler}
                 />
-              </div>
+              </div> */}
               <div className="col-md-12 col-lg-12 mt-5">
                 <div className="search_card">
-                  {list?.length &&
+                  {list?.length > 0 ? (
                     list?.map((user) => (
                       <div className=" cards_box mb-5">
                         <div className="row">
-                          <div className="col-md-5 p-4 pl-4">
+                          <div className="col-md-5  ">
                             <div
-                              className="pic_side"
-                              style={{ textAlign: "center" }}
-                              onClick={() => profileHandler(user)}
+                            // className="pic_side"
+                            // style={{ textAlign: "center" }}
+                            // onClick={() => profileHandler(user)}
                             >
                               <img
                                 src={
                                   user?.profileImage ? user?.profileImage : team
                                 }
-                                alt="team"
-                                height="125px"
-                                width="125px"
-                                style={{ borderRadius: "50%" }}
+                                // alt="team"
+                                height="200px"
+                                width="200px"
+                                style={{ borderRadius: "10% 1% 1% 1%" }}
                               />
                             </div>
                           </div>
                           <div className="col-md-7 p-4 sidePhoto_text">
                             <div
                               className="text_side"
-                              onClick={() => profileHandler(user)}
+
+                              // onClick={() => profileHandler(user)}
                             >
                               <h2>{user?.name}</h2>
+                              <div className="col-md-5 pb-4 pl-4 startPhoto_text ">
+                                <img
+                                  src={star}
+                                  alt="star"
+                                  className="icon_padding"
+                                />
+                                <span className="startext">
+                                  {user?.rating}/5 (11Total)
+                                </span>
+                              </div>
                               <h3>$ {user?.price}</h3>
                             </div>
+                            <div className="col-md-10 col-sm-12">
+                              <h6 className="dot_text">
+                                Diving at University of Illinois
+                                Urbana-Champaign
+                              </h6>
+                            </div>
+
+                            <div className="col-md-10 col-sm-12">
+                              <h6 className="dot_text">{user?.about}</h6>
+                            </div>
                           </div>
-                          <div className="col-md-5 pb-4 pl-4 startPhoto_text ">
-                            <img
-                              src={star}
-                              alt="star"
-                              className="icon_padding"
-                            />
-                            <span className="startext">
-                              {user?.rating}/5 (11Total)
-                            </span>
+                          <div
+                            className="col-md-7"
+                            style={{ display: "flex", justifyContent: "start" }}
+                          >
+                            {user?.skills?.map((skill) => (
+                              <button className="skill_btn">{skill}</button>
+                            ))}
                           </div>
-                          <div className="col-md-1 text-right pb-4 start_line">
+
+                          {/* <div className="col-md-1 text-right pb-4 start_line">
                             <img src={line} alt="" />
-                          </div>
-                          <div className="col-md-6 pb-4 starPhoto_text">
+                          </div> */}
+                          {/* <div className="col-md-6 pb-4 starPhoto_text">
                             <img src={map} alt="map" className="icon_padding" />
                             <span className="maptext">{user?.address}</span>
                           </div>
                           <hr className="center_hr" />
                           <div className="col-md-1 col-sm-12 pl-5">
                             <img src={dot} alt="" className="dotImg" />
-                          </div>
-                          <div className="col-md-10 col-sm-12">
-                            <h6 className="dot_text">{user?.about}</h6>
-                          </div>
+                          </div> */}
+
                           {/* <button
                             className="book_btn"
                             onClick={() => bookingHandler(user)}
                           >
                             Book Lesson
                           </button> */}
-                          <button
-                            className="book_btn"
-                            onClick={() => CoachProfileHandler(user.coachId)}
-                          >
-                            View Profile
-                          </button>
+                          <div className="col-md-5">
+                            <button
+                              className="book_btn "
+                              onClick={() => CoachProfileHandler(user.coachId)}
+                            >
+                              View Profile
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    ))}
-                  {list.length == 0 && (
+                    ))
+                  ) : !loading ? (
+                    <div className=" w-100 d-flex justify-content-center align-items-center">
+                      <h4 className="text-white">
+                        {msg.length > 0 ? msg : "Data Not Found"}
+                      </h4>
+                    </div>
+                  ) : (
+                    <div class=" w-100 d-flex justify-content-center align-items-center ">
+                      <div class="spinner-border text-white" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </div>
+                  )}
+                  {/* {list.length == 0 && (
                     <div style={{ width: "100%" }}>
                       <h1 style={{ color: "#fff" }}>No Data Found</h1>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
           </div>
         </div>
         {/* Modal */}
-        <div
+        {/* <div
           className={"modal fade" + (show ? " show d-block" : " d-none")}
           id="staticBackdrop"
           data-bs-backdrop="static"
@@ -261,12 +335,6 @@ const CoachSearch = () => {
         >
           <div className="modal-dialog">
             <div className="modal-content" style={{ marginTop: "14rem" }}>
-              {/* <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button> */}
               <i
                 class="fa fa-times-circle"
                 aria-hidden="true"
@@ -318,7 +386,6 @@ const CoachSearch = () => {
                       })}
                   </Form.Select>
                   <img className="set_arrowss" src={arrow} alt="arrow" />
-                  {/* <span class="required-asterisk">*</span> */}
                   <Form.Control.Feedback
                     type="invalid"
                     style={{ marginLeft: "65px" }}
@@ -355,7 +422,7 @@ const CoachSearch = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </Form>
       {/* Modal */}
     </>
